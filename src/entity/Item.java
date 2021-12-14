@@ -90,4 +90,8 @@ public class Item extends Entity implements Interactable,Fallable,Collidable{
 		// TODO Auto-generated method stub
 		
 	}
+
+	public static Sprite getSprites(int x) {
+		return sprites.get(x);
+	}
 }

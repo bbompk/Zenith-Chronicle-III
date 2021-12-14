@@ -154,7 +154,7 @@ public class Player extends Character implements Collidable, Fallable{
 		
 		if(immune ==0) {
 			for(Enemy e:SceneManager.getInstance().getEnemy()) {
-				if(e.collideWith(this) && e.isAlive()) {
+				if(e.collideWith(this) && e.isAlive() && immune == 0) {
 					takeDamage(e.getAtk());
 					immune += 101;
 				}

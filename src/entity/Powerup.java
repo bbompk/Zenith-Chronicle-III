@@ -112,4 +112,8 @@ public class Powerup extends Entity implements Collidable, Fallable{
 		}
 	}
 
+	public static Sprite getSprites(int x) {
+		return sprites.get(x);
+	}
+
 }

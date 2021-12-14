@@ -7,6 +7,7 @@ import com.sun.javafx.scene.traversal.Direction;
 
 import component.Enemy;
 import component.Sprite;
+import javafx.scene.canvas.GraphicsContext;
 import logic.Difficulty;
 import logic.SceneManager;
 
@@ -23,7 +24,7 @@ public class Monster extends Enemy {
 	private static Random r = new Random();
 
 	public Monster(double x,int type) {
-		super(x, r.nextInt(300)+100, size.get(type), size.get(type));
+		super(x, r.nextInt(100)+100, size.get(type), size.get(type));
 		// TODO Auto-generated constructor stub
 		this.type = type;
 		this.moveSpeed = 3 + r.nextDouble()*2 + 3*Difficulty.getHardMultiply();
@@ -63,20 +64,33 @@ public class Monster extends Enemy {
 		return run.get(type);
 	}
 
-	public void setUp() {
-		idle.add(new Sprite("sprite/character/enemy/skeleton/idle.png"));
-		hurt.add(new Sprite("sprite/character/enemy/skeleton/hurt.png"));
-		death.add(new Sprite("sprite/character/enemy/skeleton/death.png"));
-		run.add(new Sprite("sprite/character/enemy/skeleton/run.png"));
+	public static void setUp() {
+		idle.add(new Sprite("sprite/character/enemy/skeleton/idle.gif"));
+		hurt.add(new Sprite("sprite/character/enemy/skeleton/hurt.gif"));
+		death.add(new Sprite("sprite/character/enemy/skeleton/death.gif"));
+		run.add(new Sprite("sprite/character/enemy/skeleton/run.gif"));
 		size.add(120);
-		idle.add(new Sprite("sprite/character/enemy/mushroon/idle.png"));
-		hurt.add(new Sprite("sprite/character/enemy/mushroom/hurt.png"));
-		death.add(new Sprite("sprite/character/enemy/mushroom/death.png"));
-		run.add(new Sprite("sprite/character/enemy/mushroom/run.png"));
+		idle.add(new Sprite("sprite/character/enemy/mushroom/idle.gif"));
+		hurt.add(new Sprite("sprite/character/enemy/mushroom/hurt.gif"));
+		death.add(new Sprite("sprite/character/enemy/mushroom/death.gif"));
+		run.add(new Sprite("sprite/character/enemy/mushroom/run.gif"));
 		size.add(90);
 	}
 	
 	public static void generate() {
 		SceneManager.getInstance().getEnemy().add(new Monster(r.nextInt(1001)+1000, r.nextInt(2)));
+	}
+	
+	public static void generate(int x) {
+		SceneManager.getInstance().getEnemy().add(new Monster(x, r.nextInt(2)));
+	}
+	
+	public static void generate(int x,int type) {
+		SceneManager.getInstance().getEnemy().add(new Monster(x,type));
+	}
+	
+	@Override
+	public void draw(GraphicsContext gc,boolean f) {
+		super.draw(gc,direction == 0);
 	}
 }

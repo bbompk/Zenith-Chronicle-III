@@ -8,6 +8,7 @@ import component.Enemy;
 import component.Entity;
 import component.Interactable;
 import entity.Background;
+import entity.Monster;
 import entity.Player;
 import entity.Portal;
 import entity.Powerup;
@@ -109,6 +110,9 @@ public class SceneManager extends Canvas implements Serializable {
 		TileGenerator.generate();
 		Powerup.setUp();
 		Powerup.generate();
+		Monster.setUp();
+		Monster.generate();
+		Monster.generate();
 	}
 	
 	public void startBossLevel() {

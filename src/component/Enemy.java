@@ -12,12 +12,6 @@ public abstract class Enemy extends Creature implements Collidable{
 	}
 
 	@Override
-	public void draw(GraphicsContext gc,boolean f) {
-		boolean t = getX() > SceneManager.getInstance().getPlayer().getX();
-		draw(gc,t);
-	}
-
-	@Override
 	public void checkCollide() {}
 
 }

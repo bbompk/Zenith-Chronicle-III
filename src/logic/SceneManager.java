@@ -114,6 +114,8 @@ public class SceneManager extends Canvas implements Serializable {
 		Monster.setUp();
 		Monster.generate();
 		Monster.generate();
+		player.setX(150);
+		player.setY(550);
 		setLeftBound(0);
 		setRightBound(3200);
 	}
@@ -121,6 +123,7 @@ public class SceneManager extends Canvas implements Serializable {
 	public void startBossLevel() {
 		props.add(new Background(0, 0, "sprite/background/boss_arena.png"));
 		TileGenerator.generateBossArena();
+		player.setY(400);
 		setLeftBound(0);
 		setRightBound(1280);
 	}

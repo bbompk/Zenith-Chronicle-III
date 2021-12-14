@@ -3,7 +3,6 @@ package entity;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.sun.javafx.scene.traversal.Direction;
 
 import component.Enemy;
 import component.Sprite;
@@ -53,7 +52,7 @@ public class Monster extends Enemy {
 				}
 			}
 		}
-		super.update();
+		fall();
 	}
 
 	@Override

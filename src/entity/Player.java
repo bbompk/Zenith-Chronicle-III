@@ -41,7 +41,7 @@ public class Player extends Creature implements Collidable, Fallable{
 	private PlayerStatus jumpStatus;
 	private double initJumpSpeed = 10;
 	private double jumpCount;
-	
+	private double prevGround;
 	
 	// Position
 	public static boolean needResetPos = false;
@@ -64,6 +64,7 @@ public class Player extends Creature implements Collidable, Fallable{
 		status = PlayerStatus.IDLE;
 		jumpStatus = PlayerStatus.ONGROUND;
 		direction = 0;
+		prevGround = 550+120;
 		
 		hp =100;
 		maxHp =100;
@@ -120,6 +121,7 @@ public class Player extends Creature implements Collidable, Fallable{
 			if(direction == 0) {status = PlayerStatus.IDLE;}
 			if(KeyHandler.getInstance().getKeyStatus(32).equals(KeyStatus.DOWN)) {
 				
+				prevGround = getY()+getH();
 				jump();
 				
 			}
@@ -182,7 +184,7 @@ public class Player extends Creature implements Collidable, Fallable{
 				}
 			}
 		}
-		if(prevy == getY()) return 0;
+		if(prevy == getY()) {prevGround = getY()+getH(); return 0;}
 		if(prevy < getY()) return 1;
 		if(prevy > getY()) return -1;
 		return 0;
@@ -331,6 +333,10 @@ public class Player extends Creature implements Collidable, Fallable{
 	public void changeDashSpeedMultiplier(double k) {
 		dashSpeedMultiplier += k;
 		dashSpeed = moveSpeed*dashSpeedMultiplier;
+	}
+
+	public double getPrevGround() {
+		return prevGround;
 	}
 	
 	

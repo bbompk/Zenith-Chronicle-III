@@ -226,6 +226,11 @@ public class Player extends Entity implements Collidable, Fallable{
 		face = PlayerStatus.LEFT;
 	}
 
+	private void dash() {
+		
+	}
+	
+	
 	@Override
 	public Sprite getImage() {
 		// TODO Auto-generated method stub

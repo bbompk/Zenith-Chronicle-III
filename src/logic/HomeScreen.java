@@ -36,52 +36,10 @@ public class HomeScreen extends GridPane {
 		name1.setStyle("-fx-text-fill: white;-fx-font-style: italic; -fx-font-size: 120px;-fx-font-weight: bold; -fx-font-family: \"Tahoma\";");
 		name2.setStyle("-fx-text-fill: white;-fx-font-style: italic; -fx-font-size: 120px;-fx-font-weight: bold; -fx-font-family: \"Tahoma\";");
 		start.setBorder(null);
-
-//		start.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//			public void handle(MouseEvent e) {
-//				
-////				stage.close();
-//				Stage stagee = (Stage) ((Node) e.getSource()).getScene().getWindow();
-//				setVisible(false);
-//				name1.setVisible(false);
-//				name2.setVisible(false);
-//				start.setVisible(false);
-//				quit.setVisible(false);
-//
-//				StackPane root = new StackPane();
-//				Scene scene = new Scene(root,1280,720);
-//				scene.setFill(Color.BLACK);
-//				stagee.setScene(scene);
-//				stagee.setTitle("Zenith chronicle");
-//				SceneManager.getInstance().gameStart();
-//				root.getChildren().add(KeyHandler.getInstance());
-//				root.getChildren().add(SceneManager.getInstance());
-//				KeyHandler.getInstance().requestFocus();
-//				
-//				AnimationTimer animation = new AnimationTimer(){
-//					public void handle(long now){
-//						 new Thread(() -> {
-//							new Thread(() -> { 
-//							KeyHandler.getInstance().update();
-//							SceneManager.getInstance().update();}).start();
-//							} ).start();
-//						try {Thread.sleep(5);
-//						} catch(Exception e) {} 
-//					}
-//				};
-//				animation.start();
-////				stagee.show();
-//			}
-//		});
+		
 		start.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-
 				GameManager.getInstance();
-//				setVisible(false);
-//				name1.setVisible(false);
-//				name2.setVisible(false);
-//				start.setVisible(false);
-//				quit.setVisible(false);
 				GameManager.getInstance().gameStart(e);
 			}
 		});

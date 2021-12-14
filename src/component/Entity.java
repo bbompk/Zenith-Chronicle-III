@@ -54,7 +54,7 @@ public abstract class Entity implements Serializable{
 		return Math.hypot(this.x+this.w/2-other.x-other.w/2, this.y+this.h/2-other.y-other.h/2) <= this.radius+other.radius;
 	}
 	
-	public int fall() {
+	protected int fall() {
 		if(!(this instanceof Fallable)) return 0;
 		double prevy = getY();
 		increaseY(Vy);

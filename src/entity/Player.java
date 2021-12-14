@@ -172,7 +172,7 @@ public class Player extends Entity implements Collidable, Fallable{
 	
 	
 	@Override
-	public int fall() {
+	protected int fall() {
 		double prevy = getY();
 		increaseY(getVy());
 		setVy(getVy() + GameUtil.gravity);

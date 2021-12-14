@@ -105,9 +105,9 @@ public class SceneManager extends Canvas implements Serializable {
 	}
 	
 	public void startLevel() {
+		Difficulty.goNextLevel();
 		if(Difficulty.countDown==0)startBossLevel();
 		else gameStart();
-		Difficulty.goNextLevel();
 	}
 	
 	public void gameStart() {
@@ -115,7 +115,7 @@ public class SceneManager extends Canvas implements Serializable {
 		setRightBound(3200);
 		props.add(new Background());
 		props.add(new TileBackground());
-		collidable.add(new Portal(Difficulty.countDown==0));
+		props.add(new Portal(Difficulty.countDown==1));
 		TileGenerator.generate();
 		Powerup.setUp();
 		Powerup.generate();
@@ -128,6 +128,7 @@ public class SceneManager extends Canvas implements Serializable {
 		setLeftBound(0);
 		setRightBound(1280);
 		props.add(new Background(0, 0, "sprite/background/boss_arena.png"));
+		props.add(new Portal(Difficulty.countDown==1));
 		props.add(new Particles(50, 50, 90, 150, -1, "sprite/checkpoint/boss_portal_start.gif"));
 		TileGenerator.generateBossArena();
 		player.setY(50);

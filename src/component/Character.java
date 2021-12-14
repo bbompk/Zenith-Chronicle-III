@@ -4,7 +4,7 @@ import entity.Tile;
 import logic.SceneManager;
 import util.GameUtil;
 
-public abstract class Creature extends Entity {
+public abstract class Character extends Entity {
 	
 
 	//Stats
@@ -15,13 +15,13 @@ public abstract class Creature extends Entity {
 	protected double moveSpeed;
 	protected int justTakeDamage;
 
-	public Creature(double x, double y, int w, int h) {
+	public Character(double x, double y, int w, int h) {
 		super(x, y, w, h);
 		// TODO Auto-generated constructor stub
 		justTakeDamage = 0;
 	}
 
-	public Creature(double x, double y, int r) {
+	public Character(double x, double y, int r) {
 		super(x, y, r);
 		// TODO Auto-generated constructor stub
 	}

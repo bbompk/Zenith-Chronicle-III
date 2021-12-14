@@ -36,24 +36,23 @@ public class Monster extends Enemy {
 		// TODO Auto-generated method stub
 		justTakeDamage = justTakeDamage == 0 ? justTakeDamage : justTakeDamage -1;
 		if(fall()==0) {
-		double distance = getX() - SceneManager.getInstance().getPlayer().getX();
-		if(getY()+getH() == SceneManager.getInstance().getPlayer().getPrevGround() && justTakeDamage == 0) {
-			if(distance > -800 || distance < 800) {
-				if(distance > 0) {direction = 0; moveLeft(moveSpeed);}
-				if(distance < 0) {direction = 1; moveRight(moveSpeed);}
-			}else {
-				if(randomMove==0) {
-					randomMove = r.nextInt(21)+21;
-					direction = r.nextInt(2);
+			double distance = getX() - SceneManager.getInstance().getPlayer().getX();
+			if(getY()+getH() == SceneManager.getInstance().getPlayer().getPrevGround() && justTakeDamage == 0) {
+				if(distance > -800 || distance < 800) {
+					if(distance > 0) {direction = 0; moveLeft(moveSpeed);}
+					if(distance < 0) {direction = 1; moveRight(moveSpeed);}
 				}else {
-					randomMove--;
-					if(direction==0)moveLeft(moveSpeed);
-					else moveRight(moveSpeed);
+					if(randomMove==0) {
+						randomMove = r.nextInt(21)+21;
+						direction = r.nextInt(2);
+					}else {
+						randomMove--;
+						if(direction==0)moveLeft(moveSpeed);
+						else moveRight(moveSpeed);
+					}
 				}
 			}
-
-		}}
-
+		}
 	}
 
 	@Override

@@ -141,10 +141,18 @@ public class Player extends Entity implements Collidable, Fallable{
 		setVy(getVy() + GameUtil.gravity);
 		for(Tile tile : SceneManager.getInstance().getTiles()) {
 			if( (getX() >= tile.getLeftBound() && getX() <= tile.getRightBound()) || (getX()+getW() >= tile.getLeftBound() && getX()+getW() <= tile.getRightBound()) ) {
-				if(getY()+getH() > tile.getUpperBound() && getY() <= tile.getUpperBound()) {
-					setY(tile.getUpperBound()  - getH());
-					jumpStatus = PlayerStatus.ONGROUND;
-					setVy(0);
+				if(getY()+getH() > tile.getUpperBound() && getY() <= tile.getUpperBound() && !(jumpStatus.equals(PlayerStatus.GOINGUP)) ) {
+					if(!tile.isTransparent()) {
+						setY(tile.getUpperBound()  - getH());
+						jumpStatus = PlayerStatus.ONGROUND;
+						setVy(0);
+					} else {
+						if(prevy +getH() <= tile.getUpperBound() && prevy <= tile.getUpperBound() && !(jumpStatus.equals(PlayerStatus.GOINGUP))) {
+							setY(tile.getUpperBound()  - getH());
+							jumpStatus = PlayerStatus.ONGROUND;
+							setVy(0);
+						}
+					}
 				}
 				
 				if(getY()+getH() >= tile.getLowerBound() && getY() < tile.getLowerBound() && !tile.isTransparent()) {
@@ -175,7 +183,7 @@ public class Player extends Entity implements Collidable, Fallable{
 		for(Tile tile : SceneManager.getInstance().getTiles()) {
 			if( (tile.getUpperBound() < getY()+getH() && tile.getUpperBound() > getY()) || (tile.getLowerBound() < getY()+getH() && tile.getLowerBound() > getY()) || 
 					(getY() > tile.getUpperBound() && getY() < tile.getLowerBound() && getY()+getH() > tile.getUpperBound() && getY()+getH() < tile.getLowerBound()) ) {
-				if(getX()+getW() > tile.getLeftBound() -1  && getX() < tile.getLeftBound() ) {
+				if(getX()+getW() > tile.getLeftBound() -1  && getX() < tile.getLeftBound() && !tile.isTransparent()) {
 					setX(tile.getLeftBound()-getW() - 1);
 				}
 			}
@@ -200,7 +208,7 @@ public class Player extends Entity implements Collidable, Fallable{
 		for(Tile tile : SceneManager.getInstance().getTiles()) {
 			if( (tile.getUpperBound() < getY()+getH() && tile.getUpperBound() > getY()) || (tile.getLowerBound() < getY()+getH() && tile.getLowerBound() > getY()) || 
 					(getY() > tile.getUpperBound() && getY() < tile.getLowerBound() && getY()+getH() > tile.getUpperBound() && getY()+getH() < tile.getLowerBound()) ) {
-				if(getX()+getW() >= tile.getRightBound() && getX() < tile.getRightBound() + 1) {
+				if(getX()+getW() >= tile.getRightBound() && getX() < tile.getRightBound() + 1 && !tile.isTransparent()) {
 					setX(tile.getRightBound() + 1);
 				}
 			}

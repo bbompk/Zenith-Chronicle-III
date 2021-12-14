@@ -90,6 +90,8 @@ public class SceneManager extends Canvas implements Serializable {
 			if(i instanceof Entity) ((Entity) i).draw(gc,false);
 		}
 		for(Tile tile : tiles) {
+			Color strokeColor = (tile.isTransparent()) ? Color.RED: Color.BLACK;
+			gc.setStroke(strokeColor);
 			gc.strokeRect(tile.getX() - offsetX, tile.getY(), tile.getW(), tile.getH());
 		
 		}
@@ -100,13 +102,16 @@ public class SceneManager extends Canvas implements Serializable {
 		
 	}
 	
-	public void gameStart() {
+	public void gameStart() {		
 		props.add(new Background());
 		props.add(new TileBackground());
 		props.add(new Portal());
 		TileGenerator.generate();
 		Powerup.setUp();
 		Powerup.generate2();
+		
+		collidable.add(new Powerup(-0, 0));
+		addTile(new Tile(-120, 600, 100, 20, false));
 	}
 
 

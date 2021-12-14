@@ -32,11 +32,23 @@ public class Monster extends Enemy {
 		hp = maxHp;
 		atk = (int) (5 + r.nextInt(11) + 10*Difficulty.getHardMultiply());
 	}
+	
+	public Monster(double x,double y,int type) {
+		super(x, y, size.get(type), size.get(type));
+		// TODO Auto-generated constructor stub
+		this.type = type;
+		this.moveSpeed = 0 + r.nextDouble()*2 + 3*Difficulty.getHardMultiply();
+		randomMove = 0;
+		maxHp = (int) (40 + r.nextInt(41) + 40*Difficulty.getHardMultiply());
+		hp = maxHp;
+		atk = (int) (5 + r.nextInt(11) + 10*Difficulty.getHardMultiply());
+	}
 
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
 		if(needRemove) {
+			if(r.nextInt(10)!=0)Item.generate(getX()+getW()/2-25,getY());
 			SceneManager.getInstance().getEnemy().remove(this);
 			return;
 		}
@@ -47,7 +59,7 @@ public class Monster extends Enemy {
 				if(distance > -800 || distance < 800) {
 					if(distance > 0) {direction = 0; moveLeft(moveSpeed);}
 					if(distance < 0) {direction = 1; moveRight(moveSpeed);}
-				}}else {
+				}}else if(distance < 3000 || distance > -3000){
 					if(randomMove==0) {
 						randomMove = r.nextInt(21)+21;
 						direction = r.nextInt(2);
@@ -87,15 +99,27 @@ public class Monster extends Enemy {
 	}
 	
 	public static void generate() {
+		int k = 15 + r.nextInt(5) + r.nextInt(5) + r.nextInt((int) (10*Difficulty.getHardMultiply()));
+		int l = 1280;int u = 9000;int d = (u-l)/k;
+		for(int i=0;i<k;i++) {
+			generate(l+i*d, l+(i+1)*d);
+		}
+	}
+	
+	public static void generaterandom() {
 		SceneManager.getInstance().getEnemy().add(new Monster(r.nextInt(1001)+1000, r.nextInt(2)));
 	}
 	
 	public static void generate(int x) {
 		SceneManager.getInstance().getEnemy().add(new Monster(x, r.nextInt(2)));
 	}
+
+	public static void generate(int lowerbound,int upperbound) {
+		SceneManager.getInstance().getEnemy().add(new Monster(r.nextDouble(upperbound-lowerbound)+lowerbound,r.nextInt(2)));
+	}
 	
-	public static void generate(int x,int type) {
-		SceneManager.getInstance().getEnemy().add(new Monster(x,type));
+	public static void generate(int lowerbound,int upperbound,double y) {
+		SceneManager.getInstance().getEnemy().add(new Monster(r.nextDouble(upperbound-lowerbound)+lowerbound, y,r.nextInt(2)));
 	}
 	
 	@Override

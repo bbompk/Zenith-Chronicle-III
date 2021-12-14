@@ -24,6 +24,13 @@ public class Item extends Entity implements Interactable,Fallable,Collidable{
 		this.type = type;
 	}
 	
+	public Item(double x,double y, int type) {
+		super(x, y, 50, 50);
+		// TODO Auto-generated constructor stub
+		this.type = type;
+		setVy(-5);
+	}
+	
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
@@ -46,6 +53,14 @@ public class Item extends Entity implements Interactable,Fallable,Collidable{
 		sprites.add(new Sprite("sprite/item/shield.png"));
 	}
 	
+	public static void generate(int x) {
+		SceneManager.getInstance().getInteractable().add(new Item(x, r.nextInt(6)));
+	}
+	
+	public static void generate(double x,double y) {
+		SceneManager.getInstance().getInteractable().add(new Item(x, y, r.nextInt(6)));
+	}
+	
 	public static void generate(int lowerbound,int upperbound) {
 		SceneManager.getInstance().getInteractable().add(new Item(r.nextInt(upperbound-lowerbound)+lowerbound, r.nextInt(6)));
 	}
@@ -62,9 +77,10 @@ public class Item extends Entity implements Interactable,Fallable,Collidable{
 			if(type==0)SceneManager.getInstance().getPlayer().changeMaxHp(20);
 			else if(type==1)SceneManager.getInstance().getPlayer().changeAtk(5);
 			else if(type==2)SceneManager.getInstance().getPlayer().changemvsp(1);
-			else if(type==3)SceneManager.getInstance().getPlayer().changeJumpH(2);
+			else if(type==3)SceneManager.getInstance().getPlayer().changeJumpH(1);
 			else if(type==4)SceneManager.getInstance().getPlayer().changeDashSpeedMultiplier(0.5);
 			else if(type==5)SceneManager.getInstance().getPlayer().changeMaxDash(1);
+			SceneManager.getInstance().getPlayer().inventory.set(type, SceneManager.getInstance().getPlayer().getInventory().get(type)+1);
 			SceneManager.getInstance().getInteractable().remove(this);
 		}
 	}

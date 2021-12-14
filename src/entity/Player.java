@@ -1,6 +1,10 @@
 package entity;
 
 import component.Collidable;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import component.Character;
 import component.Enemy;
 import component.Entity;
@@ -53,6 +57,9 @@ public class Player extends Character implements Collidable, Fallable{
 	private static final Sprite hurt = new Sprite("sprite/character/player/hurt.gif");
 	private static final Sprite roll = new Sprite("sprite/character/player/roll_4_frame.gif");
 	
+	//Item
+	public ArrayList<Integer> inventory;
+	
 	public Player(double x, double y) {
 		// TODO Auto-generated constructor stub
 		
@@ -64,6 +71,7 @@ public class Player extends Character implements Collidable, Fallable{
 		prevGround = 550+120;
 		maxDash = 1;
 		dashAvail = maxDash;
+		inventory = new ArrayList<Integer>(Arrays.asList(0,0,0,0,0,0));
 		
 		hp =100;
 		maxHp =100;
@@ -81,6 +89,7 @@ public class Player extends Character implements Collidable, Fallable{
 		prevGround = 550+120;
 		maxDash = 1;
 		dashAvail = maxDash;
+		inventory = new ArrayList<Integer>(Arrays.asList(0,0,0,0,0,0));
 		
 		hp =100;
 		maxHp =100;
@@ -274,9 +283,13 @@ public class Player extends Character implements Collidable, Fallable{
 	public void draw(GraphicsContext gc,boolean f) {
 		// TODO Auto-generated method stub
 	
-		if(immune/2%2 == 0) {
-			if(!lastFrameStatus.equals(status) && atkable < 41) getImage().loadImage(getImage().getFilepath());
-			if(atkable < 41 && status != PlayerStatus.DIE) {
+//		if(immune/2%2 == 0) {
+			if((!lastFrameStatus.equals(status) && atkable < 41) || justTakeDamage == 31) getImage().loadImage(getImage().getFilepath());
+			if(justTakeDamage > 0) {
+				if(!face.equals(PlayerStatus.LEFT))super.draw(gc, getImage().getImage(), getX()-getW()/3, getY()-getH()/4, getW()*4/3, getH()*5/4);
+				else super.draw(gc, getImage().getImage(),getX()+getW()*4/3,getY()-getH()/4,-getW()*4/3,getH()*5/4);
+			}
+			else if(atkable < 41 && status != PlayerStatus.DIE) {
 //				if(direction != -1) super.draw(gc, false);
 				if(!face.equals(PlayerStatus.LEFT))super.draw(gc, getImage().getImage(), getX(), getY(), getW(), getH());
 				else super.draw(gc, getImage().getImage(),getX()+getW(),getY(),-getW(),getH());
@@ -284,7 +297,7 @@ public class Player extends Character implements Collidable, Fallable{
 				if(!face.equals(PlayerStatus.LEFT))super.draw(gc, getImage().getImage(), getX()-getW()/3, getY(), (getW()*5)/3, getH());
 				else super.draw(gc,getImage().getImage(), getX()+getW()*4/3,getY(),-getW()*5/3,getH());
 			}
-		}
+//		}
 	}
 
 	class AttackBox extends Entity implements Collidable{
@@ -314,7 +327,7 @@ public class Player extends Character implements Collidable, Fallable{
 	
 	public void takeDamage(int x) {
 		super.takeDamage(x);
-		justTakeDamage += 40;
+		justTakeDamage += 32;
 	}
 
 
@@ -368,6 +381,14 @@ public class Player extends Character implements Collidable, Fallable{
 	protected void die() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public ArrayList<Integer> getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(ArrayList<Integer> inventory) {
+		this.inventory = inventory;
 	}
 	
 	

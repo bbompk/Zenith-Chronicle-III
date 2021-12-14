@@ -19,6 +19,12 @@ public class Powerup extends Entity implements Collidable, Fallable{
 		// TODO Auto-generated constructor stub
 		this.type = type;
 	}
+	
+	public Powerup(double x,double y,int type) {
+		super(x, y ,50,50);
+		// TODO Auto-generated constructor stub
+		this.type = type;
+	}
 
 	@Override
 	public void update() {
@@ -60,6 +66,7 @@ public class Powerup extends Entity implements Collidable, Fallable{
 		int rand4 = rand.nextInt(4);
 		SceneManager.getInstance().getCollidable().add(new Powerup(rand1,rand3));
 		SceneManager.getInstance().getCollidable().add(new Powerup(rand2,rand4));
+		SceneManager.getInstance().getCollidable().add(new Powerup(2600,600,2));
 	}
 
 	@Override

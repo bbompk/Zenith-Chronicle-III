@@ -76,6 +76,7 @@ public class GameManager {
 		scene.setFill(Color.BLACK);
 		stagee.setScene(scene);
 		stagee.setTitle("Zenith chronicle");
+		SceneManager.getInstance().setUp();
 		SceneManager.getInstance().gameStart();
 		//SceneManager.getInstance().startBossLevel();
 		root.getChildren().add(KeyHandler.getInstance());

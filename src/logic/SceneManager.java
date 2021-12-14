@@ -34,7 +34,6 @@ public class SceneManager extends Canvas implements Serializable {
 	private ArrayList<Collidable> collidable;
 	private ArrayList<Interactable> interactable;
 	private Player player;
-	
 	private int level;
 	
 	private double leftBound ;
@@ -116,6 +115,10 @@ public class SceneManager extends Canvas implements Serializable {
 		else gameStart();
 	}
 	
+	public void setUp() {
+		Powerup.setUp();Item.setUp();Monster.setUp();
+	}
+	
 	public void gameStart() {
 		setLeftBound(0);
 		setRightBound(3200);
@@ -123,12 +126,7 @@ public class SceneManager extends Canvas implements Serializable {
 		props.add(new TileBackground());
 		props.add(new Portal(Difficulty.countDown==1));
 		TileGenerator.generate();
-		Powerup.setUp();
 		Powerup.generate();
-		Item.setUp();
-		Item.generate(500, 1000);
-		Monster.setUp();
-		Monster.generate();
 		Monster.generate();
 	}
 	

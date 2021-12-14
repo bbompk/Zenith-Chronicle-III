@@ -16,7 +16,7 @@ public class Monster extends Enemy {
 	public Monster(double x, double y, int type) {
 		super(x, y, 120, 120);
 		// TODO Auto-generated constructor stub
-		this.moveSpeed = new Random().nextDouble(4)+4;
+		this.moveSpeed = new Random().nextDouble()*4+4;
 	}
 
 	@Override

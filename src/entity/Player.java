@@ -73,6 +73,7 @@ public class Player extends Creature implements Collidable, Fallable{
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
+		prevy = getY();
 		prevx = getX();
 		
 		lastFrameStatus = status;
@@ -144,6 +145,8 @@ public class Player extends Creature implements Collidable, Fallable{
 				}
 			}
 		}
+		
+		// if(prevy != getY()) System.out.println(getY());
 		dashing = (dashing == 0) ? dashing : dashing - 1;
 		atkable = (atkable == 0) ? atkable : atkable - 1;
 		immune = (immune == 0) ? immune : immune - 1;

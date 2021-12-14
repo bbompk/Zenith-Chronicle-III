@@ -12,7 +12,6 @@ public class Difficulty {
 	}
 	
 	public static void goNextLevel() {
-		System.out.println(countDown);
 		if(countDown == 0 ) {
 			countDown = 4;
 			goHarder();

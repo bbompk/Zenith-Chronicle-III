@@ -115,11 +115,11 @@ public class Monster extends Enemy {
 	}
 
 	public static void generate(int lowerbound,int upperbound) {
-		SceneManager.getInstance().getEnemy().add(new Monster(r.nextDouble(upperbound-lowerbound)+lowerbound,r.nextInt(2)));
+		SceneManager.getInstance().getEnemy().add(new Monster(r.nextDouble()*upperbound-lowerbound+lowerbound,r.nextInt(2)));
 	}
 	
 	public static void generate(int lowerbound,int upperbound,double y) {
-		SceneManager.getInstance().getEnemy().add(new Monster(r.nextDouble(upperbound-lowerbound)+lowerbound, y,r.nextInt(2)));
+		SceneManager.getInstance().getEnemy().add(new Monster(r.nextDouble()*upperbound-lowerbound+lowerbound, y,r.nextInt(2)));
 	}
 	
 	@Override

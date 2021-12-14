@@ -10,7 +10,10 @@ public class TileGenerator {
 	}
 	
 	public static void generate() {
+		
 		SceneManager.getInstance().addTile(new Tile(0, 670, 3200, 50, false));
+		SceneManager.getInstance().addTile(new Tile(200, 130, 820, 40, true));
+		SceneManager.getInstance().addTile(new Tile(500, 600, 225, 60, false));
 		SceneManager.getInstance().addTile(new Tile(1000, 440, 240, 60, false));
 		SceneManager.getInstance().addTile(new Tile(1500, 600, 240, 60, false));
 		SceneManager.getInstance().addTile(new Tile(1700, 470, 240, 60, true));

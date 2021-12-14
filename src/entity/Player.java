@@ -23,7 +23,10 @@ public class Player extends Entity implements Collidable, Fallable{
 	//Utility
 	private static int atkable = 0;
 	private static int immune = 0;
+	private static int dashing = 0;
 	protected static PlayerStatus face = PlayerStatus.RIGHT;
+	private double prevx;
+	private double prevy;
 //	private static final AudioClip atkSound = new AudioClip(ClassLoader.getSystemResource("attackk.wav").toString());
 	
 		
@@ -32,11 +35,14 @@ public class Player extends Entity implements Collidable, Fallable{
 	private PlayerStatus lastFrameStatus;
 	private int direction;
 	private static double moveSpeed = 7.0;
+	private static double dashSpeed ;
+	private static double dashSpeedMultiplier = 10/7;
 	
 	// Jumping
 	private PlayerStatus jumpStatus;
 	private static double initJumpSpeed = 10;
-	private boolean jumping;
+	private static double jumpCount;
+	
 	
 	// Position
 //	public static double x = 100;
@@ -51,9 +57,9 @@ public class Player extends Entity implements Collidable, Fallable{
 	private static final Sprite death = new Sprite("sprite/character/player/death.gif");
 	private static final Sprite attack = new Sprite("sprite/character/player/attack.gif");
 	private static final Sprite hurt = new Sprite("sprite/character/player/hurt.gif");
+	private static final Sprite roll = new Sprite("sprite/character/player/roll_4_frame.gif");
 	
-	private double prevx;
-	private double prevy;
+	
 	
 
 	public Player() {
@@ -63,7 +69,6 @@ public class Player extends Entity implements Collidable, Fallable{
 		lastFrameStatus = PlayerStatus.IDLE;
 		status = PlayerStatus.IDLE;
 		jumpStatus = PlayerStatus.ONGROUND;
-		jumping = false;
 		direction = 0;
 		
 		hp =100;
@@ -81,15 +86,26 @@ public class Player extends Entity implements Collidable, Fallable{
 		if(needResetPos) {
 			needResetPos = false;
 		}
-		if(atkable == 0 && jumpStatus.equals(PlayerStatus.ONGROUND) && KeyHandler.getInstance().getKeyStatus(83).equals(KeyStatus.DOWN)) {
+		if(atkable == 0 && jumpStatus.equals(PlayerStatus.ONGROUND) && KeyHandler.getInstance().getKeyStatus(83).equals(KeyStatus.DOWN) && !status.equals(PlayerStatus.DASHING)) {
 			
-			atkable += 81;
+			atkable += 61;
 			//atkSound.play();
 			attack();
 			attack.loadImage(attack.getFilepath());
 		}
+		if(dashing == 0 && KeyHandler.getInstance().getKeyStatus(17).equals(KeyStatus.DOWN) && !status.equals(PlayerStatus.DASHING)) {
+			
+			dashing += 41;
+			roll.loadImage(roll.getFilepath());
+		}
 		if(atkable > 41) {
 			status = PlayerStatus.ATTACKING;
+			
+			
+		}else if(dashing > 21) {
+			status = PlayerStatus.DASHING;
+			dash();
+			
 		}else {
 			if(KeyHandler.getInstance().getKeyStatus(68).equals(KeyStatus.DOWN)) {
 				
@@ -111,9 +127,14 @@ public class Player extends Entity implements Collidable, Fallable{
 				
 				jump();
 				
-			}else jumping = false;
+			}
 		}
-		int fallBack = fall();
+		
+		int fallBack;
+		if(!status.equals(PlayerStatus.DASHING)) {
+			fallBack = fall();
+		} else fallBack = 0;
+		
 		if(fallBack == -1) {
 			jumpStatus = PlayerStatus.GOINGUP;
 		}
@@ -129,7 +150,7 @@ public class Player extends Entity implements Collidable, Fallable{
 				}
 			}
 		}
-		
+		dashing = (dashing == 0) ? dashing : dashing - 1;
 		atkable = (atkable == 0) ? atkable : atkable - 1;
 		immune = (immune == 0) ? immune : immune - 1;
 	}
@@ -137,8 +158,9 @@ public class Player extends Entity implements Collidable, Fallable{
 	
 	@Override
 	protected int fall() {
-		double prevy = getY();
+		prevy = getY();
 		increaseY(getVy());
+		if(lastFrameStatus.equals(PlayerStatus.DASHING)) setVy(0);
 		setVy(getVy() + GameUtil.gravity);
 		for(Tile tile : SceneManager.getInstance().getTiles()) {
 			if( (getX() >= tile.getLeftBound() && getX() <= tile.getRightBound()) || (getX()+getW() >= tile.getLeftBound() && getX()+getW() <= tile.getRightBound()) ) {
@@ -228,13 +250,22 @@ public class Player extends Entity implements Collidable, Fallable{
 	}
 
 	private void dash() {
+		double originalMS = moveSpeed;
 		
+		setMoveSpeed(dashSpeed);
+		if(face.equals(PlayerStatus.RIGHT)) moveRight();
+		else moveLeft();
+		
+		setMoveSpeed(originalMS);
 	}
 	
 	
 	@Override
 	public Sprite getImage() {
 		// TODO Auto-generated method stub
+		if(status.equals(PlayerStatus.DASHING)) {
+			return roll;
+		}
 		if(atkable > 40) {
 			return attack;
 		}
@@ -247,6 +278,7 @@ public class Player extends Entity implements Collidable, Fallable{
 		if(status.equals(PlayerStatus.RUN)) {
 			return run;
 		}
+		
 		return idle;
 	}
 
@@ -290,10 +322,31 @@ public class Player extends Entity implements Collidable, Fallable{
 	}
 	
 	public void changeJumpH(int h) {
-		this.initJumpSpeed += h;
+		Player.initJumpSpeed += h;
 	}
 	
 	public void changemvsp(int sp) {
-		this.moveSpeed += sp;
+		Player.moveSpeed += sp;
+		dashSpeed = moveSpeed*dashSpeedMultiplier;
 	}
+
+	public static double getMoveSpeed() {
+		return moveSpeed;
+	}
+
+	public static void setMoveSpeed(double moveSpeed) {
+		Player.moveSpeed = moveSpeed;
+		dashSpeed = moveSpeed*dashSpeedMultiplier;
+	}
+
+	public static double getDashSpeedMultiplier() {
+		return dashSpeedMultiplier;
+	}
+
+	public static void setDashSpeedMultiplier(double dashSpeedMultiplier) {
+		Player.dashSpeedMultiplier = dashSpeedMultiplier;
+		dashSpeed = moveSpeed*dashSpeedMultiplier;
+	}
+	
+	
 }

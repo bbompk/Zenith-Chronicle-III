@@ -19,7 +19,6 @@ public class Player extends Creature implements Collidable, Fallable{
 	//Utility
 	private int atkable = 0;
 	private int immune = 0;
-	private int dashing = 0;
 	protected static PlayerStatus face = PlayerStatus.RIGHT;
 //	private static final AudioClip atkSound = new AudioClip(ClassLoader.getSystemResource("attackk.wav").toString());
 	
@@ -29,8 +28,14 @@ public class Player extends Creature implements Collidable, Fallable{
 	private PlayerStatus lastFrameStatus;
 	private int direction;
 	private double moveSpeed = 7.0;
+	
+	
+	//Dashing
+	private int dashing = 0;
 	private double dashSpeed ;
 	private double dashSpeedMultiplier = 10/7;
+	private int maxDash;
+	private int dashAvail;
 	
 	// Jumping
 	private PlayerStatus jumpStatus;
@@ -57,6 +62,8 @@ public class Player extends Creature implements Collidable, Fallable{
 		jumpStatus = PlayerStatus.ONGROUND;
 		direction = 0;
 		prevGround = 550+120;
+		maxDash = 1;
+		dashAvail = maxDash;
 		
 		hp =100;
 		maxHp =100;
@@ -72,6 +79,8 @@ public class Player extends Creature implements Collidable, Fallable{
 		jumpStatus = PlayerStatus.ONGROUND;
 		direction = 0;
 		prevGround = 550+120;
+		maxDash = 1;
+		dashAvail = maxDash;
 		
 		hp =100;
 		maxHp =100;
@@ -92,7 +101,8 @@ public class Player extends Creature implements Collidable, Fallable{
 			attack();
 			attack.loadImage(attack.getFilepath());
 		}
-		if(dashing == 0 && KeyHandler.getInstance().getKeyStatus(17).equals(KeyStatus.DOWN) && !status.equals(PlayerStatus.DASHING)) {
+		if(dashing == 0 && KeyHandler.getInstance().getKeyStatus(17).equals(KeyStatus.DOWN) && !status.equals(PlayerStatus.DASHING) && dashAvail > 0) {
+			if(!jumpStatus.equals(PlayerStatus.ONGROUND)) dashAvail--;
 			dashing += 41;
 			roll.loadImage(roll.getFilepath());
 		}
@@ -160,11 +170,13 @@ public class Player extends Creature implements Collidable, Fallable{
 					if(!tile.isTransparent()) {
 						setY(tile.getUpperBound()  - getH());
 						jumpStatus = PlayerStatus.ONGROUND;
+						dashAvail = maxDash;
 						setVy(0);
 					} else {
 						if(prevy +getH() <= tile.getUpperBound() && prevy <= tile.getUpperBound() && !(jumpStatus.equals(PlayerStatus.GOINGUP))) {
 							setY(tile.getUpperBound()  - getH());
 							jumpStatus = PlayerStatus.ONGROUND;
+							dashAvail = maxDash;
 							setVy(0);
 						}
 					}
@@ -198,7 +210,7 @@ public class Player extends Creature implements Collidable, Fallable{
 		
 		if(getX() > SceneManager.getInstance().getRightBound()- getW()) setX(SceneManager.getInstance().getRightBound() - getW());
 		
-		if(getX() >= SceneManager.getInstance().getLeftBound() + 640 - getW() && prevx != getX()) {
+		if(getX() >= SceneManager.getInstance().getLeftBound() + 640 - getW() && prevx < getX() && direction!=0) {
 			double newOffSetX = SceneManager.getInstance().getOffsetX()+moveSpeed ;
 			newOffSetX = (newOffSetX > SceneManager.getInstance().getRightBound() - 1280) ?  SceneManager.getInstance().getRightBound() - 1280 : newOffSetX; 
 			SceneManager.getInstance().setOffsetX(newOffSetX);
@@ -214,7 +226,7 @@ public class Player extends Creature implements Collidable, Fallable{
 		
 		if(getX() < SceneManager.getInstance().getLeftBound()) setX(SceneManager.getInstance().getLeftBound());
 			
-		if(getX() <= SceneManager.getInstance().getRightBound() - 640 - getW() && prevx != getX()) {
+		if(getX() <= SceneManager.getInstance().getRightBound() - 640 - getW() && prevx > getX() && direction!=0) {
 			double newOffSetX = SceneManager.getInstance().getOffsetX()-moveSpeed;
 			newOffSetX = (newOffSetX < SceneManager.getInstance().getLeftBound()) ?  SceneManager.getInstance().getLeftBound() : newOffSetX; 
 			SceneManager.getInstance().setOffsetX(newOffSetX);

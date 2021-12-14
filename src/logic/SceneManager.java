@@ -60,8 +60,8 @@ public class SceneManager extends Canvas implements Serializable {
 	public void update() {
 		if(changeState) {
 			clear();
-//			startBossLevel();
-			gameStart();
+			startBossLevel();
+//			gameStart();
 			changeState = false;
 		}
 		for(int i = enemy.size()-1;i>-1;i--) {
@@ -131,7 +131,7 @@ public class SceneManager extends Canvas implements Serializable {
 		setLeftBound(0);
 		setRightBound(1280);
 		props.add(new Background(0, 0, "sprite/background/boss_arena.png"));
-		props.add(new Particles(75, 50, 90, 150, -1, "sprite/checkpoint/portal_start.gif"));
+		props.add(new Particles(50, 50, 90, 150, -1, "sprite/checkpoint/boss_portal_start.gif"));
 		TileGenerator.generateBossArena();
 		player.setY(50);
 		player.setX(75);

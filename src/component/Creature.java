@@ -31,7 +31,7 @@ public abstract class Creature extends Entity {
 		// TODO Auto-generated method stub
 		justTakeDamage = justTakeDamage == 0 ? justTakeDamage : justTakeDamage -1;
 		fall();
-	}
+ 	}
 
 	protected void moveRight(double moveSpeed) {
 		if(getX() < SceneManager.getInstance().getRightBound()) increaseX(moveSpeed);;

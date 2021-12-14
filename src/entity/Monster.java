@@ -48,7 +48,7 @@ public class Monster extends Enemy {
 	public void update() {
 		// TODO Auto-generated method stub
 		if(needRemove) {
-			if(r.nextInt(10)!=0)Item.generate(getX()+getW()/2-25,getY());
+			if(r.nextInt(10)==0)Item.generate(getX()+getW()/2-25,getY());
 			SceneManager.getInstance().getEnemy().remove(this);
 			return;
 		}
@@ -102,7 +102,8 @@ public class Monster extends Enemy {
 		int k = 15 + r.nextInt(5) + r.nextInt(5) + r.nextInt((int) (10*Difficulty.getHardMultiply()));
 		int l = 1280;int u = 9000;int d = (u-l)/k;
 		for(int i=0;i<k;i++) {
-			generate(l+i*d, l+(i+1)*d);
+			double x = r.nextDouble()*(l+(i+1)*d-l+i*d)+l+i*d;
+			if(x> 7680 && x < 8030) generate(x,200.0);else generate(x);
 		}
 	}
 	
@@ -110,16 +111,20 @@ public class Monster extends Enemy {
 		SceneManager.getInstance().getEnemy().add(new Monster(r.nextInt(1001)+1000, r.nextInt(2)));
 	}
 	
-	public static void generate(int x) {
+	public static void generate(double x) {
 		SceneManager.getInstance().getEnemy().add(new Monster(x, r.nextInt(2)));
+	}
+	
+	public static void generate(double x,double y) {
+		SceneManager.getInstance().getEnemy().add(new Monster(x,y, r.nextInt(2)));
 	}
 
 	public static void generate(int lowerbound,int upperbound) {
-		SceneManager.getInstance().getEnemy().add(new Monster(r.nextDouble()*upperbound-lowerbound+lowerbound,r.nextInt(2)));
+		SceneManager.getInstance().getEnemy().add(new Monster(r.nextDouble()*(upperbound-lowerbound)+lowerbound,r.nextInt(2)));
 	}
 	
 	public static void generate(int lowerbound,int upperbound,double y) {
-		SceneManager.getInstance().getEnemy().add(new Monster(r.nextDouble()*upperbound-lowerbound+lowerbound, y,r.nextInt(2)));
+		SceneManager.getInstance().getEnemy().add(new Monster(r.nextDouble()*(upperbound-lowerbound)+lowerbound, y,r.nextInt(2)));
 	}
 	
 	@Override

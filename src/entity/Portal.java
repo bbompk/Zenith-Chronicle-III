@@ -9,10 +9,12 @@ import logic.SceneManager;
 public class Portal extends Entity implements Collidable {
 
 	private Sprite portal;
+	private boolean flip;
 	
 	public Portal() {
 		super(SceneManager.getInstance().getRightBound() - 200, 520, 90, 150);
 		// TODO Auto-generated constructor stub
+		flip = false;
 		portal = new Sprite("sprite/checkpoint/portal_end.gif");
 	}
 	
@@ -25,12 +27,14 @@ public class Portal extends Entity implements Collidable {
 	public Portal(boolean golden) {
 		super(SceneManager.getInstance().getRightBound() - 200, 520, 90, 150);
 		// TODO Auto-generated constructor stub
+		flip = true;
 		portal = golden ? new Sprite("sprite/checkpoint/boss_portal_end.gif") : new Sprite("sprite/checkpoint/portal_end.gif");
 	}
 	
 	public Portal(boolean golden, int x, int y) {
 		super(x, y, 90, 150);
 		// TODO Auto-generated constructor stub
+		flip = true;
 		portal = golden ? new Sprite("sprite/checkpoint/boss_portal_end.gif") : new Sprite("sprite/checkpoint/portal_end.gif");
 	}
 
@@ -56,6 +60,11 @@ public class Portal extends Entity implements Collidable {
 
 	public void setPortal(Sprite portal) {
 		this.portal = portal;
+	}
+	
+	@Override
+	public void draw(GraphicsContext gc,boolean flip) {
+		super.draw(gc, this.flip);
 	}
 
 }

@@ -1,6 +1,7 @@
 package entity;
 
 import component.Collidable;
+import component.Creature;
 import component.Enemy;
 import component.Entity;
 import component.Fallable;
@@ -13,7 +14,7 @@ import logic.KeyHandler;
 import logic.SceneManager;
 import util.GameUtil;
 
-public class Player extends Entity implements Collidable, Fallable{
+public class Player extends Creature implements Collidable, Fallable{
 	
 	//Stats
 	private int hp;
@@ -21,12 +22,10 @@ public class Player extends Entity implements Collidable, Fallable{
 	private int atk;
 	
 	//Utility
-	private static int atkable = 0;
-	private static int immune = 0;
-	private static int dashing = 0;
+	private int atkable = 0;
+	private int immune = 0;
+	private int dashing = 0;
 	protected static PlayerStatus face = PlayerStatus.RIGHT;
-	private double prevx;
-	private double prevy;
 //	private static final AudioClip atkSound = new AudioClip(ClassLoader.getSystemResource("attackk.wav").toString());
 	
 		
@@ -34,19 +33,17 @@ public class Player extends Entity implements Collidable, Fallable{
 	private PlayerStatus status;
 	private PlayerStatus lastFrameStatus;
 	private int direction;
-	private static double moveSpeed = 7.0;
-	private static double dashSpeed ;
-	private static double dashSpeedMultiplier = 10/7;
+	private double moveSpeed = 7.0;
+	private double dashSpeed ;
+	private double dashSpeedMultiplier = 10/7;
 	
 	// Jumping
 	private PlayerStatus jumpStatus;
-	private static double initJumpSpeed = 10;
-	private static double jumpCount;
+	private double initJumpSpeed = 10;
+	private double jumpCount;
 	
 	
 	// Position
-//	public static double x = 100;
-//	public static double y = 500;
 	public static boolean needResetPos = false;
 	
 	// Images
@@ -59,9 +56,6 @@ public class Player extends Entity implements Collidable, Fallable{
 	private static final Sprite hurt = new Sprite("sprite/character/player/hurt.gif");
 	private static final Sprite roll = new Sprite("sprite/character/player/roll_4_frame.gif");
 	
-	
-	
-
 	public Player() {
 		// TODO Auto-generated constructor stub
 		
@@ -201,17 +195,8 @@ public class Player extends Entity implements Collidable, Fallable{
 	}
 	
 	private void moveRight() {
-		if(getX() < SceneManager.getInstance().getRightBound()) increaseX(moveSpeed);;
 		
-		for(Tile tile : SceneManager.getInstance().getTiles()) {
-			if( (tile.getUpperBound() < getY()+getH() && tile.getUpperBound() > getY()) || (tile.getLowerBound() < getY()+getH() && tile.getLowerBound() > getY()) || 
-					(getY() > tile.getUpperBound() && getY() < tile.getLowerBound() && getY()+getH() > tile.getUpperBound() && getY()+getH() < tile.getLowerBound()) ) {
-				if(getX()+getW() > tile.getLeftBound() -1  && getX() < tile.getLeftBound() && !tile.isTransparent()) {
-					setX(tile.getLeftBound()-getW() - 1);
-				}
-			}
-		}
-		
+		super.moveRight(moveSpeed);
 		
 		if(getX() > SceneManager.getInstance().getRightBound()- getW()) setX(SceneManager.getInstance().getRightBound() - getW());
 		
@@ -226,16 +211,8 @@ public class Player extends Entity implements Collidable, Fallable{
 	}
 	
 	private void moveLeft() {
-		if(getX() > SceneManager.getInstance().getLeftBound()) increaseX(-moveSpeed);;
 		
-		for(Tile tile : SceneManager.getInstance().getTiles()) {
-			if( (tile.getUpperBound() < getY()+getH() && tile.getUpperBound() > getY()) || (tile.getLowerBound() < getY()+getH() && tile.getLowerBound() > getY()) || 
-					(getY() > tile.getUpperBound() && getY() < tile.getLowerBound() && getY()+getH() > tile.getUpperBound() && getY()+getH() < tile.getLowerBound()) ) {
-				if(getX()+getW() >= tile.getRightBound() && getX() < tile.getRightBound() + 1 && !tile.isTransparent()) {
-					setX(tile.getRightBound() + 1);
-				}
-			}
-		}
+		super.moveLeft(moveSpeed);
 		
 		if(getX() < SceneManager.getInstance().getLeftBound()) setX(SceneManager.getInstance().getLeftBound());
 			
@@ -322,29 +299,34 @@ public class Player extends Entity implements Collidable, Fallable{
 	}
 	
 	public void changeJumpH(int h) {
-		Player.initJumpSpeed += h;
+		initJumpSpeed += h;
 	}
 	
 	public void changemvsp(int sp) {
-		Player.moveSpeed += sp;
+		moveSpeed += sp;
 		dashSpeed = moveSpeed*dashSpeedMultiplier;
 	}
 
-	public static double getMoveSpeed() {
+	public double getMoveSpeed() {
 		return moveSpeed;
 	}
 
-	public static void setMoveSpeed(double moveSpeed) {
-		Player.moveSpeed = moveSpeed;
+	public void setMoveSpeed(double moveSpeed) {
+		this.moveSpeed = moveSpeed;
 		dashSpeed = moveSpeed*dashSpeedMultiplier;
 	}
 
-	public static double getDashSpeedMultiplier() {
+	public double getDashSpeedMultiplier() {
 		return dashSpeedMultiplier;
 	}
 
-	public static void setDashSpeedMultiplier(double dashSpeedMultiplier) {
-		Player.dashSpeedMultiplier = dashSpeedMultiplier;
+	public void setDashSpeedMultiplier(double dashSpeedMultiplier) {
+		this.dashSpeedMultiplier = dashSpeedMultiplier;
+		dashSpeed = moveSpeed*dashSpeedMultiplier;
+	}
+	
+	public void changeDashSpeedMultiplier(double k) {
+		dashSpeedMultiplier += k;
 		dashSpeed = moveSpeed*dashSpeedMultiplier;
 	}
 	

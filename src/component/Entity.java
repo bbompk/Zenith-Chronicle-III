@@ -14,6 +14,8 @@ public abstract class Entity implements Serializable{
 	private int w,h;
 	private int radius;
 	private double Vy;
+	protected double prevx;
+	protected double prevy;
 
 	public Entity(double x,double y,int w,int h) {
 		// TODO Auto-generated constructor stub
@@ -76,6 +78,7 @@ public abstract class Entity implements Serializable{
 
 	public void increaseX(double x) {
 		this.x += x;
+		
 	}
 
 	public void increaseY(double y) {

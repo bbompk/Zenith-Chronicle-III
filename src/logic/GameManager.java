@@ -84,7 +84,10 @@ public class GameManager {
 		AnimationTimer animation = new AnimationTimer(){
 			public void handle(long now){
 				new Thread(() -> {
-					new Thread(() -> { update(e);KeyHandler.getInstance().update();if(!state.equals(GameState.PAUSE))SceneManager.getInstance().update();}).start();}).start();
+//					new Thread(() -> {
+						update(e);KeyHandler.getInstance().update();if(!state.equals(GameState.PAUSE))SceneManager.getInstance().update();
+//					}).start();
+				}).start();
 				try {Thread.sleep(10);} catch(Exception e) {} 
 			}
 		};

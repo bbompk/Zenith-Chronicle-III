@@ -63,7 +63,7 @@ public class Player extends Creature implements Collidable, Fallable{
 		
 		hp =100;
 		maxHp =100;
-		atk = 20;
+		atk = 9990;
 	}
 
 	@Override
@@ -265,23 +265,26 @@ public class Player extends Creature implements Collidable, Fallable{
 		}
 	}
 
+	class AttackBox extends Entity implements Collidable{
+
+		public AttackBox(double x, double y, int w, int h) {super(x, y, w, h);}
+
+		@Override
+		public void checkCollide() {}
+
+		@Override
+		public void update() {}
+
+		@Override
+		public Sprite getImage() {return null;}
+		
+	}
+	
 	private void attack() {
-		Collidable e = (Collidable) new Entity(getX()+getW(),getY()+getH()-80,60,60) {
-			
-			@Override
-			public void update() {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public Sprite getImage() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-		};
+
+		AttackBox a = new AttackBox(getX()+getW(), getY(), 100, getH());
 		for(Enemy enemy : SceneManager.getInstance().getEnemy()) {
-			if(enemy.collideWith((Entity) e)) {
+			if(enemy.collideWith(a)) {
 				enemy.takeDamage(getAtk());
 			}
 		}

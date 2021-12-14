@@ -2,9 +2,6 @@ package entity;
 
 import java.util.ArrayList;
 import java.util.Random;
-
-import com.sun.javafx.scene.traversal.Direction;
-
 import component.Enemy;
 import component.Sprite;
 import javafx.scene.canvas.GraphicsContext;
@@ -24,7 +21,7 @@ public class Monster extends Enemy {
 	private static Random r = new Random();
 
 	public Monster(double x,int type) {
-		super(x, r.nextInt(100)+100, size.get(type), size.get(type));
+		super(x, r.nextInt(300)+100, size.get(type), size.get(type));
 		// TODO Auto-generated constructor stub
 		this.type = type;
 		this.moveSpeed = 3 + r.nextDouble()*2 + 3*Difficulty.getHardMultiply();
@@ -37,6 +34,8 @@ public class Monster extends Enemy {
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
+		justTakeDamage = justTakeDamage == 0 ? justTakeDamage : justTakeDamage -1;
+		if(fall()==0) {
 		double distance = getX() - SceneManager.getInstance().getPlayer().getX();
 		if(getY()+getH() == SceneManager.getInstance().getPlayer().getPrevGround() && justTakeDamage == 0) {
 			if(distance > -800 || distance < 800) {
@@ -52,8 +51,7 @@ public class Monster extends Enemy {
 					else moveRight(moveSpeed);
 				}
 			}
-		}
-		super.update();
+		}}
 	}
 
 	@Override
@@ -91,6 +89,6 @@ public class Monster extends Enemy {
 	
 	@Override
 	public void draw(GraphicsContext gc,boolean f) {
-		super.draw(gc,direction == 0);
+		super.draw(gc,getImage().getImage(),getX(),getY(),getW(),getH());
 	}
 }

@@ -132,13 +132,7 @@ public class Player extends Creature implements Collidable, Fallable{
 				}
 			}
 		}
-<<<<<<< HEAD
 		justTakeDamage = justTakeDamage == 0 ? justTakeDamage : justTakeDamage -1;
-||||||| 5d38bdb
-=======
-		
-		// if(prevy != getY()) System.out.println(getY());
->>>>>>> 5e04ac973293f8246bdf62c33821359248258250
 		dashing = (dashing == 0) ? dashing : dashing - 1;
 		atkable = (atkable == 0) ? atkable : atkable - 1;
 		immune = (immune == 0) ? immune : immune - 1;

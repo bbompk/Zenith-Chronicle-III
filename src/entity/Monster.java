@@ -52,8 +52,13 @@ public class Monster extends Enemy {
 					}
 				}
 			}
+
 		}
+		//System.out.println(this.hashCode() + " " + getX() + " " + getY());
+
+
 	}
+	
 
 	@Override
 	public Sprite getImage() {
@@ -90,6 +95,7 @@ public class Monster extends Enemy {
 	
 	@Override
 	public void draw(GraphicsContext gc,boolean f) {
+		gc.strokeRect(getX(), getY(), getW(), getH());
 		super.draw(gc,getImage().getImage(),getX(),getY(),getW(),getH());
 	}
 }

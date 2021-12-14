@@ -30,8 +30,9 @@ public abstract class Character extends Entity {
 	public void update() {
 		// TODO Auto-generated method stub
 		justTakeDamage = justTakeDamage == 0 ? justTakeDamage : justTakeDamage -1;
-		fall();
+		int f = fall(); 
  	}
+	
 
 	protected void moveRight(double moveSpeed) {
 		if(getX() < SceneManager.getInstance().getRightBound()) increaseX(moveSpeed);;

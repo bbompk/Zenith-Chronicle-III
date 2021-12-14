@@ -17,5 +17,9 @@ public class TileGenerator {
 		SceneManager.getInstance().addTile(new Tile(1320, 480, 120, 60, true));
 		//SceneManager.getInstance().addTile(new Tile(600, 540, 3200, 50, true));
 	}
+	
+	public static void generateBossArena() {
+		
+	}
 
 }

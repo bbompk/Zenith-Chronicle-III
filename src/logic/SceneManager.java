@@ -33,8 +33,8 @@ public class SceneManager extends Canvas implements Serializable {
 	
 	private int level;
 	
-	private static final double leftBound = 0;
-	private static final double rightBound = 3200;
+	private double leftBound = 0;
+	private double rightBound = 3200;
 	
 	private SceneManager() {
 		// TODO Auto-generated constructor stub
@@ -110,7 +110,11 @@ public class SceneManager extends Canvas implements Serializable {
 		Powerup.setUp();
 		Powerup.generate();
 	}
-
+	
+	public void startBossLevel() {
+		props.add(new Background(0, 0, "sprite/background/level_tiles2.png"));
+		props.add(new TileBackground());
+	}
 
 	public double getOffsetX() {
 		return offsetX;
@@ -183,6 +187,16 @@ public class SceneManager extends Canvas implements Serializable {
 	
 	public void addTile(Tile tile) {
 		this.tiles.add(tile);
+	}
+
+	public void setLeftBound(double leftBound) {
+		this.leftBound = leftBound;
+	}
+
+	public void setRightBound(double rightBound) {
+		this.rightBound = rightBound;
 	};
+	
+	
 	
 }

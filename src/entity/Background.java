@@ -22,10 +22,10 @@ public class Background extends Entity {
 		backgroundSprite = new Sprite("sprite/background/jungle.png");
 	}
 	
-	public Background(double x, double y) {
+	public Background(double x, double y, String URL) {
 		// TODO Auto-generated constructor stub
 		super(x,y,1280,720);
-		backgroundSprite = new Sprite("sprite/background/jungle.png");
+		backgroundSprite = new Sprite(URL);
 	}
 	
 	@Override

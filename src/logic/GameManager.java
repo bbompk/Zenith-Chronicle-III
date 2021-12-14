@@ -1,6 +1,7 @@
 package logic;
 
 import component.KeyStatus;
+import gui.GameUI;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -79,14 +80,16 @@ public class GameManager {
 		SceneManager.getInstance().setUp();
 		SceneManager.getInstance().gameStart();
 		//SceneManager.getInstance().startBossLevel();
+		GameUI ui = new GameUI();
 		root.getChildren().add(KeyHandler.getInstance());
 		root.getChildren().add(SceneManager.getInstance());
+		root.getChildren().add(ui);
 		KeyHandler.getInstance().requestFocus();
 		AnimationTimer animation = new AnimationTimer(){
 			public void handle(long now){
 //				new Thread(() -> {
 //					new Thread(() -> {
-						update(e);KeyHandler.getInstance().update();
+						update(e);KeyHandler.getInstance().update();ui.update();
 						if(!state.equals(GameState.PAUSE)) SceneManager.getInstance().update();
 //					}).start();
 //				}).start();

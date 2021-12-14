@@ -102,5 +102,13 @@ public abstract class Character extends Entity implements Fallable{
 	public boolean isAlive() {
 		return alive;
 	}
+
+	public int getHp() {
+		return hp;
+	}
+
+	public int getMaxHp() {
+		return maxHp;
+	}
 	
 }

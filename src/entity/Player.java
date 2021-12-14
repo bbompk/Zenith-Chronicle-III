@@ -1,7 +1,7 @@
 package entity;
 
 import component.Collidable;
-import component.Creature;
+import component.Character;
 import component.Enemy;
 import component.Entity;
 import component.Fallable;
@@ -14,7 +14,7 @@ import logic.KeyHandler;
 import logic.SceneManager;
 import util.GameUtil;
 
-public class Player extends Creature implements Collidable, Fallable{
+public class Player extends Character implements Collidable, Fallable{
 	
 	//Utility
 	private int atkable = 0;

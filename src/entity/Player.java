@@ -191,7 +191,7 @@ public class Player extends Character implements Collidable, Fallable{
 					}
 				}
 				
-				if(getY()+getH() >= tile.getLowerBound() && getY() < tile.getLowerBound() && !tile.isTransparent()) {
+				if(getY()+getH() > tile.getLowerBound() && getY() < tile.getLowerBound() && !tile.isTransparent()) {
 					setY(tile.getLowerBound() );
 					jumpStatus = PlayerStatus.FALLING;
 					setVy(0);

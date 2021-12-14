@@ -121,10 +121,10 @@ public class SceneManager extends Canvas implements Serializable {
 	
 	public void gameStart() {
 		setLeftBound(0);
-		setRightBound(3200);
+		setRightBound(8960);
 		props.add(new Background());
-		props.add(new TileBackground());
-		props.add(new Portal(Difficulty.countDown==1));
+		//props.add(new TileBackground());
+		props.add(new Portal(Difficulty.countDown==1, 7700, 10));
 		TileGenerator.generate();
 		Powerup.generate();
 		Monster.generate();

@@ -67,6 +67,8 @@ public class Powerup extends Entity implements Collidable, Fallable{
 		SceneManager.getInstance().getCollidable().add(new Powerup(rand1,rand3));
 		SceneManager.getInstance().getCollidable().add(new Powerup(rand2,rand4));
 		SceneManager.getInstance().getCollidable().add(new Powerup(2600,600,2));
+		SceneManager.getInstance().getCollidable().add(new Powerup(8540,600,2));
+		SceneManager.getInstance().getCollidable().add(new Powerup(6400,600,2));
 	}
 
 	@Override

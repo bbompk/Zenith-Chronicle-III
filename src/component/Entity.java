@@ -68,10 +68,17 @@ public abstract class Entity implements Serializable{
 		increaseY(Vy);
 		Vy = Vy + GameUtil.gravity;
 		for(Tile tile : SceneManager.getInstance().getTiles()) {
-			if(getX() >= tile.getLeftBound() && getX()+getW() <= tile.getRightBound()) {
+			if((getX() >= tile.getLeftBound() && getX() <= tile.getRightBound()) || (getX()+getW() >= tile.getLeftBound() && getX()+getW() <= tile.getRightBound())) {
 				if(getY()+getH() > tile.getUpperBound() && getY() <= tile.getLowerBound()) {
-					setY(tile.getUpperBound()  - getH());
-					setVy(0);
+					if(!tile.isTransparent()) {
+						setY(tile.getUpperBound()  - getH());
+						setVy(0);
+					} else {
+						if(prevy +getH() <= tile.getUpperBound() && prevy <= tile.getUpperBound() ) {
+							setY(tile.getUpperBound()  - getH());
+							setVy(0);
+						}
+					}
 				}
 			}
 		}

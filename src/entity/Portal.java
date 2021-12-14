@@ -32,7 +32,7 @@ public class Portal extends Entity implements Collidable {
 	public void checkCollide() {
 		// TODO Auto-generated method stub
 		if(collideWith(SceneManager.getInstance().getPlayer())) {
-			
+			SceneManager.getInstance().startBossLevel();
 		}
 	}
 

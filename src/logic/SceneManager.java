@@ -36,6 +36,7 @@ public class SceneManager extends Canvas implements Serializable {
 	
 	private double leftBound ;
 	private double rightBound ;
+	public boolean changeState;
 	
 	private SceneManager() {
 		// TODO Auto-generated constructor stub
@@ -105,7 +106,7 @@ public class SceneManager extends Canvas implements Serializable {
 	
 	public void gameStart() {		
 		props.add(new Background());
-		//props.add(new TileBackground());
+		props.add(new TileBackground());
 		props.add(new Portal());
 		TileGenerator.generate();
 		Powerup.setUp();

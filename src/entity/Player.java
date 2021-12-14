@@ -38,9 +38,6 @@ public class Player extends Creature implements Collidable, Fallable{
 	private double jumpCount;
 	private double prevGround;
 	
-	// Position
-	public static boolean needResetPos = false;
-	
 	// Images
 	private static final Sprite idle = new Sprite("sprite/character/player/idle.gif");
 	private static final Sprite run = new Sprite("sprite/character/player/run.gif");
@@ -50,6 +47,21 @@ public class Player extends Creature implements Collidable, Fallable{
 	private static final Sprite attack = new Sprite("sprite/character/player/attack.gif");
 	private static final Sprite hurt = new Sprite("sprite/character/player/hurt.gif");
 	private static final Sprite roll = new Sprite("sprite/character/player/roll_4_frame.gif");
+	
+	public Player(double x, double y) {
+		// TODO Auto-generated constructor stub
+		
+		super(x, y,120,120);
+		lastFrameStatus = PlayerStatus.IDLE;
+		status = PlayerStatus.IDLE;
+		jumpStatus = PlayerStatus.ONGROUND;
+		direction = 0;
+		prevGround = 550+120;
+		
+		hp =100;
+		maxHp =100;
+		atk = 9990;
+	}
 	
 	public Player() {
 		// TODO Auto-generated constructor stub
@@ -74,8 +86,8 @@ public class Player extends Creature implements Collidable, Fallable{
 		
 		lastFrameStatus = status;
 		status = PlayerStatus.RUN;
-		if(needResetPos) {
-			needResetPos = false;
+		if(SceneManager.getInstance().changeState) {
+			setX(150);setY(550);
 		}
 		if(atkable == 0 && jumpStatus.equals(PlayerStatus.ONGROUND) && KeyHandler.getInstance().getKeyStatus(83).equals(KeyStatus.DOWN) && !status.equals(PlayerStatus.DASHING)) {
 			atkable += 61;

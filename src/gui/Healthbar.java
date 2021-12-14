@@ -3,6 +3,7 @@ package gui;
 import javax.swing.UIManager;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
 import javafx.scene.paint.Color;
 import logic.SceneManager;
 
@@ -11,9 +12,9 @@ public class Healthbar extends ProgressBar {
 	public Healthbar() {
 		// TODO Auto-generated constructor stub
 		setLayoutX(10);setLayoutY(10);
-		setBorder(new Border(10));
 		setMinSize(450,50);
-		setStyle("-fx-background-color: red; -fx-border-color: pink;-fx-accent: red;");
+		setStyle("-fx-accent: red;"
+				+ "-fx-border-color: pink; -fx-skin: RED; -fx-border-width: 5; -fx-border-radius: 20;");
 	}
 
 	public Healthbar(double arg0) {

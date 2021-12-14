@@ -12,6 +12,12 @@ public class Difficulty {
 	}
 	
 	public static void goNextLevel() {
+		if(countDown == 0 ) {
+			countDown = 4;
+			goHarder();
+			return;
+		}
+		countDown--;
 		hardMultiply += 0.05;
 	}
 	

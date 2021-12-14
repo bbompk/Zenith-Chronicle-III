@@ -7,6 +7,7 @@ import component.Collidable;
 import component.Enemy;
 import component.Entity;
 import component.Interactable;
+import component.Sprite;
 import entity.Background;
 import entity.Monster;
 import entity.Particles;
@@ -60,8 +61,7 @@ public class SceneManager extends Canvas implements Serializable {
 	public void update() {
 		if(changeState) {
 			clear();
-//			startBossLevel();
-			gameStart();
+			startLevel();
 			changeState = false;
 		}
 		for(int i = enemy.size()-1;i>-1;i--) {
@@ -104,7 +104,9 @@ public class SceneManager extends Canvas implements Serializable {
 		player.draw(gc,false);
 	}
 	
-	public void startlLevel() {
+	public void startLevel() {
+		if(Difficulty.countDown==0)startBossLevel();
+		else gameStart();
 		Difficulty.goNextLevel();
 	}
 	
@@ -113,29 +115,22 @@ public class SceneManager extends Canvas implements Serializable {
 		setRightBound(3200);
 		props.add(new Background());
 		props.add(new TileBackground());
-		props.add(new Portal());
-		collidable.add(new Portal());
+		collidable.add(new Portal(Difficulty.countDown==0));
 		TileGenerator.generate();
 		Powerup.setUp();
 		Powerup.generate();
 		Monster.setUp();
 		Monster.generate();
 		Monster.generate();
-		player.setX(150);
-		player.setY(550);
 	}
 	
 	public void startBossLevel() {
-		offsetX = 0;
-		offsetY = 0;
 		setLeftBound(0);
 		setRightBound(1280);
 		props.add(new Background(0, 0, "sprite/background/boss_arena.png"));
 		props.add(new Particles(75, 50, 90, 150, -1, "sprite/checkpoint/portal_start.gif"));
 		TileGenerator.generateBossArena();
 		player.setY(50);
-		player.setX(75);
-		
 	}
 
 	public double getOffsetX() {
@@ -143,7 +138,7 @@ public class SceneManager extends Canvas implements Serializable {
 	}
 	
 	public void clear() {
-		player.setX(150);player.setY(550);
+		player.setX(150);player.setX(75);
 		props.clear();enemy.clear();collidable.clear();interactable.clear();tiles.clear();
 		offsetX = 0;offsetY = 0;
 	}

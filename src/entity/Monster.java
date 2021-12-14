@@ -3,40 +3,51 @@ package entity;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.sun.javafx.scene.traversal.Direction;
+
 import component.Enemy;
 import component.Sprite;
+import logic.Difficulty;
 import logic.SceneManager;
 
 public class Monster extends Enemy {
 	
-	private static ArrayList<Sprite> sprites = new ArrayList<Sprite>();
+	private static ArrayList<Sprite> idle = new ArrayList<Sprite>();
+	private static ArrayList<Sprite> death = new ArrayList<Sprite>();
+	private static ArrayList<Sprite> hurt = new ArrayList<Sprite>();
+	private static ArrayList<Sprite> run = new ArrayList<Sprite>();
+	private static ArrayList<Integer> size = new ArrayList<Integer>();
 	private int type;
 	private int randomMove;
-	private int randomDirection;
+	private int direction;
 	private static Random r = new Random();
 
 	public Monster(double x,int type) {
-		super(x, r.nextInt(300)+100, 120, 120);
+		super(x, r.nextInt(300)+100, size.get(type), size.get(type));
 		// TODO Auto-generated constructor stub
-		this.moveSpeed = r.nextDouble()*4+4;
+		this.type = type;
+		this.moveSpeed = 3 + r.nextDouble()*2 + 3*Difficulty.getHardMultiply();
 		randomMove = 0;
+		maxHp = (int) (40 + r.nextInt(41) + 40*Difficulty.getHardMultiply());
+		hp = maxHp;
+		atk = (int) (5 + r.nextInt(11) + 10*Difficulty.getHardMultiply());
 	}
 
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
 		double distance = getX() - SceneManager.getInstance().getPlayer().getX();
-		if(getY()+getH() == SceneManager.getInstance().getPlayer().getPrevGround()) {
+		if(getY()+getH() == SceneManager.getInstance().getPlayer().getPrevGround() && justTakeDamage == 0) {
 			if(distance > -800 || distance < 800) {
-				if(distance > 0)moveLeft(moveSpeed);
-				if(distance < 0)moveRight(moveSpeed);
+				if(distance > 0) {direction = 0; moveLeft(moveSpeed);}
+				if(distance < 0) {direction = 1; moveRight(moveSpeed);}
 			}else {
 				if(randomMove==0) {
-					randomMove = r.nextInt(20)+21;
-					randomDirection = r.nextInt(2);
+					randomMove = r.nextInt(21)+21;
+					direction = r.nextInt(2);
 				}else {
 					randomMove--;
-					if(randomDirection==0)moveLeft(moveSpeed);
+					if(direction==0)moveLeft(moveSpeed);
 					else moveRight(moveSpeed);
 				}
 			}
@@ -47,14 +58,25 @@ public class Monster extends Enemy {
 	@Override
 	public Sprite getImage() {
 		// TODO Auto-generated method stub
-		return sprites.get(type);
+		if(hp == 0 )return death.get(type);
+		if(justTakeDamage > 0)return hurt.get(type);
+		return run.get(type);
 	}
 
 	public void setUp() {
-		
+		idle.add(new Sprite("sprite/character/enemy/skeleton/idle.png"));
+		hurt.add(new Sprite("sprite/character/enemy/skeleton/hurt.png"));
+		death.add(new Sprite("sprite/character/enemy/skeleton/death.png"));
+		run.add(new Sprite("sprite/character/enemy/skeleton/run.png"));
+		size.add(120);
+		idle.add(new Sprite("sprite/character/enemy/mushroon/idle.png"));
+		hurt.add(new Sprite("sprite/character/enemy/mushroom/hurt.png"));
+		death.add(new Sprite("sprite/character/enemy/mushroom/death.png"));
+		run.add(new Sprite("sprite/character/enemy/mushroom/run.png"));
+		size.add(90);
 	}
 	
 	public static void generate() {
-		SceneManager.getInstance().getEnemy().add(new Monster(r.nextInt(1000)+1000, r.nextInt(2)));
+		SceneManager.getInstance().getEnemy().add(new Monster(r.nextInt(1001)+1000, r.nextInt(2)));
 	}
 }

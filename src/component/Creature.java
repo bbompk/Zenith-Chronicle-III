@@ -6,11 +6,19 @@ import util.GameUtil;
 
 public abstract class Creature extends Entity {
 	
+
+	//Stats
+	protected int hp;
+	protected int maxHp;
+	protected int atk;
+	
 	protected double moveSpeed;
+	protected int justTakeDamage;
 
 	public Creature(double x, double y, int w, int h) {
 		super(x, y, w, h);
 		// TODO Auto-generated constructor stub
+		justTakeDamage = 0;
 	}
 
 	public Creature(double x, double y, int r) {
@@ -21,6 +29,7 @@ public abstract class Creature extends Entity {
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
+		justTakeDamage = justTakeDamage == 0 ? justTakeDamage : justTakeDamage -1;
 		fall();
 	}
 
@@ -55,5 +64,23 @@ public abstract class Creature extends Entity {
 		if(getX() < SceneManager.getInstance().getLeftBound()) setX(SceneManager.getInstance().getLeftBound());
 
 	}
+	
+	
+	protected void takeDamage(int x) {
+		changeAtk(-x);
+	}
 
+	public void changeHp(int hp) {
+		this.hp += hp;
+		hp = (hp>maxHp) ? maxHp : (hp<0) ? 0 : hp;
+	}
+	
+	public void changeAtk(int atk) {
+		this.atk += atk;
+	}
+	
+	public int getAtk(){
+		return atk;
+	}
+	
 }

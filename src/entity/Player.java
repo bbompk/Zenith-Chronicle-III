@@ -16,11 +16,6 @@ import util.GameUtil;
 
 public class Player extends Creature implements Collidable, Fallable{
 	
-	//Stats
-	private int hp;
-	private int maxHp;
-	private int atk;
-	
 	//Utility
 	private int atkable = 0;
 	private int immune = 0;
@@ -68,7 +63,7 @@ public class Player extends Creature implements Collidable, Fallable{
 		
 		hp =100;
 		maxHp =100;
-		atk = 10;
+		atk = 20;
 	}
 
 	@Override
@@ -82,35 +77,27 @@ public class Player extends Creature implements Collidable, Fallable{
 			needResetPos = false;
 		}
 		if(atkable == 0 && jumpStatus.equals(PlayerStatus.ONGROUND) && KeyHandler.getInstance().getKeyStatus(83).equals(KeyStatus.DOWN) && !status.equals(PlayerStatus.DASHING)) {
-			
 			atkable += 61;
 			//atkSound.play();
 			attack();
 			attack.loadImage(attack.getFilepath());
 		}
 		if(dashing == 0 && KeyHandler.getInstance().getKeyStatus(17).equals(KeyStatus.DOWN) && !status.equals(PlayerStatus.DASHING)) {
-			
 			dashing += 41;
 			roll.loadImage(roll.getFilepath());
 		}
 		if(atkable > 41) {
 			status = PlayerStatus.ATTACKING;
-			
-			
 		}else if(dashing > 21) {
 			status = PlayerStatus.DASHING;
 			dash();
 			
 		}else {
 			if(KeyHandler.getInstance().getKeyStatus(68).equals(KeyStatus.DOWN)) {
-				
 				moveRight();
-				
 			}
 			if(KeyHandler.getInstance().getKeyStatus(65).equals(KeyStatus.DOWN)) {
-				
 				moveLeft();
-				
 			}
 			if(KeyHandler.getInstance().getKeyStatus(68).equals(KeyStatus.FREE) && KeyHandler.getInstance().getKeyStatus(65).equals(KeyStatus.FREE)) {
 				direction = 0;
@@ -119,10 +106,8 @@ public class Player extends Creature implements Collidable, Fallable{
 			}
 			if(direction == 0) {status = PlayerStatus.IDLE;}
 			if(KeyHandler.getInstance().getKeyStatus(32).equals(KeyStatus.DOWN)) {
-				
 				prevGround = getY()+getH();
 				jump();
-				
 			}
 		}
 		
@@ -141,11 +126,12 @@ public class Player extends Creature implements Collidable, Fallable{
 		if(immune ==0) {
 			for(Enemy e:SceneManager.getInstance().getEnemy()) {
 				if(e.collideWith(this)) {
-					takeDamage(10);
+					takeDamage(e.getAtk());
 					immune += 201;
 				}
 			}
 		}
+		justTakeDamage = justTakeDamage == 0 ? justTakeDamage : justTakeDamage -1;
 		dashing = (dashing == 0) ? dashing : dashing - 1;
 		atkable = (atkable == 0) ? atkable : atkable - 1;
 		immune = (immune == 0) ? immune : immune - 1;
@@ -242,6 +228,7 @@ public class Player extends Creature implements Collidable, Fallable{
 	@Override
 	public Sprite getImage() {
 		// TODO Auto-generated method stub
+		if(justTakeDamage > 0)return hurt;
 		if(status.equals(PlayerStatus.DASHING)) {
 			return roll;
 		}
@@ -281,9 +268,11 @@ public class Player extends Creature implements Collidable, Fallable{
 		
 	}
 	
-	private void takeDamage(int x) {
-		
+	protected void takeDamage(int x) {
+		super.takeDamage(x);
+		justTakeDamage += 30;
 	}
+
 
 	@Override
 	public void checkCollide() {
@@ -291,15 +280,6 @@ public class Player extends Creature implements Collidable, Fallable{
 		
 	}
 
-	public void changeHp(int hp) {
-		this.hp += hp;
-		hp = (hp>maxHp) ? maxHp : (hp<0) ? 0 : hp;
-	}
-	
-	public void changeAtk(int atk) {
-		this.atk += atk;
-	}
-	
 	public void changeJumpH(int h) {
 		initJumpSpeed += h;
 	}

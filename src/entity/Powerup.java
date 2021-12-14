@@ -39,7 +39,16 @@ public class Powerup extends Entity implements Collidable, Fallable{
 		sprites.add(new Sprite("sprite/powerup/flower_red.png"));
 		sprites.add(new Sprite("sprite/powerup/fish_blue.png"));
 	}
-	public static void generate2() {
+	
+	public static void generate(int lowerbound,int upperbound) {
+		SceneManager.getInstance().getCollidable().add(new Powerup(new Random().nextInt(upperbound-lowerbound)+lowerbound, new Random().nextInt(4)));
+	}
+	
+	public static void generate(int type,int lowerbound,int upperbound) {
+		SceneManager.getInstance().getCollidable().add(new Powerup(new Random().nextInt(upperbound-lowerbound)+lowerbound, type));
+	}
+	
+	public static void generate() {
 		Random rand = new Random();
 		int rand1 = rand.nextInt(600)+500;
 		int rand2 = rand.nextInt(600)+1400;

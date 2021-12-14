@@ -21,10 +21,9 @@ public class HomeScreen extends GridPane {
 	private Label name2;
 	private Button start;
 	private Button quit;
-	private Stage stage;
+	
 	public HomeScreen(Stage stage) {
 		// TODO Auto-generated constructor stub 11 * 12
-		this.stage = stage;
 		setMinSize(1280, 720);setMaxSize(1280, 720);
 		setAlignment(Pos.CENTER);
 		setHgap(20);setVgap(20);setPadding(new Insets(25,25,25,25));
@@ -76,38 +75,14 @@ public class HomeScreen extends GridPane {
 //		});
 		start.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				
-//				stage.close();
-				Stage stagee = (Stage) ((Node) e.getSource()).getScene().getWindow();
-				setVisible(false);
-				name1.setVisible(false);
-				name2.setVisible(false);
-				start.setVisible(false);
-				quit.setVisible(false);
 
-				StackPane root = new StackPane();
-				Scene scene = new Scene(root,1280,720);
-				scene.setFill(Color.BLACK);
-				stagee.setScene(scene);
-				stagee.setTitle("Zenith chronicle");
-				SceneManager.getInstance().gameStart();
-				root.getChildren().add(KeyHandler.getInstance());
-				root.getChildren().add(SceneManager.getInstance());
-				KeyHandler.getInstance().requestFocus();
-				
-				AnimationTimer animation = new AnimationTimer(){
-					public void handle(long now){
-						 new Thread(() -> {
-							new Thread(() -> { 
-							KeyHandler.getInstance().update();
-							SceneManager.getInstance().update();}).start();
-							} ).start();
-						try {Thread.sleep(5);
-						} catch(Exception e) {} 
-					}
-				};
-				animation.start();
-//				stagee.show();
+				GameManager.getInstance();
+//				setVisible(false);
+//				name1.setVisible(false);
+//				name2.setVisible(false);
+//				start.setVisible(false);
+//				quit.setVisible(false);
+				GameManager.getInstance().gameStart(e);
 			}
 		});
 		

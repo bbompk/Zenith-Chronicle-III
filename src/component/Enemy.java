@@ -27,7 +27,7 @@ public abstract class Enemy extends Character implements Collidable{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			SceneManager.getInstance().getEnemy().remove(this);
+			needRemove =true;
 		}).start();
 		
 	}

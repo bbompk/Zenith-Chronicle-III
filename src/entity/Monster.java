@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import component.Enemy;
 import component.Sprite;
+import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import logic.Difficulty;
@@ -35,6 +36,10 @@ public class Monster extends Enemy {
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
+		if(needRemove) {
+			SceneManager.getInstance().getEnemy().remove(this);
+			return;
+		}
 		justTakeDamage = justTakeDamage == 0 ? justTakeDamage : justTakeDamage -1;
 		if(fall()==0 && alive) {
 			double distance = getX() - SceneManager.getInstance().getPlayer().getX();

@@ -12,6 +12,7 @@ public abstract class Character extends Entity implements Fallable{
 	protected int maxHp;
 	protected int atk;
 	protected boolean alive;
+	protected boolean needRemove;
 	
 	protected double moveSpeed;
 	protected int justTakeDamage;

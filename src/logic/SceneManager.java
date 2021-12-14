@@ -9,6 +9,7 @@ import component.Entity;
 import component.Interactable;
 import component.Sprite;
 import entity.Background;
+import entity.Item;
 import entity.Monster;
 import entity.Particles;
 import entity.Player;
@@ -65,7 +66,7 @@ public class SceneManager extends Canvas implements Serializable {
 			changeState = false;
 		}
 		for(int i = enemy.size()-1;i>-1;i--) {
-			if(enemy.size() > i && i > -1)enemy.get(i).update();
+			enemy.get(i).update();
 		}
 		for(int i = props.size()-1;i>-1;i--) {
 			props.get(i).update();
@@ -124,6 +125,8 @@ public class SceneManager extends Canvas implements Serializable {
 		TileGenerator.generate();
 		Powerup.setUp();
 		Powerup.generate();
+		Item.setUp();
+		Item.generate(500, 1000);
 		Monster.setUp();
 		Monster.generate();
 		Monster.generate();

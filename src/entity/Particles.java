@@ -3,6 +3,7 @@ package entity;
 import component.Entity;
 import component.Sprite;
 import javafx.scene.canvas.GraphicsContext;
+import logic.SceneManager;
 
 public class Particles extends Entity {
 	
@@ -30,13 +31,13 @@ public class Particles extends Entity {
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
-		lifetime--;
-		if(lifetime < 0) lifetime = -1;
+		if(!inf)lifetime--;
+		if(lifetime < 0 && !inf) SceneManager.getInstance().getProps().remove(this);
 	}
 	
 	@Override
 	public void draw(GraphicsContext gc, boolean f) {
-		if(inf || lifetime >= 0) super.draw(gc, f);
+		super.draw(gc, f);
 	}
 	
 	

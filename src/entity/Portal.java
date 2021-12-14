@@ -19,7 +19,7 @@ public class Portal extends Entity implements Collidable {
 	public Portal(boolean golden) {
 		super(SceneManager.getInstance().getRightBound() - 200, 520, 90, 150);
 		// TODO Auto-generated constructor stub
-		portal = golden ? new Sprite("sprite/checkpoint/portal.png") : new Sprite("sprite/checkpoint/portal_end.gif");
+		portal = golden ? new Sprite("sprite/checkpoint/boss_portal_end.gif") : new Sprite("sprite/checkpoint/portal_end.gif");
 	}
 
 	@Override

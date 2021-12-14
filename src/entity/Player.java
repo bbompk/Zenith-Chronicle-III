@@ -27,7 +27,7 @@ public class Player extends Character implements Collidable, Fallable{
 	private PlayerStatus status;
 	private PlayerStatus lastFrameStatus;
 	private int direction;
-	private double moveSpeed = 7.0;
+	private double moveSpeed = 20.0;
 	
 	
 	//Dashing

@@ -58,17 +58,17 @@ public class SceneManager extends Canvas implements Serializable {
 	}
 	
 	public void update() {
-		for(Enemy e : enemy) {
-			e.update();
+		for(int i = enemy.size()-1;i>-1;i--) {
+			enemy.get(i).update();
 		}
-		for(Entity e : props) {
-			e.update();
+		for(int i = props.size()-1;i>-1;i--) {
+			props.get(i).update();
+		}		
+		for(int i= collidable.size()-1;i>-1;i--) {
+			if(collidable.get(i) instanceof Entity) ((Entity) collidable.get(i)).update();
 		}
-		for(Collidable c : collidable) {
-			if(c instanceof Entity) ((Entity) c).update();
-		}
-		for(Interactable i : interactable) {
-			if(i instanceof Entity) ((Entity) i).update();
+		for(int i= interactable.size()-1;i>-1;i--) {
+			if(interactable.get(i) instanceof Entity) ((Entity) interactable.get(i)).update();
 		}
 		player.update();
 		draw();

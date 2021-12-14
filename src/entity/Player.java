@@ -36,7 +36,7 @@ public class Player extends Entity implements Collidable, Fallable{
 	// Jumping
 	private PlayerStatus jumpStatus;
 	private static double initJumpSpeed = 10;
-	
+	private boolean jumping;
 	
 	// Position
 //	public static double x = 100;
@@ -63,6 +63,7 @@ public class Player extends Entity implements Collidable, Fallable{
 		lastFrameStatus = PlayerStatus.IDLE;
 		status = PlayerStatus.IDLE;
 		jumpStatus = PlayerStatus.ONGROUND;
+		jumping = false;
 		direction = 0;
 		
 		hp =100;
@@ -110,7 +111,7 @@ public class Player extends Entity implements Collidable, Fallable{
 				
 				jump();
 				
-			}
+			}else jumping = false;
 		}
 		int fallBack = fall();
 		if(fallBack == -1) {

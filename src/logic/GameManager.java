@@ -80,12 +80,14 @@ public class GameManager {
 		root.getChildren().add(KeyHandler.getInstance());
 		root.getChildren().add(SceneManager.getInstance());
 		KeyHandler.getInstance().requestFocus();
-		
+		SceneManager.getInstance().setLeftBound(0);
+		SceneManager.getInstance().setRightBound(3200);
 		AnimationTimer animation = new AnimationTimer(){
 			public void handle(long now){
 				new Thread(() -> {
 //					new Thread(() -> {
-						update(e);KeyHandler.getInstance().update();if(!state.equals(GameState.PAUSE))SceneManager.getInstance().update();
+						update(e);KeyHandler.getInstance().update();
+						if(!state.equals(GameState.PAUSE)) SceneManager.getInstance().update();
 //					}).start();
 				}).start();
 				try {Thread.sleep(10);} catch(Exception e) {} 

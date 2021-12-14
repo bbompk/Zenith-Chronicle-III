@@ -9,8 +9,8 @@ public class TileBackground extends Entity {
 	// Position
 	public static double x = 0;
 	public static double y = 0;
-	public static final int width = 3200;
-	public static final int height = 720;
+	public int width ;
+	public int height ;
 
 	// Images
 	private static Sprite tileBackgroundSprite;
@@ -19,15 +19,19 @@ public class TileBackground extends Entity {
 
 	public TileBackground() {
 		// TODO Auto-generated constructor stub
-		super(x,y,1280,720);
+		super(x,y,3200,720);
+		width = 3200;
+		height = 720;
 		tileBackgroundSprite = new Sprite("sprite/background/level_tiles2.png");
 		
 	}
 	
-	public TileBackground(double x, double y) {
+	public TileBackground(double x, double y, int w, int h, String URL) {
 		// TODO Auto-generated constructor stub
-		super(x,y,1280,720);
-		tileBackgroundSprite = new Sprite("sprite/background/level_tiles2.png");
+		super(x,y,w,h);
+		width = w;
+		height = h;
+		tileBackgroundSprite = new Sprite(URL);
 	}
 	
 	@Override

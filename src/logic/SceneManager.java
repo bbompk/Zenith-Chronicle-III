@@ -9,6 +9,7 @@ import component.Entity;
 import component.Interactable;
 import entity.Background;
 import entity.Monster;
+import entity.Particles;
 import entity.Player;
 import entity.Portal;
 import entity.Powerup;
@@ -128,11 +129,14 @@ public class SceneManager extends Canvas implements Serializable {
 	}
 	
 	public void startBossLevel() {
-		props.add(new Background(0, 0, "sprite/background/boss_arena.png"));
-		TileGenerator.generateBossArena();
-		player.setY(400);
 		setLeftBound(0);
 		setRightBound(1280);
+		props.add(new Background(0, 0, "sprite/background/boss_arena.png"));
+		props.add(new Particles(75, 50, 90, 150, -1, "sprite/checkpoint/portal_start.gif"));
+		TileGenerator.generateBossArena();
+		player.setY(50);
+		player.setX(75);
+		
 	}
 
 	public double getOffsetX() {

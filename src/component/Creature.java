@@ -66,7 +66,7 @@ public abstract class Creature extends Entity {
 	}
 	
 	
-	protected void takeDamage(int x) {
+	public void takeDamage(int x) {
 		changeAtk(-x);
 	}
 

@@ -266,12 +266,30 @@ public class Player extends Creature implements Collidable, Fallable{
 	}
 
 	private void attack() {
-		
+		Collidable e = (Collidable) new Entity(getX()+getW(),getY()+getH()-80,60,60) {
+			
+			@Override
+			public void update() {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public Sprite getImage() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		};
+		for(Enemy enemy : SceneManager.getInstance().getEnemy()) {
+			if(enemy.collideWith((Entity) e)) {
+				enemy.takeDamage(getAtk());
+			}
+		}
 	}
 	
-	protected void takeDamage(int x) {
+	public void takeDamage(int x) {
 		super.takeDamage(x);
-		justTakeDamage += 30;
+		justTakeDamage += 40;
 	}
 
 

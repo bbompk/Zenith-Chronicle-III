@@ -13,5 +13,10 @@ public abstract class Enemy extends Creature implements Collidable{
 
 	@Override
 	public void checkCollide() {}
+	
+	public void takeDamage(int x) {
+		super.takeDamage(x);
+		justTakeDamage += 30;
+	}
 
 }

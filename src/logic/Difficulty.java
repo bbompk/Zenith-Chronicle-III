@@ -4,6 +4,7 @@ public class Difficulty {
 	
 	private static GameMode difficulty = GameMode.EASY;
 	private static double hardMultiply = 0.5;
+	public static int countDown = 4;
 	
 	public static void setup(GameMode difficulty) {
 		Difficulty.setDifficulty(difficulty);
@@ -15,11 +16,12 @@ public class Difficulty {
 	}
 	
 	public static void goHarder() {
+		hardMultiply += 0.3;
 		if(difficulty.equals(GameMode.NORMAL)) {
-			hardMultiply += 0.25;
+			hardMultiply += 0.1;
 		}
 		if(difficulty.equals(GameMode.HARD)) {
-			hardMultiply += 0.50;
+			hardMultiply += 0.2;
 		}
 	}
 	

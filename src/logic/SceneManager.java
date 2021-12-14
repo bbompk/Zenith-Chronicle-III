@@ -49,9 +49,6 @@ public class SceneManager extends Canvas implements Serializable {
 		interactable = new ArrayList<Interactable>();
 		player = new Player();
 		level = 0;
-		offsetX = 0;
-		offsetY = 0;
-		
 	}
 	
 	public static SceneManager getInstance() {
@@ -61,9 +58,9 @@ public class SceneManager extends Canvas implements Serializable {
 	
 	public void update() {
 		if(changeState) {
-			player.setX(150);player.setY(550);
-			props.clear();enemy.clear();collidable.clear();interactable.clear();tiles.clear();
-			startBossLevel();
+			clear();
+//			startBossLevel();
+			gameStart();
 			changeState = false;
 		}
 		for(int i = enemy.size()-1;i>-1;i--) {
@@ -107,7 +104,7 @@ public class SceneManager extends Canvas implements Serializable {
 	}
 	
 	public void startlLevel() {
-		
+		Difficulty.goNextLevel();
 	}
 	
 	public void gameStart() {
@@ -128,6 +125,10 @@ public class SceneManager extends Canvas implements Serializable {
 	}
 	
 	public void startBossLevel() {
+
+		offsetX = 0;
+		offsetY = 0;
+		
 		props.add(new Background(0, 0, "sprite/background/boss_arena.png"));
 		TileGenerator.generateBossArena();
 		player.setY(400);
@@ -137,6 +138,12 @@ public class SceneManager extends Canvas implements Serializable {
 
 	public double getOffsetX() {
 		return offsetX;
+	}
+	
+	public void clear() {
+		player.setX(150);player.setY(550);
+		props.clear();enemy.clear();collidable.clear();interactable.clear();tiles.clear();
+		offsetX = 0;offsetY = 0;
 	}
 
 	public void setOffsetX(double offsetX) {

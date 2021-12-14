@@ -5,6 +5,7 @@ import java.util.Random;
 import component.Enemy;
 import component.Sprite;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import logic.Difficulty;
 import logic.SceneManager;
 
@@ -55,7 +56,7 @@ public class Monster extends Enemy {
 
 		}
 		//System.out.println(this.hashCode() + " " + getX() + " " + getY());
-
+		fall();
 
 	}
 	
@@ -95,7 +96,6 @@ public class Monster extends Enemy {
 	
 	@Override
 	public void draw(GraphicsContext gc,boolean f) {
-		gc.strokeRect(getX(), getY(), getW(), getH());
 		super.draw(gc,getImage().getImage(),getX(),getY(),getW(),getH());
 	}
 }

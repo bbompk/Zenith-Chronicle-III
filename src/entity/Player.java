@@ -273,6 +273,7 @@ public class Player extends Character implements Collidable, Fallable{
 	@Override
 	public void draw(GraphicsContext gc,boolean f) {
 		// TODO Auto-generated method stub
+	
 		if(immune%2 == 0) {
 			if(!lastFrameStatus.equals(status) && atkable < 41) getImage().loadImage(getImage().getFilepath());
 			if(atkable < 41 && status != PlayerStatus.DIE) {

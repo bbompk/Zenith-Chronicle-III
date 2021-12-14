@@ -83,14 +83,18 @@ public class SceneManager extends Canvas implements Serializable {
 	public void draw() {
 		GraphicsContext gc = getGraphicsContext2D();
 		gc.setFill(Color.RED);
-		for(Enemy e : enemy) {
-			e.draw(gc,false);
-		}
 		for(Entity e : props) {
 			e.draw(gc,false);
 		}
+		for(Enemy e : enemy) {
+			e.drawHitBox(gc);
+			e.draw(gc,false);
+		}
 		for(Collidable c : collidable) {
-			if(c instanceof Entity) ((Entity) c).draw(gc,false);
+			if(c instanceof Entity) {
+				((Entity) c).draw(gc,false);
+				((Entity) c).drawHitBox(gc);
+			}
 		}
 		for(Interactable i : interactable) {
 			if(i instanceof Entity) ((Entity) i).draw(gc,false);
@@ -101,6 +105,7 @@ public class SceneManager extends Canvas implements Serializable {
 			gc.strokeRect(tile.getX() - offsetX, tile.getY(), tile.getW(), tile.getH());
 		
 		}
+		player.drawHitBox(gc);
 		player.draw(gc,false);
 	}
 	

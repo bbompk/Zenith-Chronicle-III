@@ -4,7 +4,7 @@ import entity.Tile;
 import logic.SceneManager;
 import util.GameUtil;
 
-public abstract class Character extends Entity {
+public abstract class Character extends Entity implements Fallable{
 	
 
 	//Stats
@@ -33,7 +33,9 @@ public abstract class Character extends Entity {
 		int f = fall(); 
  	}
 	
-
+	
+	
+	
 	protected void moveRight(double moveSpeed) {
 		if(getX() < SceneManager.getInstance().getRightBound()) increaseX(moveSpeed);;
 		

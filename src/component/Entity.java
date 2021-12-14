@@ -5,6 +5,7 @@ import java.io.Serializable;
 import entity.Tile;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import logic.SceneManager;
 import util.GameUtil;
 
@@ -39,6 +40,11 @@ public abstract class Entity implements Serializable{
 	
 	public abstract void update();
 	public abstract Sprite getImage();
+	
+	public void drawHitBox(GraphicsContext gc) {
+		gc.setStroke(Color.BLACK);
+		gc.strokeRect(getX() - SceneManager.getInstance().getOffsetX(), getY(), getW(), getH());
+	}
 	
 	public void draw(GraphicsContext gc,Image img,double x,double y,int w,int h) {
 		gc.drawImage(img, x-SceneManager.getInstance().getOffsetX(), y, w, h);

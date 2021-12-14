@@ -86,9 +86,6 @@ public class Player extends Creature implements Collidable, Fallable{
 		
 		lastFrameStatus = status;
 		status = PlayerStatus.RUN;
-		if(SceneManager.getInstance().changeState) {
-			setX(150);setY(550);
-		}
 		if(atkable == 0 && jumpStatus.equals(PlayerStatus.ONGROUND) && KeyHandler.getInstance().getKeyStatus(83).equals(KeyStatus.DOWN) && !status.equals(PlayerStatus.DASHING)) {
 			atkable += 61;
 			//atkSound.play();

@@ -60,6 +60,12 @@ public class SceneManager extends Canvas implements Serializable {
 	}
 	
 	public void update() {
+		if(changeState) {
+			player.setX(150);player.setY(550);
+			props.clear();enemy.clear();collidable.clear();interactable.clear();tiles.clear();
+			startBossLevel();
+			changeState = false;
+		}
 		for(int i = enemy.size()-1;i>-1;i--) {
 			enemy.get(i).update();
 		}
@@ -107,7 +113,7 @@ public class SceneManager extends Canvas implements Serializable {
 	public void gameStart() {		
 		props.add(new Background());
 		props.add(new TileBackground());
-		props.add(new Portal());
+		collidable.add(new Portal());
 		TileGenerator.generate();
 		Powerup.setUp();
 		Powerup.generate();

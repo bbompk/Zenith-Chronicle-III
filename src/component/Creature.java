@@ -67,7 +67,7 @@ public abstract class Creature extends Entity {
 	
 	
 	public void takeDamage(int x) {
-		changeAtk(-x);
+		if(hp > 0)changeHp(-x);
 	}
 
 	public void changeHp(int hp) {

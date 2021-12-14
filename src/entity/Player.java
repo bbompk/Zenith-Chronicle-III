@@ -33,7 +33,7 @@ public class Player extends Creature implements Collidable, Fallable{
 	//Dashing
 	private int dashing = 0;
 	private double dashSpeed ;
-	private double dashSpeedMultiplier = 10/7;
+	private double dashSpeedMultiplier = 11/7;
 	private int maxDash;
 	private int dashAvail;
 	
@@ -147,7 +147,7 @@ public class Player extends Creature implements Collidable, Fallable{
 			for(Enemy e:SceneManager.getInstance().getEnemy()) {
 				if(e.collideWith(this)) {
 					takeDamage(e.getAtk());
-					immune += 201;
+					immune += 101;
 				}
 			}
 		}
@@ -303,7 +303,7 @@ public class Player extends Creature implements Collidable, Fallable{
 	
 	private void attack() {
 
-		AttackBox a = new AttackBox(getX()+getW(), getY(), 100, getH());
+		AttackBox a = new AttackBox(getX()+getW()/4, getY(), 100+getW()*3/4	, getH());
 		for(Enemy enemy : SceneManager.getInstance().getEnemy()) {
 			if(enemy.collideWith(a)) {
 				enemy.takeDamage(getAtk());

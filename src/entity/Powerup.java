@@ -72,7 +72,7 @@ public class Powerup extends Entity implements Collidable, Fallable{
 					if(type==1){
 						SceneManager.getInstance().getPlayer().changeAtk(10);
 						try {
-							Thread.sleep(20000);
+							Thread.sleep(10000);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -80,24 +80,24 @@ public class Powerup extends Entity implements Collidable, Fallable{
 						SceneManager.getInstance().getPlayer().changeAtk(-10);
 					}
 					if(type==2){
-						SceneManager.getInstance().getPlayer().changeJumpH(5);
+						SceneManager.getInstance().getPlayer().changeJumpH(2);
 						try {
-							Thread.sleep(20000);
+							Thread.sleep(10000);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						SceneManager.getInstance().getPlayer().changeJumpH(-5);
+						SceneManager.getInstance().getPlayer().changeJumpH(-2);
 					}
 					if(type==3){
-						SceneManager.getInstance().getPlayer().changemvsp(5);
+						SceneManager.getInstance().getPlayer().changemvsp(2);
 						try {
-							Thread.sleep(20000);
+							Thread.sleep(10000);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						SceneManager.getInstance().getPlayer().changemvsp(-5);
+						SceneManager.getInstance().getPlayer().changemvsp(-2);
 					}
 				}).start();;
 			}

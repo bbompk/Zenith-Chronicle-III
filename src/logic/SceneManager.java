@@ -123,9 +123,7 @@ public class SceneManager extends Canvas implements Serializable {
 		props.add(new Portal(Difficulty.countDown==1));
 		TileGenerator.generate();
 		Powerup.setUp();
-//		Powerup.generate();
-		Powerup.generate(500);
-		Powerup.generate(500);
+		Powerup.generate();
 		Monster.setUp();
 		Monster.generate();
 		Monster.generate();

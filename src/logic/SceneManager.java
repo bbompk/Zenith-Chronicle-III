@@ -65,7 +65,7 @@ public class SceneManager extends Canvas implements Serializable {
 			changeState = false;
 		}
 		for(int i = enemy.size()-1;i>-1;i--) {
-			enemy.get(i).update();
+			if(enemy.size() > i && i > -1)enemy.get(i).update();
 		}
 		for(int i = props.size()-1;i>-1;i--) {
 			props.get(i).update();
@@ -123,7 +123,9 @@ public class SceneManager extends Canvas implements Serializable {
 		props.add(new Portal(Difficulty.countDown==1));
 		TileGenerator.generate();
 		Powerup.setUp();
-		Powerup.generate();
+//		Powerup.generate();
+		Powerup.generate(500);
+		Powerup.generate(500);
 		Monster.setUp();
 		Monster.generate();
 		Monster.generate();

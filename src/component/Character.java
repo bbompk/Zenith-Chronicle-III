@@ -11,6 +11,7 @@ public abstract class Character extends Entity implements Fallable{
 	protected int hp;
 	protected int maxHp;
 	protected int atk;
+	protected boolean alive;
 	
 	protected double moveSpeed;
 	protected int justTakeDamage;
@@ -19,6 +20,7 @@ public abstract class Character extends Entity implements Fallable{
 		super(x, y, w, h);
 		// TODO Auto-generated constructor stub
 		justTakeDamage = 0;
+		alive = true;
 	}
 
 	public Character(double x, double y, int r) {
@@ -68,10 +70,20 @@ public abstract class Character extends Entity implements Fallable{
 
 	}
 	
+	public void changeMaxHp(int hp) {
+		this.maxHp += hp;
+		this.changeHp(hp);;
+	}
 	
 	public void takeDamage(int x) {
-		if(hp > 0)changeHp(-x);
+		if(hp > 0) {
+			changeHp(-x);
+			alive = false;
+			die();
+		}
 	}
+
+	protected abstract void die();
 
 	public void changeHp(int hp) {
 		this.hp += hp;
@@ -84,6 +96,10 @@ public abstract class Character extends Entity implements Fallable{
 	
 	public int getAtk(){
 		return atk;
+	}
+
+	public boolean isAlive() {
+		return alive;
 	}
 	
 }

@@ -27,7 +27,7 @@ public class Player extends Character implements Collidable, Fallable{
 	private PlayerStatus status;
 	private PlayerStatus lastFrameStatus;
 	private int direction;
-	private double moveSpeed = 20.0;
+	private double moveSpeed = 7.0;
 	
 	
 	//Dashing
@@ -145,7 +145,7 @@ public class Player extends Character implements Collidable, Fallable{
 		
 		if(immune ==0) {
 			for(Enemy e:SceneManager.getInstance().getEnemy()) {
-				if(e.collideWith(this)) {
+				if(e.collideWith(this) && e.isAlive()) {
 					takeDamage(e.getAtk());
 					immune += 101;
 				}
@@ -274,7 +274,7 @@ public class Player extends Character implements Collidable, Fallable{
 	public void draw(GraphicsContext gc,boolean f) {
 		// TODO Auto-generated method stub
 	
-		if(immune%2 == 0) {
+		if(immune/2%2 == 0) {
 			if(!lastFrameStatus.equals(status) && atkable < 41) getImage().loadImage(getImage().getFilepath());
 			if(atkable < 41 && status != PlayerStatus.DIE) {
 //				if(direction != -1) super.draw(gc, false);
@@ -358,6 +358,16 @@ public class Player extends Character implements Collidable, Fallable{
 
 	public double getPrevGround() {
 		return prevGround;
+	}
+	
+	public void changeMaxDash(int x) {
+		this.maxDash += x;
+	}
+
+	@Override
+	protected void die() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

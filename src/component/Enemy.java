@@ -16,7 +16,20 @@ public abstract class Enemy extends Character implements Collidable{
 	
 	public void takeDamage(int x) {
 		super.takeDamage(x);
-		justTakeDamage += 30;
+		justTakeDamage += 30;	
+	}
+	
+	public void die() {
+		new Thread(() -> {
+			try {
+				Thread.sleep(400);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			SceneManager.getInstance().getEnemy().remove(this);
+		}).start();
+		
 	}
 
 }

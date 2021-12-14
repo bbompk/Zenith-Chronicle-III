@@ -25,7 +25,7 @@ public class Monster extends Enemy {
 		super(x, r.nextInt(300)+100, size.get(type), size.get(type));
 		// TODO Auto-generated constructor stub
 		this.type = type;
-		this.moveSpeed = 3 + r.nextDouble()*2 + 3*Difficulty.getHardMultiply();
+		this.moveSpeed = 0 + r.nextDouble()*2 + 3*Difficulty.getHardMultiply();
 		randomMove = 0;
 		maxHp = (int) (40 + r.nextInt(41) + 40*Difficulty.getHardMultiply());
 		hp = maxHp;
@@ -36,13 +36,13 @@ public class Monster extends Enemy {
 	public void update() {
 		// TODO Auto-generated method stub
 		justTakeDamage = justTakeDamage == 0 ? justTakeDamage : justTakeDamage -1;
-		if(fall()==0) {
+		if(fall()==0 && alive) {
 			double distance = getX() - SceneManager.getInstance().getPlayer().getX();
 			if(getY()+getH() == SceneManager.getInstance().getPlayer().getPrevGround() && justTakeDamage == 0) {
 				if(distance > -800 || distance < 800) {
 					if(distance > 0) {direction = 0; moveLeft(moveSpeed);}
 					if(distance < 0) {direction = 1; moveRight(moveSpeed);}
-				}else {
+				}}else {
 					if(randomMove==0) {
 						randomMove = r.nextInt(21)+21;
 						direction = r.nextInt(2);
@@ -52,19 +52,18 @@ public class Monster extends Enemy {
 						else moveRight(moveSpeed);
 					}
 				}
-			}
+			
 
 		}
 		//System.out.println(this.hashCode() + " " + getX() + " " + getY());
 		fall();
 
 	}
-	
 
 	@Override
 	public Sprite getImage() {
 		// TODO Auto-generated method stub
-		if(hp == 0 )return death.get(type);
+		if(!alive)return death.get(type);
 		if(justTakeDamage > 0)return hurt.get(type);
 		return run.get(type);
 	}
@@ -96,6 +95,6 @@ public class Monster extends Enemy {
 	
 	@Override
 	public void draw(GraphicsContext gc,boolean f) {
-		super.draw(gc,getImage().getImage(),getX(),getY(),getW(),getH());
+		super.draw(gc,direction==0);
 	}
 }

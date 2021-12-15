@@ -164,7 +164,8 @@ public class Player extends Character implements Collidable, Fallable{
 			attack();
 			attack.loadImage(attack.getFilepath());
 		}
-		if(dashing == 0 && KeyHandler.getInstance().getKeyStatus(17).equals(KeyStatus.DOWN) && !status.equals(PlayerStatus.DASHING) && dashAvail > 0) {
+		if(dashing == 0 && (KeyHandler.getInstance().getKeyStatus(16).equals(KeyStatus.DOWN) || KeyHandler.getInstance().getKeyStatus(17).equals(KeyStatus.DOWN) )
+				&& !status.equals(PlayerStatus.DASHING) && dashAvail > 0) {
 			if(!jumpStatus.equals(PlayerStatus.ONGROUND)) dashAvail--;
 			dashing += 41;
 			roll.loadImage(roll.getFilepath());

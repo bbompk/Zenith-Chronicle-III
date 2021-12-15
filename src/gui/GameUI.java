@@ -26,6 +26,7 @@ public class GameUI extends Pane {
 	
 	private Healthbar healthbar;
 	public Pane pausePane;
+	public Pane blackPane;
 	private Button con;
 	private Button restart;
 	private Button main;
@@ -39,7 +40,13 @@ public class GameUI extends Pane {
 		restart = new Button("Restart");
 		main = new Button("Main Menu");
 		quit = new Button("Quit");
+		blackPane = new Pane();
+		blackPane.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-color:black;");
+		blackPane.setOpacity(0.80);
+		blackPane.setVisible(false);
+		blackPane.setPrefSize(1280, 720);
 		
+//		pausePane.setOpacity(0.5);
 		pausePane.setVisible(false);
 		pausePane.setLayoutX(445);pausePane.setLayoutY(120);
 		pausePane.setMinSize(390,460);pausePane.setMaxSize(390, 460);
@@ -163,6 +170,7 @@ public class GameUI extends Pane {
 		pausePane.getChildren().addAll(con,restart,main,quit);
 		healthbar = new Healthbar();
 		
+		getChildren().add(blackPane);
 		getChildren().add(pausePane);
 		getChildren().add(healthbar);
 		getChildren().add(InventoryPane.getInstance());
@@ -189,6 +197,7 @@ public class GameUI extends Pane {
 	}
 
 	public void setPausePane(boolean visible) {
+		blackPane.setVisible(visible);
 		pausePane.setVisible(visible);
 	}
 	

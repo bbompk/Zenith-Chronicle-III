@@ -8,11 +8,15 @@ import component.Sprite;
 public class Boss extends Enemy {
 
 	private static Random r = new Random();
-	private Sprite idle;
-	private Sprite death;
-	private Sprite run;
-	private Sprite hurt;
+	private static Sprite idle = new Sprite("sprite/character/boss/idle.gif");
+	private static Sprite death = new Sprite("sprite/character/boss/death.gif");;
+	private static Sprite run = new Sprite("sprite/character/boss/walk.gif");;
+	private static Sprite hurt = new Sprite("sprite/character/boss/hurt.gif");;
+	private static Sprite pre_strike = new Sprite("sprite/character/boss/prepare_to_strike.gif");;
+	private static Sprite strike = new Sprite("sprite/character/boss/strike.gif");; 
 	private int immune;
+	private int direction;
+	private double attackRange;
 	
 	public Boss(double x, double y, int w, int h) {
 		super(x, y, w, h);
@@ -22,13 +26,24 @@ public class Boss extends Enemy {
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
-		super.update();
+		//AttackBox range = new AttackBox(getX()+(direction*attackRange), );
+		
+		
+		fall();
 	}
+	
+	private void attack() {
+		
+	}
+	
+	
 
 	@Override
 	public Sprite getImage() {
 		// TODO Auto-generated method stub
-		return null;
+		if(!alive)return death;
+		if(justTakeDamage > 0)return hurt;
+		return run;
 	}
 
 	@Override

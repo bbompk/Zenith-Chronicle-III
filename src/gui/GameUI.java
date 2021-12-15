@@ -3,6 +3,7 @@ package gui;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import logic.Difficulty;
 import logic.GameManager;
@@ -25,6 +27,8 @@ import entity.Powerup;
 public class GameUI extends Pane {
 	
 	private Healthbar healthbar;
+	private StackPane healthbarPane;
+	private Text health;
 	public Pane pausePane;
 	public Pane blackPane;
 	private Button con;
@@ -40,6 +44,11 @@ public class GameUI extends Pane {
 		restart = new Button("Restart");
 		main = new Button("Main Menu");
 		quit = new Button("Quit");
+		health = new Text("");
+		healthbarPane = new StackPane();
+		
+		healthbarPane.setAlignment(Pos.CENTER);
+		
 		blackPane = new Pane();
 		blackPane.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-color:black;");
 		blackPane.setOpacity(0.80);
@@ -55,6 +64,7 @@ public class GameUI extends Pane {
 		restart.setFont(FontHolder.getInstance().getFont().get(50));
 		main.setFont(FontHolder.getInstance().getFont().get(50));
 		quit.setFont(FontHolder.getInstance().getFont().get(50));
+		health.setFont(FontHolder.getInstance().getFont().get(30));
 		con.setTextFill(Color.BLACK);con.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
 		restart.setTextFill(Color.BLACK);restart.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
 		main.setTextFill(Color.BLACK);main.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
@@ -169,10 +179,10 @@ public class GameUI extends Pane {
 		
 		pausePane.getChildren().addAll(con,restart,main,quit);
 		healthbar = new Healthbar();
-		
+		healthbarPane.getChildren().addAll(healthbar,health);
 		getChildren().add(blackPane);
 		getChildren().add(pausePane);
-		getChildren().add(healthbar);
+		getChildren().add(healthbarPane);
 		getChildren().add(InventoryPane.getInstance());
 		getChildren().add(PowerupPane.getInstance());
 	}
@@ -184,6 +194,7 @@ public class GameUI extends Pane {
 	
 	public void update() {
 		healthbar.update();
+		health.setText(SceneManager.getInstance().getPlayer().getHp() + " / " + SceneManager.getInstance().getPlayer().getMaxHp());
 	}
 
 	public GameUI(Node arg0) {

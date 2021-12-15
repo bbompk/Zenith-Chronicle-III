@@ -100,15 +100,15 @@ public class Powerup extends Entity implements Collidable, Fallable{
 					
 					PowerupPane.getInstance().getText().get(type).setText(String.valueOf(Integer.parseInt(PowerupPane.getInstance().getText().get(type).getText())+1));
 					if(type==1){
-						SceneManager.getInstance().getPlayer().changeAtk(10);
+						SceneManager.getInstance().getPlayer().changeAtk(100);
 						try {
 							Thread.sleep(10000);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 //							e.printStackTrace();
-							SceneManager.getInstance().getPlayer().changeAtk(10);
+							SceneManager.getInstance().getPlayer().changeAtk(100);
 						}
-						SceneManager.getInstance().getPlayer().changeAtk(-10);
+						SceneManager.getInstance().getPlayer().changeAtk(-100);
 					}
 					if(type==2){
 						SceneManager.getInstance().getPlayer().changeJumpH(2);

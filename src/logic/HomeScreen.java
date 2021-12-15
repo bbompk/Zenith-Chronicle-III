@@ -47,7 +47,7 @@ public class HomeScreen extends Pane {
 		start = new Button("Start");
 		how = new Button("How to play");
 		credit = new Button("Credit");
-		quit = new Button("Quit");
+		quit = new Button("Exit");
 		backh = new Button("Back");
 		backc = new Button("Back");
 		x = new Button("X");

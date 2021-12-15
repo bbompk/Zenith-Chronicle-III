@@ -20,6 +20,8 @@ public class Powerup extends Entity implements Collidable, Fallable{
 	private boolean renewable;
 	private int level;
 	private static Queue<Integer> renew = new LinkedList<Integer>();
+	private static ArrayList<Thread> thread = new ArrayList<Thread>();
+	boolean interrupt;
 
 	public Powerup(double x,int type) {
 		super(x, 520 ,50,50);
@@ -93,7 +95,8 @@ public class Powerup extends Entity implements Collidable, Fallable{
 		if(collideWith(SceneManager.getInstance().getPlayer())) {
 			if(type==0)SceneManager.getInstance().getPlayer().changeHp(30);
 			else {
-				new Thread(()->{
+				Thread t = new Thread(()->{
+					
 					PowerupPane.getInstance().getText().get(type).setText(String.valueOf(Integer.parseInt(PowerupPane.getInstance().getText().get(type).getText())+1));
 					if(type==1){
 						SceneManager.getInstance().getPlayer().changeAtk(10);
@@ -101,7 +104,8 @@ public class Powerup extends Entity implements Collidable, Fallable{
 							Thread.sleep(10000);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
-							e.printStackTrace();
+//							e.printStackTrace();
+							SceneManager.getInstance().getPlayer().changeAtk(10);
 						}
 						SceneManager.getInstance().getPlayer().changeAtk(-10);
 					}
@@ -111,7 +115,8 @@ public class Powerup extends Entity implements Collidable, Fallable{
 							Thread.sleep(10000);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
-							e.printStackTrace();
+//							e.printStackTrace();
+							SceneManager.getInstance().getPlayer().changeJumpH(2);
 						}
 						SceneManager.getInstance().getPlayer().changeJumpH(-2);
 					}
@@ -121,23 +126,27 @@ public class Powerup extends Entity implements Collidable, Fallable{
 							Thread.sleep(10000);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
-							e.printStackTrace();
+//							e.printStackTrace();
+							SceneManager.getInstance().getPlayer().changemvsp(2);
 						}
 						SceneManager.getInstance().getPlayer().changemvsp(-2);
 					}
 					PowerupPane.getInstance().getText().get(type).setText(String.valueOf(Integer.parseInt(PowerupPane.getInstance().getText().get(type).getText())-1));
-				}).start();;
+				});
+				thread.add(t);
+				t.start();
 			}
 			if(renewable) {
-				new Thread(() ->{
+				Thread t = new Thread(() ->{
 				double x = getX();double y = getY();int type = this.type;int level = this.level;
 				try {
-					Thread.sleep(200);
+					Thread.sleep(15000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}	renew.add((int) x);renew.add((int) y);renew.add(type);renew.add(level);
-			}).start();}
+//					e.printStackTrace();
+					interrupt = true;
+				}	if(!interrupt)renew.add((int) x);renew.add((int) y);renew.add(type);renew.add(level);
+			});thread.add(t);t.start();}
 			SceneManager.getInstance().getCollidable().remove(this);
 		}
 	}
@@ -150,6 +159,12 @@ public class Powerup extends Entity implements Collidable, Fallable{
 		while(renew.size() >3) {
 			int x = renew.poll();int y = renew.poll(); int type = renew.poll();int level = renew.poll();
 			if(level==Difficulty.level)SceneManager.getInstance().getCollidable().add(new Powerup(x, y, type,true,level));
+		}
+	}
+	
+	public static void clear() {
+		for(Thread t : thread) {
+			t.interrupt();
 		}
 	}
 }

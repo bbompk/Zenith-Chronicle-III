@@ -16,9 +16,10 @@ public class GameManager {
 	private boolean isGameOver = false;
 	private boolean isVictory = false;
 	
-	private static GameState state;
+	private GameState state;
 	private boolean escPress;
 	private boolean escPress2;
+	private AnimationTimer animation;
 	
 	
 	public GameManager() {
@@ -37,6 +38,7 @@ public class GameManager {
 		if(state == GameState.LEVEL) {
 			if(KeyHandler.getInstance().getKeyStatus(27).equals(KeyStatus.DOWN) && !escPress2) {
 				state = GameState.PAUSE;
+				GameUI.getInstance().setPausePane(true);
 				escPress = true;
 				// TODO handle pause
 			}
@@ -55,6 +57,7 @@ public class GameManager {
 		if(state == GameState.PAUSE) {
 			if(KeyHandler.getInstance().getKeyStatus(27).equals(KeyStatus.DOWN) && !escPress) {
 				state = GameState.LEVEL;
+				GameUI.getInstance().setPausePane(false);
 				escPress2 = true;
 				// TODO handle pause
 			}
@@ -75,12 +78,12 @@ public class GameManager {
 		SceneManager.getInstance().setUp();
 		SceneManager.getInstance().startLevel();
 		//SceneManager.getInstance().startBossLevel();
-		GameUI ui = new GameUI();
+		GameUI ui = GameUI.getInstance();
 		root.getChildren().add(KeyHandler.getInstance());
 		root.getChildren().add(SceneManager.getInstance());
 		root.getChildren().add(ui);
 		KeyHandler.getInstance().requestFocus();
-		AnimationTimer animation = new AnimationTimer(){
+		animation = new AnimationTimer(){
 			public void handle(long now){
 //				new Thread(() -> {
 //					new Thread(() -> {
@@ -110,9 +113,16 @@ public class GameManager {
 		this.isVictory = isVictory;
 	}
 
-	public static GameState getState() {
+	public GameState getState() {
 		return state;
 	}
 	
+	public void clear() {
+		escPress= false;escPress2 = false;state = GameState.LEVEL;
+	}
 	
+	public void restart() {
+		animation.stop();
+		instance = null;
+	}
 }

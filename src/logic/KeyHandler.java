@@ -126,4 +126,9 @@ public class KeyHandler extends Canvas{
 		return keyCollection[keycode];
 	}
 	
+	public void restart() {
+		for(int i=0;i<112;i++) {
+			keyCollection[i] = KeyStatus.FREE;
+		}
+	}
 }

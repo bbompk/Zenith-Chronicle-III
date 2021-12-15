@@ -52,14 +52,14 @@ public class Player extends Character implements Collidable, Fallable{
 	private double prevGround;
 	
 	// Images
-	private static final Sprite idle = new Sprite("sprite/character/player/idle.gif");
-	private static final Sprite run = new Sprite("sprite/character/player/run.gif");
-	private static final Sprite jump_up = new Sprite("sprite/character/player/jump_up.gif");
-	private static final Sprite jump_down = new Sprite("sprite/character/player/jump_down.gif");
-	private static final Sprite death = new Sprite("sprite/character/player/death.gif");
-	private static final Sprite attack = new Sprite("sprite/character/player/attack.gif");
-	private static final Sprite hurt = new Sprite("sprite/character/player/hurt.gif");
-	private static final Sprite roll = new Sprite("sprite/character/player/roll_4_frame.gif");
+	private Sprite idle;
+	private Sprite run;
+	private Sprite jump_up;
+	private Sprite jump_down;
+	private Sprite death;
+	private Sprite attack;
+	private Sprite hurt;
+	private Sprite roll;
 	
 	//Item
 	public ArrayList<Integer> inventory;
@@ -77,7 +77,14 @@ public class Player extends Character implements Collidable, Fallable{
 		dashAvail = maxDash;
 		inventory = new ArrayList<Integer>(Arrays.asList(0,0,0,0,0,0));
 		alive = true;
-		
+		idle = new Sprite("sprite/character/player/idle.gif");
+		run = new Sprite("sprite/character/player/run.gif");
+		jump_up = new Sprite("sprite/character/player/jump_up.gif");
+		jump_down = new Sprite("sprite/character/player/jump_down.gif");
+		death = new Sprite("sprite/character/player/death.gif");
+		attack = new Sprite("sprite/character/player/attack.gif");
+		hurt = new Sprite("sprite/character/player/hurt.gif");
+		roll = new Sprite("sprite/character/player/roll_4_frame.gif");
 		
 		hp =100;
 		maxHp =100;
@@ -96,7 +103,15 @@ public class Player extends Character implements Collidable, Fallable{
 		maxDash = 1;
 		dashAvail = maxDash;
 		inventory = new ArrayList<Integer>(Arrays.asList(0,0,0,0,0,0));
-		
+		alive = true;
+		idle = new Sprite("sprite/character/player/idle.gif");
+		run = new Sprite("sprite/character/player/run.gif");
+		jump_up = new Sprite("sprite/character/player/jump_up.gif");
+		jump_down = new Sprite("sprite/character/player/jump_down.gif");
+		death = new Sprite("sprite/character/player/death.gif");
+		attack = new Sprite("sprite/character/player/attack.gif");
+		hurt = new Sprite("sprite/character/player/hurt.gif");
+		roll = new Sprite("sprite/character/player/roll_4_frame.gif");
 		hp =100;
 		maxHp =100;
 		atk = 9990;
@@ -300,14 +315,15 @@ public class Player extends Character implements Collidable, Fallable{
 	@Override
 	public void draw(GraphicsContext gc,boolean f) {
 		// TODO Auto-generated method stub
+		if(getImage()==null) return;
+		if(status.equals(PlayerStatus.DIE)) {
+
+			if(!face.equals(PlayerStatus.LEFT))super.draw(gc, getImage().getImage(), getX()-getW()/3, getY(), (getW()*5)/3, getH());
+			else super.draw(gc,getImage().getImage(), getX()+getW()*4/3,getY(),-getW()*5/3,getH()); return;
+		}
 
 		if(immune/2%2 == 0) {
-			if(getImage()==null) return;
-			if(status.equals(PlayerStatus.DIE)) {
-
-				if(!face.equals(PlayerStatus.LEFT))super.draw(gc, getImage().getImage(), getX()-getW()/3, getY(), (getW()*5)/3, getH());
-				else super.draw(gc,getImage().getImage(), getX()+getW()*4/3,getY(),-getW()*5/3,getH()); return;
-			}
+			
 			if((!lastFrameStatus.equals(status) && atkable < 41) || justTakeDamage == 31) getImage().loadImage(getImage().getFilepath());
 			if(justTakeDamage > 0) {
 				if(!face.equals(PlayerStatus.LEFT))super.draw(gc, getImage().getImage(), getX()-getW()/3, getY()-getH()/4, getW()*4/3, getH()*5/4);
@@ -394,7 +410,7 @@ public class Player extends Character implements Collidable, Fallable{
 		status = PlayerStatus.DIE;
 		new Thread(() -> {
 			try {
-				Thread.sleep(1650);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

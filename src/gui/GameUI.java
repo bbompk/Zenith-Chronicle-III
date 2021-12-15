@@ -4,17 +4,22 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import logic.Difficulty;
 import logic.GameManager;
 import logic.GameMode;
 import logic.GameState;
+import logic.HomeScreen;
 import logic.KeyHandler;
 import logic.SceneManager;
+import entity.Background;
 import entity.Powerup;
 
 public class GameUI extends Pane {
@@ -55,8 +60,7 @@ public class GameUI extends Pane {
 		
 		con.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				GameManager.getInstance().clear();
-				setPausePane(false);
+				GameManager.getInstance().continuee();
 			}
 		});
 		con.setOnMouseEntered(new EventHandler<MouseEvent>() {
@@ -103,8 +107,27 @@ public class GameUI extends Pane {
 		});
 		main.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				Difficulty.setDifficulty(GameMode.EASY);
-				GameManager.getInstance().gameStart(e);
+				Powerup.clear();
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				clear();
+				SceneManager.getInstance().restart();
+				GameManager.getInstance().restart();
+				KeyHandler.getInstance().restart();
+				Difficulty.clear();
+				Stage stage = ((Stage) ((Node) e.getSource()).getScene().getWindow());
+				StackPane root = new StackPane();
+				ImageView image = new ImageView(new Background().getImage().getImage());
+				image.setFitHeight(720);image.setFitWidth(1280);
+				root.getChildren().add(image);
+				root.getChildren().add(new HomeScreen(stage));
+				Scene scene = new Scene(root);
+				scene.setFill(Color.BLACK);
+				stage.setScene(scene);
 			}
 		});
 		main.setOnMouseEntered(new EventHandler<MouseEvent>() {

@@ -55,20 +55,21 @@ public class Monster extends Enemy {
 		justTakeDamage = justTakeDamage == 0 ? justTakeDamage : justTakeDamage -1;
 		if(fall()==0 && alive) {
 			double distance = getX() - SceneManager.getInstance().getPlayer().getX();
-			if(getY()+getH() == SceneManager.getInstance().getPlayer().getPrevGround() && justTakeDamage == 0) {
+			if(getY()+getH() == SceneManager.getInstance().getPlayer().getPrevGround() && justTakeDamage == 0  && SceneManager.getInstance().getPlayer().isAlive()) {
 				if(distance > -800 || distance < 800) {
 					if(distance > 0) {direction = 0; moveLeft(moveSpeed);}
 					if(distance < 0) {direction = 1; moveRight(moveSpeed);}
-				}}else if(distance < 3000 || distance > -3000){
-					if(randomMove==0) {
-						randomMove = r.nextInt(21)+21;
-						direction = r.nextInt(2);
-					}else {
-						randomMove--;
-						if(direction==0)moveLeft(moveSpeed);
-						else moveRight(moveSpeed);
-					}
 				}
+			}else if(distance < 3000 || distance > -3000 || !SceneManager.getInstance().getPlayer().isAlive()){
+				if(randomMove==0) {
+					randomMove = r.nextInt(21)+21;
+					direction = r.nextInt(2);
+				}else {
+					randomMove--;
+					if(direction==0)moveLeft(moveSpeed);
+					else moveRight(moveSpeed);
+				}
+			}
 		}
 		//System.out.println(this.hashCode() + " " + getX() + " " + getY());
 		fall();

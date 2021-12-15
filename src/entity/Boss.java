@@ -19,16 +19,17 @@ public class Boss extends Enemy {
 	private static Sprite death = new Sprite("sprite/character/boss/death.gif");;
 	private static Sprite run = new Sprite("sprite/character/boss/walk.gif");;
 	private static Sprite hurt = new Sprite("sprite/character/boss/hurt.gif");;
+	private static Sprite strike = new Sprite("sprite/character/boss/ayyo.gif");; 
 	private static Sprite pre_strike = new Sprite("sprite/character/boss/prepare_to_strike.gif");;
-	private static Sprite strike = new Sprite("sprite/character/boss/strike.gif");; 
+	
 	
 	private int stunImmune;
 	private int direction;
 	private Boolean isRight;
-	private double attackRange;
+	private double attackRangeX;
+	private double attackRangeY;
 	private AttackBox attackBox;
 	private BossStatus status;
-	private int atkCooldown;
 	
 	private int prepareAtk;
 	private int attacking;
@@ -40,14 +41,33 @@ public class Boss extends Enemy {
 		status = BossStatus.WALK;
 		direction = -1;
 		moveSpeed = 1;
-		hp = 20000;
-		maxHp = 20000;
-		atk = 3;
+		hp = 800;
+		maxHp = 800;
+		atk = 20;
 		status = BossStatus.WALK;
 		prepareAtk = 0;
 		attacking = 0;
 		isRight = false;
-		setAttackBox(200);
+		
+		setAttackBox(180, 125);
+		
+	}
+	
+	public Boss(double x, double y, int ax, int  ay) {
+		super(x, y, 200, 250);
+		// TODO Auto-generated constructor stub
+		status = BossStatus.WALK;
+		direction = -1;
+		moveSpeed = 1;
+		hp = 800;
+		maxHp = 800;
+		atk = 20;
+		status = BossStatus.WALK;
+		prepareAtk = 0;
+		attacking = 0;
+		isRight = false;
+		
+		setAttackBox(ax, ay);
 		
 	}
 
@@ -89,7 +109,7 @@ public class Boss extends Enemy {
 								new Thread(()-> {
 									status = BossStatus.IDLE;
 									try {
-										Thread.sleep(2000);
+										Thread.sleep(1500);
 									} catch (InterruptedException e) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
@@ -109,7 +129,7 @@ public class Boss extends Enemy {
 								new Thread(()-> {
 									status = BossStatus.IDLE;
 									try {
-										Thread.sleep(2000);
+										Thread.sleep(1500);
 									} catch (InterruptedException e) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
@@ -159,7 +179,7 @@ public class Boss extends Enemy {
 				
 			}
 		}
-		attackBox.setY(getY());
+		attackBox.setY(getY() + attackRangeY);
 		if(prevy == getY()) { return 0; }
 		if(prevy < getY()) return 1;
 		if(prevy > getY()) return -1;
@@ -182,7 +202,7 @@ public class Boss extends Enemy {
 			
 		if(getX() > SceneManager.getInstance().getRightBound()- getW()) setX(SceneManager.getInstance().getRightBound() - getW());
 		direction = 1;
-		attackBox.setX(getX()+(direction*attackRange));
+		attackBox.setX(getX()+(direction*attackRangeX));
 		
 		
 	}
@@ -203,12 +223,12 @@ public class Boss extends Enemy {
 		
 		if(getX() < SceneManager.getInstance().getLeftBound()) setX(SceneManager.getInstance().getLeftBound());
 		direction = -1;
-		attackBox.setX(getX()+(direction*attackRange));
+		attackBox.setX(getX()+(direction*attackRangeX));
 		
 	}
 	
 	private void attack() {
-			AttackBox a = new AttackBox(attackBox.getX(), attackBox.getY(), attackBox.getH(), attackBox.getH());
+			AttackBox a = new AttackBox(attackBox.getX(), attackBox.getY(), attackBox.getW()+20, attackBox.getH());
 			Player player = SceneManager.getInstance().getPlayer();
 			if(player.collideWith(a)) {
 				player.takeDamage(atk);
@@ -217,14 +237,14 @@ public class Boss extends Enemy {
 	}
 	
 	
-
+	
 	@Override
 	public Sprite getImage() {
 		// TODO Auto-generated method stub
 		if(!alive)return death;
 		
 		if(status.equals(BossStatus.PREPARING)) return pre_strike;
-		if(status.equals(BossStatus.STRIKING)) {System.out.println("STRIKE!!"); return strike; } 
+		if(status.equals(BossStatus.STRIKING)) return strike; 
 		
 		if(justTakeDamage > 0 && stunImmune < 501)  return hurt;  
 		if(status.equals(BossStatus.IDLE)) return idle;
@@ -240,7 +260,15 @@ public class Boss extends Enemy {
 		}
 		if(justTakeDamage == 30 && !status.equals(BossStatus.PREPARING) && !status.equals(BossStatus.STRIKING)) getImage() .loadImage(getImage().getFilepath());
 		if(alive) attackBox.drawHitBox(gc);
-		if(status.equals(BossStatus.PREPARING) || status.equals(BossStatus.STRIKING) && justTakeDamage == 0) {
+		if(!alive) {
+			if(!isRight) {
+				super.draw(gc, getImage().getImage(), getX()-90, getY()-230, 480, 480);
+			}else {
+				super.draw(gc, getImage().getImage(), getX()-90+480, getY()-230, -480, 480);
+			}
+			
+		}
+		else if(status.equals(BossStatus.PREPARING) || status.equals(BossStatus.STRIKING) && justTakeDamage == 0 && alive) {
 			
 			if(!isRight) {
 				super.draw(gc, getImage().getImage(), getX()-290, getY()-110, 780, 360);
@@ -268,6 +296,23 @@ public class Boss extends Enemy {
 	@Override
 	public void die() {
 		status = BossStatus.DIE;
+		death.loadImage(death.getFilepath());
+		
+		
+		new Thread(() -> {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Item.generate(getX() + 75, getY()+100);
+			Item.generate(getX() + 150, getY() + 80);
+			Powerup.generate(0, (int) getX(), (int) getX()+ (int) getW());
+		}).start();
+		
+		
+		
 		new Thread(() -> {
 			try {
 				Thread.sleep(2000);
@@ -278,6 +323,15 @@ public class Boss extends Enemy {
 			needRemove =true;
 		}).start();
 		
+		new Thread(() -> {
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			SceneManager.getInstance().getProps().add(new Portal(SceneManager.getInstance().getRightBound() - 200, 490));
+		}).start();
 	}
 	
 
@@ -289,13 +343,14 @@ public class Boss extends Enemy {
 		super.takeDamage(x);
 	}
 
-	public double getAttackRange() {
-		return attackRange;
+	public double getAttackRangeX() {
+		return attackRangeX;
 	}
 
-	private void setAttackBox(int atkRange) {
-		attackRange = atkRange;
-		this.attackBox = new AttackBox(getX()+(direction*atkRange), getY(), atkRange, 250);
+	private void setAttackBox(int atkRangeX, int atkRangeY) {
+		attackRangeX = atkRangeX; 
+		attackRangeY = atkRangeY;
+		this.attackBox = new AttackBox(getX()+(direction*atkRangeX), getY()+(getH() - atkRangeY), atkRangeX, atkRangeY);
 	}
 	
 	

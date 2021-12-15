@@ -135,20 +135,21 @@ public class SceneManager extends Canvas implements Serializable {
 		Tile.generate();
 		Powerup.generate();
 		Monster.generate();
-//		enemy.add(new Boss(700, 320));
 		player.setY(100);
 		player.setX(100);
+		
+		if(isDev) props.add(new Portal(100, 500));
 	}
 	
 	public void startBossLevel() {
+		//ameManager.getInstance().setState(GameState.BOSS);
 		setLeftBound(0);
 		setRightBound(1280);
 		props.add(new Background(0, 0, "sprite/background/desert_mountains.png"));
 		props.add(new TileBackground(0, 0, 1280, 720, "sprite/background/boss_arena_tiles.png"));
-		props.add(new Portal());
 		props.add(new Particles(50, 50, 90, 150, -1, "sprite/checkpoint/boss_portal_start.gif"));
 		Tile.generateBossArena();
-		enemy.add(new Boss(700, 320));
+		enemy.add(new Boss(850, 410));
 		player.setY(50);
 	}
 

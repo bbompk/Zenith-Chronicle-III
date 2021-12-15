@@ -124,8 +124,12 @@ public class GameManager {
 
 	public GameState getState() {
 		return state;
-	}
+	}	
 	
+	public void setState(GameState state) {
+		this.state = state;
+	}
+
 	public void clear() {
 		escPress= false;escPress2 = true;state = GameState.LEVEL;continuee = false;
 	}

@@ -76,7 +76,7 @@ public class Player extends Character implements Collidable, Fallable{
 		prevGround = 550+120;
 		maxDash = 1;
 		dashAvail = maxDash;
-		inventory = new ArrayList<Integer>(Arrays.asList(0,0,0,0,0,1));
+		inventory = new ArrayList<Integer>(Arrays.asList(0,0,0,0,0,0));
 		alive = true;
 		idle = new Sprite("sprite/character/player/idle.gif");
 		run = new Sprite("sprite/character/player/run.gif");
@@ -112,7 +112,7 @@ public class Player extends Character implements Collidable, Fallable{
 		prevGround = 550+120;
 		maxDash = 1;
 		dashAvail = maxDash;
-		inventory = new ArrayList<Integer>(Arrays.asList(0,0,0,0,0,1));
+		inventory = new ArrayList<Integer>(Arrays.asList(0,0,0,0,0,0));
 		alive = true;
 		idle = new Sprite("sprite/character/player/idle.gif");
 		run = new Sprite("sprite/character/player/run.gif");

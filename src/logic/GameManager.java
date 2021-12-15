@@ -33,11 +33,9 @@ public class GameManager {
 	}
 	
 	public void update(ActionEvent e) {
-		int esc = 27;
-		
-		if(escPress2 && KeyHandler.getInstance().getKeyStatus(esc).equals(KeyStatus.FREE))escPress2 = false;
+		if(escPress2 && KeyHandler.getInstance().getKeyStatus(27).equals(KeyStatus.FREE))escPress2 = false;
 		if(state == GameState.LEVEL) {
-			if(KeyHandler.getInstance().getKeyStatus(esc).equals(KeyStatus.DOWN) && !escPress2) {
+			if(KeyHandler.getInstance().getKeyStatus(27).equals(KeyStatus.DOWN) && !escPress2) {
 				state = GameState.PAUSE;
 				escPress = true;
 				// TODO handle pause
@@ -52,18 +50,15 @@ public class GameManager {
 				state = GameState.VICTORY;
 				//TODO handle victory screen
 			}
-			
-		if(escPress && KeyHandler.getInstance().getKeyStatus(esc).equals(KeyStatus.FREE))escPress = false;	
+		}
+		if(escPress && KeyHandler.getInstance().getKeyStatus(27).equals(KeyStatus.FREE))escPress = false;	
 		if(state == GameState.PAUSE) {
-			if(KeyHandler.getInstance().getKeyStatus(esc).equals(KeyStatus.DOWN) && !escPress) {
+			if(KeyHandler.getInstance().getKeyStatus(27).equals(KeyStatus.DOWN) && !escPress) {
 				state = GameState.LEVEL;
 				escPress2 = true;
 				// TODO handle pause
 			}
 		}
-			
-		}
-		
 		//TODO might have to do with other states, should set up homescreen and run game with gamemanager
 	}
 	

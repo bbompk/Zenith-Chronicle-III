@@ -27,6 +27,7 @@ public class Player extends Character implements Collidable, Fallable{
 	private int atkable = 0;
 	private int immune = 0;
 	protected static PlayerStatus face = PlayerStatus.RIGHT;
+	protected boolean freezeFace;
 	
 //	private static final AudioClip atkSound = new AudioClip(ClassLoader.getSystemResource("attackk.wav").toString());
 	
@@ -185,17 +186,18 @@ public class Player extends Character implements Collidable, Fallable{
 		if(dashing > 21) {
 			status = PlayerStatus.DASHING;
 			dash();
+		}else { 
+			if(atkable > 41) {
+				if(direction == 0 || atkable > 66)status = PlayerStatus.ATTACKING;
+				else atkable = 41;
 		}
-		else if(atkable > 41) {
-			if(direction == 0)status = PlayerStatus.ATTACKING;
-			else atkable = 41;
-		}//---------------moving
-		else if(!(status.equals(PlayerStatus.DIE)) && direction != 0){
+		//---------------moving
+		if(!(status.equals(PlayerStatus.DIE)) && direction != 0 && atkable < 76){
 
-			if(KeyHandler.getInstance().getKeyStatus(68).equals(KeyStatus.DOWN)) {
+			if(direction == 1) {
 				moveRight();
 			}
-			if(KeyHandler.getInstance().getKeyStatus(65).equals(KeyStatus.DOWN)) {
+			if(direction == -1) {
 				moveLeft();
 			}}
 			if(direction == 0) {status = PlayerStatus.IDLE;}
@@ -203,7 +205,7 @@ public class Player extends Character implements Collidable, Fallable{
 				prevGround = getY()+getH();
 				jump();
 			}
-		
+		}
 		}
 		int fallBack;
 		if(!status.equals(PlayerStatus.DASHING)) {
@@ -295,8 +297,7 @@ public class Player extends Character implements Collidable, Fallable{
 			SceneManager.getInstance().setOffsetX(newOffSetX);
 		}
 		
-		direction = 1;
-		face = PlayerStatus.RIGHT;
+		if(atkable<66)face = PlayerStatus.RIGHT;
 	}
 	
 	private void moveLeft() {
@@ -311,8 +312,7 @@ public class Player extends Character implements Collidable, Fallable{
 			SceneManager.getInstance().setOffsetX(newOffSetX);
 		}
 		
-		direction = -1;
-		face = PlayerStatus.LEFT;
+		if(atkable<66)face = PlayerStatus.LEFT;
 	}
 
 	private void dash() {

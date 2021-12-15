@@ -20,12 +20,14 @@ public class GameManager {
 	private boolean escPress;
 	private boolean escPress2;
 	private AnimationTimer animation;
+	private boolean continuee;
 	
 	
 	public GameManager() {
 		// TODO Auto-generated constructor stub
 		state = GameState.TITLE;
 		escPress = false;escPress2 = false;
+		continuee = false;
 	}
 
 	public static GameManager getInstance() {
@@ -53,12 +55,14 @@ public class GameManager {
 				//TODO handle victory screen
 			}
 		}
-		if(escPress && KeyHandler.getInstance().getKeyStatus(27).equals(KeyStatus.FREE))escPress = false;	
+		if(continuee || (escPress && KeyHandler.getInstance().getKeyStatus(27).equals(KeyStatus.FREE)))escPress = false;	
 		if(state == GameState.PAUSE) {
-			if(KeyHandler.getInstance().getKeyStatus(27).equals(KeyStatus.DOWN) && !escPress) {
+			if(continuee || (KeyHandler.getInstance().getKeyStatus(27).equals(KeyStatus.DOWN) && !escPress)) {
 				state = GameState.LEVEL;
 				GameUI.getInstance().setPausePane(false);
+				KeyHandler.getInstance().requestFocus();
 				escPress2 = true;
+				continuee = false;
 				// TODO handle pause
 			}
 		}
@@ -74,7 +78,7 @@ public class GameManager {
 		Scene scene = new Scene(root,1280,720);
 		scene.setFill(Color.BLACK);
 		stagee.setScene(scene);
-		stagee.setTitle("Zenith chronicle");
+		stagee.setTitle("Zenith chronicle 3");
 		SceneManager.getInstance().setUp();
 		SceneManager.getInstance().startLevel();
 		//SceneManager.getInstance().startBossLevel();
@@ -87,8 +91,13 @@ public class GameManager {
 			public void handle(long now){
 //				new Thread(() -> {
 //					new Thread(() -> {
-						update(e);KeyHandler.getInstance().update();ui.update();
-						if(!state.equals(GameState.PAUSE)) SceneManager.getInstance().update();
+						if(KeyHandler.getInstance().getKeyStatus(69).equals(KeyStatus.DOWN))System.out.println("rgfdfz");;
+						update(e);
+						KeyHandler.getInstance().update();
+						if(!state.equals(GameState.PAUSE)) {
+							ui.update();
+							SceneManager.getInstance().update();
+						}
 //					}).start();
 //				}).start();
 //				try {Thread.sleep(10);} catch(Exception e) {} 
@@ -118,11 +127,15 @@ public class GameManager {
 	}
 	
 	public void clear() {
-		escPress= false;escPress2 = false;state = GameState.LEVEL;
+		escPress= false;escPress2 = true;state = GameState.LEVEL;continuee = false;
 	}
 	
 	public void restart() {
 		animation.stop();
 		instance = null;
+	}
+
+	public void continuee() {
+		continuee = true;
 	}
 }

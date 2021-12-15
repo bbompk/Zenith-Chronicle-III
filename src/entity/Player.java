@@ -89,7 +89,7 @@ public class Player extends Character implements Collidable, Fallable{
 		roll = new Sprite("sprite/character/player/roll_4_frame.gif");
 		hp =100;
 		maxHp =100;
-		atk = 9;
+		atk = 50;
 		new Thread(()->{
 			while(true) {
 			try {
@@ -125,7 +125,7 @@ public class Player extends Character implements Collidable, Fallable{
 		roll = new Sprite("sprite/character/player/roll_4_frame.gif");
 		hp =100;
 		maxHp =100;
-		atk = 9;
+		atk = 50;
 		new Thread(()->{
 			while(true) {
 			try {

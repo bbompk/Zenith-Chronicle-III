@@ -35,6 +35,7 @@ public class Boss extends Enemy {
 		direction = -1;
 		moveSpeed = 3;
 		hp = 500000;
+		maxHp = 500000;
 		atk = 3;
 		status = BossStatus.WALK;
 		setAttackBox(200);
@@ -176,14 +177,14 @@ public class Boss extends Enemy {
 		// TODO Auto-generated method stub
 		if(!alive)return death;
 		if(status.equals(BossStatus.PREPARING)) return pre_strike;
-		if(justTakeDamage > 0 && stunImmune < 471)return hurt;
 		if(status.equals(BossStatus.STRIKING)) return strike;
+		if(justTakeDamage > 0 && stunImmune < 471)return hurt;
 		return run;
 	}
 	
 	@Override
 	public void draw(GraphicsContext gc, boolean f) {
-		
+		System.out.println(status);
 		if(!isAlive()) {
 			//TODO death animation;
 			

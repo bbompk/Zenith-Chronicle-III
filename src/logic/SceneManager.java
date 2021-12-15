@@ -9,6 +9,7 @@ import component.Entity;
 import component.Interactable;
 import component.Sprite;
 import entity.Background;
+import entity.Boss;
 import entity.Item;
 import entity.Monster;
 import entity.Particles;
@@ -111,7 +112,6 @@ public class SceneManager extends Canvas implements Serializable {
 		for(Interactable i : interactable) {
 			if(i instanceof Entity) ((Entity) i).draw(gc,false);
 		}
-
 		player.drawHitBox(gc);
 		player.draw(gc,false);
 	}
@@ -121,7 +121,7 @@ public class SceneManager extends Canvas implements Serializable {
 		if(Difficulty.countDown==0)startBossLevel();
 		else gameStart();
 	}
-	
+		
 	public void setUp() {
 		Powerup.setUp();Item.setUp();Monster.setUp();
 	}
@@ -135,6 +135,7 @@ public class SceneManager extends Canvas implements Serializable {
 		Tile.generate();
 		Powerup.generate();
 		Monster.generate();
+		enemy.add(new Boss(700, 320));
 		player.setY(100);
 		player.setX(100);
 	}
@@ -147,6 +148,7 @@ public class SceneManager extends Canvas implements Serializable {
 		props.add(new Portal());
 		props.add(new Particles(50, 50, 90, 150, -1, "sprite/checkpoint/boss_portal_start.gif"));
 		Tile.generateBossArena();
+		enemy.add(new Boss(700, 320));
 		player.setY(50);
 	}
 

@@ -20,7 +20,7 @@ import util.GameUtil;
 
 public class Player extends Character implements Collidable, Fallable{
 	
-	public static final boolean WallHacks = false;
+	public static final boolean WallHacks = true;
 	
 	
 	//Utility
@@ -47,7 +47,7 @@ public class Player extends Character implements Collidable, Fallable{
 	
 	// Jumping
 	private PlayerStatus jumpStatus;
-	private double initJumpSpeed = 10;
+	private double initJumpSpeed = 20;
 	private double jumpCount;
 	private double prevGround;
 	

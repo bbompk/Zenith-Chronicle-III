@@ -45,7 +45,7 @@ public class Boss extends Enemy {
 		// TODO Auto-generated method stub
 		//AttackBox range = new AttackBox(getX()+(direction*attackRange), );
 		Player player = SceneManager.getInstance().getPlayer();
-		if(player.collideWith(attackBox) && alive) {
+		if(player.collideWith(attackBox) && alive && !(status.equals(BossStatus.PREPARING)) && !(status.equals(BossStatus.PREPARING))) {
 			
 			attack();	
 		}

@@ -22,6 +22,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class SceneManager extends Canvas implements Serializable {
+	
+	public static final boolean isDev = true;
 
 	private static SceneManager instance = null;
 	private double offsetX;
@@ -94,7 +96,7 @@ public class SceneManager extends Canvas implements Serializable {
 		for(Tile tile : tiles) {
 			Color strokeColor = (tile.isTransparent()) ? Color.RED: Color.BLACK;
 			gc.setStroke(strokeColor);
-			gc.strokeRect(tile.getX() - offsetX, tile.getY(), tile.getW(), tile.getH());
+			if(isDev) gc.strokeRect(tile.getX() - offsetX, tile.getY(), tile.getW(), tile.getH());
 		}
 		for(Enemy e : enemy) {
 			e.drawHitBox(gc);
@@ -128,11 +130,13 @@ public class SceneManager extends Canvas implements Serializable {
 		setLeftBound(0);
 		setRightBound(8960);
 		props.add(new Background());
-		props.add(new TileBackground(0, 0, 9600, 720, "sprite/background/test.png"));
+		props.add(new TileBackground(0, 0, 9600, 720, "sprite/background/level_tiles.png"));
 		props.add(new Portal(Difficulty.countDown==1, 7700, 10));
 		Tile.generate();
 		Powerup.generate();
 		Monster.generate();
+		player.setY(100);
+		player.setX(100);
 	}
 	
 	public void startBossLevel() {
@@ -151,7 +155,7 @@ public class SceneManager extends Canvas implements Serializable {
 	}
 	
 	public void clear() {
-		player.setX(150);player.setX(75);
+		player.setY(100);player.setX(100);
 		props.clear();enemy.clear();collidable.clear();interactable.clear();tiles.clear();
 		offsetX = 0;offsetY = 0;
 	}

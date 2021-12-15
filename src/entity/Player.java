@@ -111,7 +111,7 @@ public class Player extends Character implements Collidable, Fallable{
 		lastFrameStatus = status;
 		status = PlayerStatus.RUN;
 		if(atkable == 0 && jumpStatus.equals(PlayerStatus.ONGROUND) && KeyHandler.getInstance().getKeyStatus(83).equals(KeyStatus.DOWN) && !status.equals(PlayerStatus.DASHING)) {
-			atkable += 61;
+			atkable += 81;
 			//atkSound.play();
 			attack();
 			attack.loadImage(attack.getFilepath());
@@ -127,7 +127,7 @@ public class Player extends Character implements Collidable, Fallable{
 			status = PlayerStatus.DASHING;
 			dash();
 			
-		}else {
+		}else if(!(status.equals(PlayerStatus.DIE))){
 			if(KeyHandler.getInstance().getKeyStatus(68).equals(KeyStatus.FREE) && KeyHandler.getInstance().getKeyStatus(65).equals(KeyStatus.FREE)) {
 				direction = 0;
 			}else if(KeyHandler.getInstance().getKeyStatus(68).equals(KeyStatus.DOWN) && KeyHandler.getInstance().getKeyStatus(65).equals(KeyStatus.DOWN)) {
@@ -168,8 +168,8 @@ public class Player extends Character implements Collidable, Fallable{
 		}
 		justTakeDamage = justTakeDamage == 0 ? justTakeDamage : justTakeDamage -1;
 		
-		if(prevx!=getX()) System.out.println(getX());
-		
+		//if(prevx!=getX()) System.out.println(getX());
+		if(!isAlive()) status = PlayerStatus.DIE;
 		
 		dashing = (dashing == 0) ? dashing : dashing - 1;
 		atkable = (atkable == 0) ? atkable : atkable - 1;
@@ -270,13 +270,13 @@ public class Player extends Character implements Collidable, Fallable{
 	public Sprite getImage() {
 		// TODO Auto-generated method stub
 		if(needRemove)return null;
-		if(!alive)return death;
+		if(!isAlive()) return death;
 		if(justTakeDamage > 0)return hurt;
 		if(status.equals(PlayerStatus.DASHING)) {
 			return roll;
 		}
 		if(atkable > 40) {
-			return attack;
+			return death;
 		}
 		if(jumpStatus.equals(PlayerStatus.GOINGUP)){
 			return jump_up;
@@ -294,9 +294,14 @@ public class Player extends Character implements Collidable, Fallable{
 	@Override
 	public void draw(GraphicsContext gc,boolean f) {
 		// TODO Auto-generated method stub
-	
+
 		if(immune/2%2 == 0) {
-			if(getImage()==null)return;
+			if(getImage()==null) return;
+			if(status.equals(PlayerStatus.DIE)) {
+
+				if(!face.equals(PlayerStatus.LEFT))super.draw(gc, getImage().getImage(), getX()-getW()/3, getY(), (getW()*5)/3, getH());
+				else super.draw(gc,getImage().getImage(), getX()+getW()*4/3,getY(),-getW()*5/3,getH()); return;
+			}
 			if((!lastFrameStatus.equals(status) && atkable < 41) || justTakeDamage == 31) getImage().loadImage(getImage().getFilepath());
 			if(justTakeDamage > 0) {
 				if(!face.equals(PlayerStatus.LEFT))super.draw(gc, getImage().getImage(), getX()-getW()/3, getY()-getH()/4, getW()*4/3, getH()*5/4);
@@ -305,7 +310,8 @@ public class Player extends Character implements Collidable, Fallable{
 			else if(atkable < 41 && status != PlayerStatus.DIE) {
 				if(!face.equals(PlayerStatus.LEFT))super.draw(gc, getImage().getImage(), getX(), getY(), getW(), getH());
 				else super.draw(gc, getImage().getImage(),getX()+getW(),getY(),-getW(),getH());
-			}else {
+			
+			} else {
 				if(!face.equals(PlayerStatus.LEFT))super.draw(gc, getImage().getImage(), getX()-getW()/3, getY(), (getW()*5)/3, getH());
 				else super.draw(gc,getImage().getImage(), getX()+getW()*4/3,getY(),-getW()*5/3,getH());
 			}
@@ -379,6 +385,7 @@ public class Player extends Character implements Collidable, Fallable{
 	@Override
 	protected void die() {
 		// TODO Auto-generated method stub
+		status = PlayerStatus.DIE;
 		new Thread(() -> {
 			try {
 				Thread.sleep(1500);

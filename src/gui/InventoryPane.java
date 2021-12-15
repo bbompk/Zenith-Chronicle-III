@@ -27,7 +27,7 @@ public class InventoryPane extends HBox {
 			image.setFitHeight(40);image.setFitWidth(40);
 			Text textt = new Text("0");
 			textt.setFill(Color.YELLOW);
-			textt.setStyle("-fx-font-style: italic; -fx-font-size: 30px;-fx-font-weight: bold; -fx-font-family: \"Tahoma\";");
+			textt.setFont(FontHolder.getInstance().getFont().get(30));
 			box.setAlignment(Pos.CENTER);
 			text.add(textt);
 			box.getChildren().add(text.get(i));

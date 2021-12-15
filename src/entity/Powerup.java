@@ -81,6 +81,7 @@ public class Powerup extends Entity implements Collidable, Fallable{
 		SceneManager.getInstance().getCollidable().add(new Powerup(2600,600,2,true));
 		SceneManager.getInstance().getCollidable().add(new Powerup(8540,600,2,true));
 		SceneManager.getInstance().getCollidable().add(new Powerup(6400,600,2,true));
+		SceneManager.getInstance().getCollidable().add(new Powerup(7900,10,0,true));
 	}
 
 	@Override
@@ -128,7 +129,7 @@ public class Powerup extends Entity implements Collidable, Fallable{
 				new Thread(() ->{
 				double x = getX();double y = getY();int type = this.type;
 				try {
-					Thread.sleep(15000);
+					Thread.sleep(2000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -143,7 +144,7 @@ public class Powerup extends Entity implements Collidable, Fallable{
 	}
 	
 	public static void renewPowerup() {
-		while(!renew.isEmpty()) {
+		while(renew.size() >2) {
 			int x = renew.poll();int y = renew.poll(); int type = renew.poll();
 			SceneManager.getInstance().getCollidable().add(new Powerup(x, y, type,true));
 		}

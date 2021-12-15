@@ -3,14 +3,9 @@ package logic;
 public class Difficulty {
 	
 	private static GameMode difficulty = GameMode.EASY;
-	private static double hardMultiply = 0.5;
-	public static int countDown = 4;
-	public static int level = 1;
-	
-	public static void setup(GameMode difficulty) {
-		Difficulty.setDifficulty(difficulty);
-		Difficulty.setHardMultiply(Difficulty.difficulty);
-	}
+	private static double hardMultiply = 0.75;
+	public static int countDown = 5;
+	public static int level = 0;
 	
 	public static void goNextLevel() {
 		level++;
@@ -43,21 +38,22 @@ public class Difficulty {
 
 	public static void setDifficulty(GameMode difficulty) {
 		Difficulty.difficulty = difficulty;
+		setHardMultiply();
 	}
 
 	public static double getHardMultiply() {
 		return hardMultiply;
 	}
 
-	public static void setHardMultiply(GameMode difficulty) {
+	private static void setHardMultiply() {
 		if(difficulty.equals(GameMode.EASY)) {
-			hardMultiply = 0.75;
+			hardMultiply = 0.70;
 		}
 		if(difficulty.equals(GameMode.NORMAL)) {
-			hardMultiply = 1;
+			hardMultiply = 0.95;
 		}
 		if(difficulty.equals(GameMode.HARD)) {
-			hardMultiply = 1.25;
+			hardMultiply = 1.20;
 		}
 	}
 

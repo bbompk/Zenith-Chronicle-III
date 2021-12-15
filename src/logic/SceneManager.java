@@ -83,8 +83,18 @@ public class SceneManager extends Canvas implements Serializable {
 	public void draw() {
 		GraphicsContext gc = getGraphicsContext2D();
 		gc.setFill(Color.RED);
+//		for(Tile tile : tiles) {
+//			Color strokeColor = (tile.isTransparent()) ? Color.RED: Color.BLACK;
+//			gc.setStroke(strokeColor);
+//			gc.strokeRect(tile.getX() - offsetX, tile.getY(), tile.getW(), tile.getH());
+//		}
 		for(Entity e : props) {
 			e.draw(gc,false);
+		}
+		for(Tile tile : tiles) {
+			Color strokeColor = (tile.isTransparent()) ? Color.RED: Color.BLACK;
+			gc.setStroke(strokeColor);
+			gc.strokeRect(tile.getX() - offsetX, tile.getY(), tile.getW(), tile.getH());
 		}
 		for(Enemy e : enemy) {
 			e.drawHitBox(gc);
@@ -98,12 +108,6 @@ public class SceneManager extends Canvas implements Serializable {
 		}
 		for(Interactable i : interactable) {
 			if(i instanceof Entity) ((Entity) i).draw(gc,false);
-		}
-		for(Tile tile : tiles) {
-			Color strokeColor = (tile.isTransparent()) ? Color.RED: Color.BLACK;
-			gc.setStroke(strokeColor);
-			gc.strokeRect(tile.getX() - offsetX, tile.getY(), tile.getW(), tile.getH());
-		
 		}
 		
 		player.drawHitBox(gc);

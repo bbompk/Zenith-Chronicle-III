@@ -34,6 +34,8 @@ public class Boss extends Enemy {
 		direction = -1;
 		moveSpeed = 3;
 		hp = 500000;
+		atk = 3;
+		status = BossStatus.WALK;
 		setAttackBox(200);
 		
 	}
@@ -43,7 +45,7 @@ public class Boss extends Enemy {
 		// TODO Auto-generated method stub
 		//AttackBox range = new AttackBox(getX()+(direction*attackRange), );
 		Player player = SceneManager.getInstance().getPlayer();
-		if(player.collideWith(attackBox) ) {
+		if(player.collideWith(attackBox) && alive) {
 			
 			attack();	
 		}
@@ -141,10 +143,24 @@ public class Boss extends Enemy {
 		new Thread(() -> {
 			status = BossStatus.PREPARING;
 			try {
-				Thread.sleep(2000);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+			status = BossStatus.STRIKING;
+			if(alive) {
+				AttackBox a = new AttackBox(attackBox.getX(), attackBox.getY(), attackBox.getH(), attackBox.getH());
+				Player player = SceneManager.getInstance().getPlayer();
+				if(player.collideWith(a)) {
+					player.takeDamage(atk);
+				}
+				try {
+					Thread.sleep(600);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			status = BossStatus.WALK;
 		}).start();
@@ -157,6 +173,7 @@ public class Boss extends Enemy {
 		// TODO Auto-generated method stub
 		if(!alive)return death;
 		if(status.equals(BossStatus.PREPARING)) return pre_strike;
+		if(status.equals(BossStatus.STRIKING)) return strike;
 		if(justTakeDamage > 0)return hurt;
 		return run;
 	}
@@ -166,20 +183,37 @@ public class Boss extends Enemy {
 		
 		if(!isAlive()) {
 			//TODO death animation;
+			
 		}
 		
 		attackBox.drawHitBox(gc);
-		if(status.equals(BossStatus.PREPARING)) {
-			
-		}else if(status.equals(BossStatus.STRIKING)) {
-			
+		if(status.equals(BossStatus.PREPARING) || status.equals(BossStatus.STRIKING)) {
+			if(direction < 0) {
+				super.draw(gc, getImage().getImage(), getX()-290, getY()-110, 780, 360);
+			}else {
+				super.draw(gc, getImage().getImage(), getX()-290+780, getY()-110, -780, 360);
+			}
 		}else {
 			if(direction < 0) {
 				super.draw(gc, getImage().getImage(), getX()-80, getY()-110, 360, 360);
 			}else {
-				super.draw(gc, getImage().getImage(), getX()-80+getW(), getY()-110, -360, 360);
+				super.draw(gc, getImage().getImage(), getX()-80+360, getY()-110, -360, 360);
 			}
 		}
+		
+	}
+	
+	@Override
+	public void die() {
+		new Thread(() -> {
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			needRemove =true;
+		}).start();
 		
 	}
 	

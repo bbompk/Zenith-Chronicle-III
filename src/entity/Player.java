@@ -282,7 +282,7 @@ public class Player extends Character implements Collidable, Fallable{
 			return roll;
 		}
 		if(atkable > 40) {
-			return death;
+			return attack;
 		}
 		if(jumpStatus.equals(PlayerStatus.GOINGUP)){
 			return jump_up;
@@ -394,7 +394,7 @@ public class Player extends Character implements Collidable, Fallable{
 		status = PlayerStatus.DIE;
 		new Thread(() -> {
 			try {
-				Thread.sleep(1900);
+				Thread.sleep(1650);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

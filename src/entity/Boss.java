@@ -56,12 +56,12 @@ public class Boss extends Enemy {
 		if(k>1.5)speed = 1.1;
 		else if(k>2.25) speed = 1.2;
 		else if(k>3.375) speed = 1.3;
-		else if(k>5.0625) speed = 1.4;
-		else if(k>7.59375) speed = 1.5;
-		else if(k>11.4) speed = 1.6;
-		else if(k>17) speed = 1.7;
-		else if(k>25) speed = 1.8;
-		else if(k>38) speed = 1.9;
+		else if(k>5.0) speed = 1.4;
+		else if(k>7.5) speed = 1.5;
+		else if(k>10) speed = 1.6;
+		else if(k>15) speed = 1.7;
+		else if(k>20) speed = 1.8;
+		else if(k>25) speed = 1.9;
 		
 		setAttackBox(180, 125);
 		

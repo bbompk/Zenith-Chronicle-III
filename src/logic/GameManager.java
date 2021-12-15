@@ -62,7 +62,6 @@ public class GameManager {
 	}
 	
 	public void gameStart(ActionEvent e) {
-		animation.stop();
 		
 		state = GameState.LEVEL;
 		Stage stagee = (Stage) ((Node) e.getSource()).getScene().getWindow();

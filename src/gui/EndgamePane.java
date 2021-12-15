@@ -1,5 +1,7 @@
 package gui;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -28,6 +30,14 @@ public class EndgamePane extends Pane {
 		text.setLayoutX(70);text.setY(70);
 		time.setLayoutX(60);time.setY(130);
 		continuee = new UIButton("Continue",112,190);
+		continuee.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				setVisible(false);
+				SceneManager.getInstance().endgame(false);
+				GameUI.getInstance().setContinue();
+				GameManager.getInstance().continuee();
+			}
+		});
 		restart = new UIButton("Restart",120,270);
 		mainmenu = new UIButton("Main Menu",95,350);
 		exit = new UIButton("Quit",175,430);
@@ -50,6 +60,7 @@ public class EndgamePane extends Pane {
 			exit.setLayoutY(380);
 			if(conti) {
 				text.setText("You have die!");time.setText("Survive time : \n" + SceneManager.getInstance().getPlayer().getplaytime());
+				text.setLayoutX(70);
 			}else {
 				text.setText("You lose!!!");time.setText("Survive time : \n" + SceneManager.getInstance().getPlayer().getplaytime());
 				text.setLayoutX(95);

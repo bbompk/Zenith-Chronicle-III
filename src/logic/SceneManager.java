@@ -248,8 +248,8 @@ public class SceneManager extends Canvas implements Serializable {
 		instance = null;
 	}
 	
-	public void endgame() {
-		gameend = true;
+	public void endgame(boolean end) {
+		gameend = end;
 	}
 	
 }

@@ -11,6 +11,7 @@ public class Difficulty {
 	
 	public static void goNextLevel() {
 		level++;
+		GameUI.getInstance().setFloor(level);
 		if(countDown == 0 ) {
 			countDown = 4;
 			goHarder();
@@ -18,7 +19,6 @@ public class Difficulty {
 		}
 		countDown--;
 		hardMultiply += 0.05;
-		GameUI.getInstance().setFloor(level);
 	}
 	
 	public static void goHarder() {

@@ -117,16 +117,21 @@ public class GameUI extends Pane {
 	}
 
 	public void win() {
+		if(continuee)return;
 		win = true;
-		SceneManager.getInstance().endgame();
+		SceneManager.getInstance().endgame(true);
 	}
 	
 	public void lose() {
 		lose = true;
-		SceneManager.getInstance().endgame();
+		SceneManager.getInstance().endgame(true);
 	}
 	
 	public void setFloor(int x) {
 		floor.setText("Floor "+x);
+	}
+	
+	public void setContinue() {
+		continuee = true;
 	}
 }

@@ -8,6 +8,7 @@ import component.KeyStatus;
 import component.PlayerStatus;
 import component.Sprite;
 import javafx.scene.canvas.GraphicsContext;
+import logic.Difficulty;
 import logic.KeyHandler;
 import logic.SceneManager;
 import util.GameUtil;
@@ -33,6 +34,7 @@ public class Boss extends Enemy {
 	
 	private int prepareAtk;
 	private int attacking;
+	private double speed;
 	
 	
 	public Boss(double x, double y) {
@@ -41,13 +43,25 @@ public class Boss extends Enemy {
 		status = BossStatus.WALK;
 		direction = -1;
 		moveSpeed = 1;
-		hp = 800;
-		maxHp = 800;
-		atk = 20;
+		maxHp = (int) (400*Difficulty.getExtremeHardMultiply() + 400*Difficulty.getHardMultiply());
+		hp = maxHp;
+		atk = (int) (20*Difficulty.getHardMultiply());
 		status = BossStatus.WALK;
 		prepareAtk = 0;
 		attacking = 0;
 		isRight = false;
+		
+		double k = Difficulty.getHardMultiply();
+		speed = 1;
+		if(k>1.5)speed = 1.1;
+		else if(k>2.25) speed = 1.2;
+		else if(k>3.375) speed = 1.3;
+		else if(k>5.0625) speed = 1.4;
+		else if(k>7.59375) speed = 1.5;
+		else if(k>11.4) speed = 1.6;
+		else if(k>17) speed = 1.7;
+		else if(k>25) speed = 1.8;
+		else if(k>38) speed = 1.9;
 		
 		setAttackBox(180, 125);
 		
@@ -59,13 +73,25 @@ public class Boss extends Enemy {
 		status = BossStatus.WALK;
 		direction = -1;
 		moveSpeed = 1;
-		hp = 800;
-		maxHp = 800;
-		atk = 20;
+		maxHp = (int) (400*Difficulty.getExtremeHardMultiply() + 400*Difficulty.getHardMultiply());
+		hp = maxHp;
+		atk = (int) (20*Difficulty.getHardMultiply());
 		status = BossStatus.WALK;
 		prepareAtk = 0;
 		attacking = 0;
 		isRight = false;
+		
+		double k = Difficulty.getHardMultiply();
+		speed = 1;
+		if(k>1.5)speed = 1.1;
+		else if(k>2.25) speed = 1.2;
+		else if(k>3.375) speed = 1.3;
+		else if(k>5.0625) speed = 1.4;
+		else if(k>7.59375) speed = 1.5;
+		else if(k>11.4) speed = 1.6;
+		else if(k>17) speed = 1.7;
+		else if(k>25) speed = 1.8;
+		else if(k>38) speed = 1.9;
 		
 		setAttackBox(ax, ay);
 		
@@ -75,6 +101,10 @@ public class Boss extends Enemy {
 	public void update() {
 		// TODO Auto-generated method stub
 		
+		if(needRemove) {
+			SceneManager.getInstance().getEnemy().remove(this);
+			return;
+		}
 		Player player = SceneManager.getInstance().getPlayer();
 		if(!player.isAlive()) {
 			status = BossStatus.IDLE;
@@ -82,7 +112,7 @@ public class Boss extends Enemy {
 		
 		if(player.collideWith(attackBox) && alive && !(status.equals(BossStatus.PREPARING)) && !(status.equals(BossStatus.STRIKING)) && player.isAlive()) {
 			if(prepareAtk == 0) {
-				prepareAtk += 91;
+				prepareAtk += 91*(1/speed);
 				//atkSound.play();
 				status = BossStatus.PREPARING;
 				pre_strike.loadImage(pre_strike.getFilepath());
@@ -298,7 +328,6 @@ public class Boss extends Enemy {
 		status = BossStatus.DIE;
 		death.loadImage(death.getFilepath());
 		
-		
 		new Thread(() -> {
 			try {
 				Thread.sleep(1000);
@@ -306,12 +335,13 @@ public class Boss extends Enemy {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			Item.generate(getX() + 75, getY()+100);
-			Item.generate(getX() + 150, getY() + 80);
-			Powerup.generate(0, (int) getX(), (int) getX()+ (int) getW());
+			Item.generate(getX() + r.nextInt(getW()), getY()+100);
+			int t = 1;
+			while(r.nextDouble()*(speed+1)/2 > 0.4 && t < speed*10-8) {
+				t++;
+				Item.generate(getX() + r.nextInt(getW()), getY()+100);
+			}
 		}).start();
-		
-		
 		
 		new Thread(() -> {
 			try {
@@ -320,6 +350,7 @@ public class Boss extends Enemy {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			Powerup.generate(0, (int) getX(), (int) getX()+ (int) getW());
 			needRemove =true;
 		}).start();
 		

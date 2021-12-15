@@ -27,6 +27,7 @@ public class Player extends Character implements Collidable, Fallable{
 	private int atkable = 0;
 	private int immune = 0;
 	protected static PlayerStatus face = PlayerStatus.RIGHT;
+	protected boolean freezeFace;
 	
 //	private static final AudioClip atkSound = new AudioClip(ClassLoader.getSystemResource("attackk.wav").toString());
 	
@@ -63,6 +64,7 @@ public class Player extends Character implements Collidable, Fallable{
 	
 	//Item
 	public ArrayList<Integer> inventory;
+	private int healing;
 	
 	public Player(double x, double y) {
 		// TODO Auto-generated constructor stub
@@ -85,10 +87,19 @@ public class Player extends Character implements Collidable, Fallable{
 		attack = new Sprite("sprite/character/player/attack.gif");
 		hurt = new Sprite("sprite/character/player/hurt.gif");
 		roll = new Sprite("sprite/character/player/roll_4_frame.gif");
-		
 		hp =100;
 		maxHp =100;
 		atk = 9990;
+		new Thread(()->{
+			while(true) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			healing += 5 *inventory.get(5);}
+		}).start();
 	}
 	
 	public Player() {
@@ -115,6 +126,16 @@ public class Player extends Character implements Collidable, Fallable{
 		hp =100;
 		maxHp =100;
 		atk = 9990;
+		new Thread(()->{
+			while(true) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			healing += 5 *inventory.get(5);}
+		}).start();
 	}
 
 	@Override
@@ -126,10 +147,17 @@ public class Player extends Character implements Collidable, Fallable{
 			return;
 		}
 //		takeDamage(1000);
+		if(justTakeDamage == 0) {
 		prevy = getY();
 		prevx = getX();
 		lastFrameStatus = status;
 		status = PlayerStatus.RUN;
+		while(healing >= 20) {
+			healing -= 20;
+			changeHp(1);
+		}
+		
+		//-attack and dash ----------------
 		if(atkable == 0 && jumpStatus.equals(PlayerStatus.ONGROUND) && KeyHandler.getInstance().getKeyStatus(83).equals(KeyStatus.DOWN) && !status.equals(PlayerStatus.DASHING)) {
 			atkable += 81;
 			//atkSound.play();
@@ -141,31 +169,44 @@ public class Player extends Character implements Collidable, Fallable{
 			dashing += 41;
 			roll.loadImage(roll.getFilepath());
 		}
-		if(atkable > 41) {
-			status = PlayerStatus.ATTACKING;
-		}else if(dashing > 21) {
+		//direction-------------
+		if(KeyHandler.getInstance().getKeyStatus(68).equals(KeyStatus.DOWN)) {
+			direction = 1;
+		}
+		if(KeyHandler.getInstance().getKeyStatus(65).equals(KeyStatus.DOWN)) {
+			direction = -1;
+		}
+		if(KeyHandler.getInstance().getKeyStatus(68).equals(KeyStatus.FREE) && KeyHandler.getInstance().getKeyStatus(65).equals(KeyStatus.FREE)) {
+			direction = 0;
+		}else if(KeyHandler.getInstance().getKeyStatus(68).equals(KeyStatus.DOWN) && KeyHandler.getInstance().getKeyStatus(65).equals(KeyStatus.DOWN)) {
+			direction = 0;
+		}
+		
+		//attack and dash-----------
+		if(dashing > 21) {
 			status = PlayerStatus.DASHING;
 			dash();
-			
-		}else if(!(status.equals(PlayerStatus.DIE))){
-			if(KeyHandler.getInstance().getKeyStatus(68).equals(KeyStatus.FREE) && KeyHandler.getInstance().getKeyStatus(65).equals(KeyStatus.FREE)) {
-				direction = 0;
-			}else if(KeyHandler.getInstance().getKeyStatus(68).equals(KeyStatus.DOWN) && KeyHandler.getInstance().getKeyStatus(65).equals(KeyStatus.DOWN)) {
-				direction = 0;
-			}
-			if(KeyHandler.getInstance().getKeyStatus(68).equals(KeyStatus.DOWN)) {
+		}else { 
+			if(atkable > 41) {
+				if(direction == 0 || atkable > 66)status = PlayerStatus.ATTACKING;
+				else atkable = 41;
+		}
+		//---------------moving
+		if(!(status.equals(PlayerStatus.DIE)) && direction != 0 && atkable < 76){
+
+			if(direction == 1) {
 				moveRight();
 			}
-			if(KeyHandler.getInstance().getKeyStatus(65).equals(KeyStatus.DOWN)) {
+			if(direction == -1) {
 				moveLeft();
-			}
+			}}
 			if(direction == 0) {status = PlayerStatus.IDLE;}
 			if(KeyHandler.getInstance().getKeyStatus(32).equals(KeyStatus.DOWN)) {
 				prevGround = getY()+getH();
 				jump();
 			}
 		}
-		
+		}
 		int fallBack;
 		if(!status.equals(PlayerStatus.DASHING)) {
 			fallBack = fall();
@@ -256,8 +297,7 @@ public class Player extends Character implements Collidable, Fallable{
 			SceneManager.getInstance().setOffsetX(newOffSetX);
 		}
 		
-		direction = 1;
-		face = PlayerStatus.RIGHT;
+		if(atkable<66)face = PlayerStatus.RIGHT;
 	}
 	
 	private void moveLeft() {
@@ -272,8 +312,7 @@ public class Player extends Character implements Collidable, Fallable{
 			SceneManager.getInstance().setOffsetX(newOffSetX);
 		}
 		
-		direction = -1;
-		face = PlayerStatus.LEFT;
+		if(atkable<66)face = PlayerStatus.LEFT;
 	}
 
 	private void dash() {

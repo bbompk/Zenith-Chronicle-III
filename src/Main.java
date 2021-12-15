@@ -32,7 +32,7 @@ public class Main extends Application {
 		scene.setFill(Color.BLACK);
 		stage.setScene(scene);
 		stage.setTitle("Zenith Chronicle 3");
-		stage.setResizable(true);
+		stage.setResizable(false);
 		stage.show();
 		
 	}

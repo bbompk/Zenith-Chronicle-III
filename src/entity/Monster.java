@@ -69,8 +69,6 @@ public class Monster extends Enemy {
 						else moveRight(moveSpeed);
 					}
 				}
-			
-
 		}
 		//System.out.println(this.hashCode() + " " + getX() + " " + getY());
 		fall();

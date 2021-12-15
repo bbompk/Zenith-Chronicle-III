@@ -30,7 +30,7 @@ public class Item extends Entity implements Interactable,Fallable,Collidable{
 		super(x, y, 50, 50);
 		// TODO Auto-generated constructor stub
 		this.type = type;
-		setVy(-5);
+//		setVy(-5);
 	}
 	
 	@Override
@@ -81,7 +81,6 @@ public class Item extends Entity implements Interactable,Fallable,Collidable{
 			else if(type==2)SceneManager.getInstance().getPlayer().changemvsp(1);
 			else if(type==3)SceneManager.getInstance().getPlayer().changeJumpH(1);
 			else if(type==4)SceneManager.getInstance().getPlayer().changeDashSpeedMultiplier(0.5);
-			else if(type==5)SceneManager.getInstance().getPlayer().changeMaxDash(1);
 			SceneManager.getInstance().getPlayer().inventory.set(type, SceneManager.getInstance().getPlayer().getInventory().get(type)+1);
 			SceneManager.getInstance().getInteractable().remove(this);
 			InventoryPane.getInstance().getText().get(type).setText(String.valueOf(Integer.parseInt(InventoryPane.getInstance().getText().get(type).getText())+1));

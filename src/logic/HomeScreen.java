@@ -2,6 +2,7 @@ package logic;
 
 import gui.FontHolder;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -10,6 +11,7 @@ import javafx.scene.effect.Glow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class HomeScreen extends Pane {
@@ -25,19 +27,24 @@ public class HomeScreen extends Pane {
 	private Pane difPane;
 	private Pane creditPane;
 	private Pane howPane;
+	private Pane blackPane;
+	private Pane exitPane;
 	private Button backh;
 	private Button backc;
 	private Button easy;
 	private Button normal;
 	private Button hard;
 	private Button x;
-	private boolean starting;
+	private Button yes;
+	private Button no;
+	private Text exitt;
+	private boolean escfree;
 	
 	public HomeScreen(Stage stage) {
 		// TODO Auto-generated constructor stub 11 * 12
 		setPrefSize(1280, 720);
 //		node = new ArrayList<Node>();
-		starting = false;
+		escfree = true;
 		difPane = new Pane();
 		creditPane = new Pane();
 		howPane = new Pane();
@@ -54,7 +61,22 @@ public class HomeScreen extends Pane {
 		easy = new Button("Easy");
 		normal = new Button("Normal");
 		hard = new Button("Hard");
+		yes = new Button("Yes");
+		no = new Button("No");
+		exitt = new Text("Exit?");
+		blackPane = new Pane();
+		exitPane = new Pane();
 		
+		blackPane.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-color:black;");
+		blackPane.setOpacity(0.80);
+		blackPane.setVisible(false);
+		blackPane.setPrefSize(1280, 720);
+		
+//		exitPane.setViewOrder(0);
+		exitPane.setVisible(false);
+		exitPane.setLayoutX(460);exitPane.setLayoutY(240);
+		exitPane.setMinSize(360,240);exitPane.setMaxSize(360, 240);
+		exitPane.setStyle("-fx-border-width: 10;-fx-border-color:black;-fx-background-color:gray;-fx-border-radius: 20;-fx-background-radius: 25;");
 //		difPane.setViewOrder(0);
 		difPane.setVisible(false);
 		difPane.setLayoutX(400);difPane.setLayoutY(180);
@@ -77,15 +99,18 @@ public class HomeScreen extends Pane {
 		name2.setFont(FontHolder.getInstance().getFont().get(128));
 		name3.setFont(FontHolder.getInstance().getFont().get(148));
 		credit.setFont(FontHolder.getInstance().getFont().get(50));
-		start.setFont(FontHolder.getInstance().getFont().get(50));
-		how.setFont(FontHolder.getInstance().getFont().get(50));
-		backh.setFont(FontHolder.getInstance().getFont().get(50));
-		backc.setFont(FontHolder.getInstance().getFont().get(50));
-		quit.setFont(FontHolder.getInstance().getFont().get(50));
-		easy.setFont(FontHolder.getInstance().getFont().get(50));
-		normal.setFont(FontHolder.getInstance().getFont().get(50));
-		hard.setFont(FontHolder.getInstance().getFont().get(50));
+		start.setFont(FontHolder.getInstance().getFont().get(55));
+		how.setFont(FontHolder.getInstance().getFont().get(55));
+		backh.setFont(FontHolder.getInstance().getFont().get(55));
+		backc.setFont(FontHolder.getInstance().getFont().get(55));
+		quit.setFont(FontHolder.getInstance().getFont().get(55));
+		easy.setFont(FontHolder.getInstance().getFont().get(55));
+		normal.setFont(FontHolder.getInstance().getFont().get(55));
+		hard.setFont(FontHolder.getInstance().getFont().get(55));
 		x.setFont(FontHolder.getInstance().getFont().get(120));
+		yes.setFont(FontHolder.getInstance().getFont().get(55));
+		no.setFont(FontHolder.getInstance().getFont().get(55));
+		exitt.setFont(FontHolder.getInstance().getFont().get(55));
 		
 		//style---
 		name1.setStyle("-fx-text-fill: gray;");
@@ -101,11 +126,15 @@ public class HomeScreen extends Pane {
 		normal.setTextFill(Color.BLACK);normal.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
 		hard.setTextFill(Color.BLACK);hard.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
 		x.setTextFill(Color.BLACK);x.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
+		yes.setTextFill(Color.WHITE);yes.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 20; -fx-background-color: black;");
+		no.setTextFill(Color.WHITE);no.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 20; -fx-background-color: black;");
+		exitt.setFill(Color.BLACK);exitt.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
 		
 		//Pos--
 		start.setPadding(new Insets(0));quit.setPadding(new Insets(0));credit.setPadding(new Insets(0));how.setPadding(new Insets(0));
 		easy.setPadding(new Insets(0));normal.setPadding(new Insets(0));hard.setPadding(new Insets(0));x.setPadding(new Insets(0));
 		backh.setPadding(new Insets(4,0,4,0));backc.setPadding(new Insets(4,0,4,0));
+		yes.setPadding(new Insets(8,12,8,12));no.setPadding(new Insets(8,12,8,12));
 		
 		name1.setLayoutX(70);name2.setLayoutY(90);
 		name1.setEffect(new Glow());
@@ -122,93 +151,132 @@ public class HomeScreen extends Pane {
 		normal.setLayoutX(50);normal.setLayoutY(150);
 		hard.setLayoutX(50);hard.setLayoutY(250);
 		x.setLayoutX(380);x.setLayoutY(0);
+		yes.setLayoutX(40);yes.setLayoutY(110);
+		no.setLayoutX(220);no.setLayoutY(110);
+		exitt.setLayoutX(120);exitt.setY(70);
 		
 		//Handler--
 		start.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				if(!starting) {
+				if(!blackPane.isVisible()) {
 					difPane.setVisible(true);
-					starting = true;
+					blackPane.setVisible(true);
 				}
 			}
 		});
+		
+		setOnKeyPressed(e -> {
+			// TODO Auto-generated method stub
+			if(e.getCode().getCode() == 27 && escfree) {
+				escfree = false;
+				if(blackPane.isVisible()) {
+					difPane.setVisible(false);
+					howPane.setVisible(false);
+					creditPane.setVisible(false);
+					blackPane.setVisible(false);
+					exitPane.setVisible(false);
+				}else {
+					exitPane.setVisible(true);
+					blackPane.setVisible(true);
+				}
+			}
+		});
+		setOnKeyReleased(e -> {
+			// TODO Auto-generated method stub
+			if(e.getCode().getCode() == 27)escfree = true;
+		});
+		
+		
 		start.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				if(!starting)start.setFont(FontHolder.getInstance().getFont().get(65));
+				if(!blackPane.isVisible())start.setFont(FontHolder.getInstance().getFont().get(65));
 			}
 		});
 		start.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				if(!starting)start.setFont(FontHolder.getInstance().getFont().get(55));
+				if(!blackPane.isVisible())start.setFont(FontHolder.getInstance().getFont().get(55));
 			}
 		});
 		how.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				if(!starting)howPane.setVisible(true);
+				if(!blackPane.isVisible()) {
+					howPane.setVisible(true);
+					blackPane.setVisible(true);
+					howPane.requestFocus();
+				}
 			}
 		});
 		how.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				if(!starting)how.setFont(FontHolder.getInstance().getFont().get(65));
+				if(!blackPane.isVisible())how.setFont(FontHolder.getInstance().getFont().get(65));
 			}
 		});
 		how.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				if(!starting)how.setFont(FontHolder.getInstance().getFont().get(55));
+				if(!blackPane.isVisible())how.setFont(FontHolder.getInstance().getFont().get(55));
 			}
 		});
 		credit.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				if(!starting)creditPane.setVisible(true);
+				if(!blackPane.isVisible()) {
+					blackPane.setVisible(true);
+					creditPane.setVisible(true);
+					creditPane.requestFocus();
+				}
 			}
 		});
 		credit.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				if(!starting)credit.setFont(FontHolder.getInstance().getFont().get(65));
+				if(!blackPane.isVisible())credit.setFont(FontHolder.getInstance().getFont().get(65));
 			}
 		});
 		credit.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				if(!starting)credit.setFont(FontHolder.getInstance().getFont().get(55));
+				if(!blackPane.isVisible())credit.setFont(FontHolder.getInstance().getFont().get(55));
 			}
 		});
 		quit.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				if(!starting)stage.close();
+				if(!blackPane.isVisible()) {
+					exitPane.setVisible(true);
+					blackPane.setVisible(true);
+				}
 			}
 		});
 		quit.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				if(!starting)quit.setFont(FontHolder.getInstance().getFont().get(65));
+				if(!blackPane.isVisible())quit.setFont(FontHolder.getInstance().getFont().get(65));
 			}
 		});
 		quit.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				if(!starting)quit.setFont(FontHolder.getInstance().getFont().get(55));
+				if(!blackPane.isVisible())quit.setFont(FontHolder.getInstance().getFont().get(55));
 			}
 		});
 		backh.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				howPane.setVisible(false);
+				blackPane.setVisible(false);
 			}
 		});
 		backc.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				creditPane.setVisible(false);
+				blackPane.setVisible(false);
 			}
 		});
 		x.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				difPane.setVisible(false);
-				starting = false;
+				blackPane.setVisible(false);
 			}
 		});
 		x.setOnMouseEntered(new EventHandler<MouseEvent>() {
@@ -279,11 +347,51 @@ public class HomeScreen extends Pane {
 				hard.setFont(FontHolder.getInstance().getFont().get(55));
 			}
 		});
+		yes.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				stage.close();
+			}
+		});
+		yes.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				yes.setFont(FontHolder.getInstance().getFont().get(65));
+				yes.setLayoutX(35);yes.setLayoutY(105);
+			}
+		});
+		yes.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				yes.setFont(FontHolder.getInstance().getFont().get(55));
+				yes.setLayoutX(40);yes.setLayoutY(110);
+			}
+		});
+		no.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				blackPane.setVisible(false);
+				exitPane.setVisible(false);
+			}
+		});
+		no.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				no.setFont(FontHolder.getInstance().getFont().get(65));
+				no.setLayoutX(215);no.setLayoutY(105);
+			}
+		});
+		no.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				no.setFont(FontHolder.getInstance().getFont().get(55));
+				no.setLayoutX(220);no.setLayoutY(110);
+			}
+		});
 		
+		exitPane.getChildren().addAll(yes,no,exitt);
 		difPane.getChildren().addAll(easy,normal,hard,x);
 		howPane.getChildren().add(backh);creditPane.getChildren().add(backc);
-		getChildren().addAll(name1,name2,name3,start,how,credit,quit,difPane,howPane,creditPane);
-		
+		getChildren().addAll(name1,name2,name3,start,how,credit,quit,blackPane,difPane,exitPane,howPane,creditPane);
+		requestFocus();
 	}
 
 }

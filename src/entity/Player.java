@@ -110,6 +110,7 @@ public class Player extends Character implements Collidable, Fallable{
 			prevy = 999;
 			return;
 		}
+//		takeDamage(1000);
 		prevy = getY();
 		prevx = getX();
 		lastFrameStatus = status;
@@ -385,7 +386,7 @@ public class Player extends Character implements Collidable, Fallable{
 		// TODO Auto-generated method stub
 		new Thread(() -> {
 			try {
-				Thread.sleep(1500);
+				Thread.sleep(1900);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

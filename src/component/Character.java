@@ -83,8 +83,9 @@ public abstract class Character extends Entity implements Fallable{
 	public void takeDamage(int x) {
 		if(hp > 0) {
 			changeHp(-x);
+			if(hp<=0) {
 			alive = false;
-			die();
+			die();}
 		}
 	}
 

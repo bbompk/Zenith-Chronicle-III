@@ -76,6 +76,7 @@ public class Player extends Character implements Collidable, Fallable{
 		maxDash = 1;
 		dashAvail = maxDash;
 		inventory = new ArrayList<Integer>(Arrays.asList(0,0,0,0,0,0));
+		alive = true;
 		
 		
 		hp =100;
@@ -104,9 +105,9 @@ public class Player extends Character implements Collidable, Fallable{
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
+		if(needRemove)return;
 		prevy = getY();
 		prevx = getX();
-		
 		lastFrameStatus = status;
 		status = PlayerStatus.RUN;
 		if(atkable == 0 && jumpStatus.equals(PlayerStatus.ONGROUND) && KeyHandler.getInstance().getKeyStatus(83).equals(KeyStatus.DOWN) && !status.equals(PlayerStatus.DASHING)) {
@@ -268,6 +269,8 @@ public class Player extends Character implements Collidable, Fallable{
 	@Override
 	public Sprite getImage() {
 		// TODO Auto-generated method stub
+		if(needRemove)return null;
+		if(!alive)return death;
 		if(justTakeDamage > 0)return hurt;
 		if(status.equals(PlayerStatus.DASHING)) {
 			return roll;
@@ -292,21 +295,21 @@ public class Player extends Character implements Collidable, Fallable{
 	public void draw(GraphicsContext gc,boolean f) {
 		// TODO Auto-generated method stub
 	
-//		if(immune/2%2 == 0) {
+		if(immune/2%2 == 0) {
+			if(getImage()==null)return;
 			if((!lastFrameStatus.equals(status) && atkable < 41) || justTakeDamage == 31) getImage().loadImage(getImage().getFilepath());
 			if(justTakeDamage > 0) {
 				if(!face.equals(PlayerStatus.LEFT))super.draw(gc, getImage().getImage(), getX()-getW()/3, getY()-getH()/4, getW()*4/3, getH()*5/4);
 				else super.draw(gc, getImage().getImage(),getX()+getW()*4/3,getY()-getH()/4,-getW()*4/3,getH()*5/4);
 			}
 			else if(atkable < 41 && status != PlayerStatus.DIE) {
-//				if(direction != -1) super.draw(gc, false);
 				if(!face.equals(PlayerStatus.LEFT))super.draw(gc, getImage().getImage(), getX(), getY(), getW(), getH());
 				else super.draw(gc, getImage().getImage(),getX()+getW(),getY(),-getW(),getH());
 			}else {
 				if(!face.equals(PlayerStatus.LEFT))super.draw(gc, getImage().getImage(), getX()-getW()/3, getY(), (getW()*5)/3, getH());
 				else super.draw(gc,getImage().getImage(), getX()+getW()*4/3,getY(),-getW()*5/3,getH());
 			}
-//		}
+		}
 	}
 	
 	private void attack() {
@@ -376,7 +379,15 @@ public class Player extends Character implements Collidable, Fallable{
 	@Override
 	protected void die() {
 		// TODO Auto-generated method stub
-		
+		new Thread(() -> {
+			try {
+				Thread.sleep(1500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			needRemove = true;
+		}).start();
 	}
 
 	public ArrayList<Integer> getInventory() {

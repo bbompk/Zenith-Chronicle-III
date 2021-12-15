@@ -20,6 +20,9 @@ import util.GameUtil;
 
 public class Player extends Character implements Collidable, Fallable{
 	
+	public static final boolean WallHacks = true;
+	
+	
 	//Utility
 	private int atkable = 0;
 	private int immune = 0;

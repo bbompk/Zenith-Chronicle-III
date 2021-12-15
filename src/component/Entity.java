@@ -43,6 +43,7 @@ public abstract class Entity implements Serializable{
 	
 	public void drawHitBox(GraphicsContext gc) {
 		gc.setStroke(Color.BLACK);
+		gc.strokeOval(getX() - SceneManager.getInstance().getOffsetX(), getY(), getW(), getH());
 		gc.strokeRect(getX() - SceneManager.getInstance().getOffsetX(), getY(), getW(), getH());
 	}
 	

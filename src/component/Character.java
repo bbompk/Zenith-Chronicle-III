@@ -1,6 +1,8 @@
 package component;
 
+import entity.Player;
 import entity.Tile;
+import logic.GameManager;
 import logic.SceneManager;
 import util.GameUtil;
 
@@ -46,7 +48,8 @@ public abstract class Character extends Entity implements Fallable{
 			if( (tile.getUpperBound() < getY()+getH() && tile.getUpperBound() > getY()) || (tile.getLowerBound() < getY()+getH() && tile.getLowerBound() > getY()) || 
 					(getY() >= tile.getUpperBound() && getY() <= tile.getLowerBound() && getY()+getH() >= tile.getUpperBound() && getY()+getH() <= tile.getLowerBound()) ) {
 				if(getX()+getW() > tile.getLeftBound() -1  && getX() < tile.getLeftBound() && !tile.isTransparent()) {
-					setX(tile.getLeftBound()-getW() - 1);
+					if(this instanceof Player && Player.WallHacks) return;
+					else setX(tile.getLeftBound()-getW() - 1);
 				}
 			}
 		}
@@ -62,7 +65,8 @@ public abstract class Character extends Entity implements Fallable{
 			if( (tile.getUpperBound() < getY()+getH() && tile.getUpperBound() > getY()) || (tile.getLowerBound() < getY()+getH() && tile.getLowerBound() > getY()) || 
 					(getY() >= tile.getUpperBound() && getY() <= tile.getLowerBound() && getY()+getH() >= tile.getUpperBound() && getY()+getH() <= tile.getLowerBound()) ) {
 				if(getX()+getW() >= tile.getRightBound() && getX() < tile.getRightBound() + 1 && !tile.isTransparent()) {
-					setX(tile.getRightBound() + 1);
+					if(this instanceof Player && Player.WallHacks) return;
+					else setX(tile.getRightBound() + 1);
 				}
 			}
 		}

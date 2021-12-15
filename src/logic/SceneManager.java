@@ -105,6 +105,7 @@ public class SceneManager extends Canvas implements Serializable {
 			gc.strokeRect(tile.getX() - offsetX, tile.getY(), tile.getW(), tile.getH());
 		
 		}
+		
 		player.drawHitBox(gc);
 		player.draw(gc,false);
 	}
@@ -133,7 +134,8 @@ public class SceneManager extends Canvas implements Serializable {
 	public void startBossLevel() {
 		setLeftBound(0);
 		setRightBound(1280);
-		props.add(new Background(0, 0, "sprite/background/boss_arena.png"));
+		props.add(new Background(0, 0, "sprite/background/desert_mountains.png"));
+		props.add(new TileBackground(0, 0, 1280, 720, "sprite/background/boss_arena_tiles.png"));
 		props.add(new Portal());
 		props.add(new Particles(50, 50, 90, 150, -1, "sprite/checkpoint/boss_portal_start.gif"));
 		TileGenerator.generateBossArena();

@@ -58,6 +58,7 @@ public class SceneManager extends Canvas implements Serializable {
 	}
 	
 	public void update() {
+		Powerup.renewPowerup();
 		if(changeState) {
 			clear();
 			startLevel();

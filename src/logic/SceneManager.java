@@ -20,7 +20,6 @@ import entity.TileBackground;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import util.TileGenerator;
 
 public class SceneManager extends Canvas implements Serializable {
 
@@ -105,7 +104,6 @@ public class SceneManager extends Canvas implements Serializable {
 			gc.strokeRect(tile.getX() - offsetX, tile.getY(), tile.getW(), tile.getH());
 		
 		}
-		
 		player.drawHitBox(gc);
 		player.draw(gc,false);
 	}
@@ -124,9 +122,9 @@ public class SceneManager extends Canvas implements Serializable {
 		setLeftBound(0);
 		setRightBound(8960);
 		props.add(new Background());
-		//props.add(new TileBackground());
+		props.add(new TileBackground(0, 0, 9600, 720, "sprite/background/test.png"));
 		props.add(new Portal(Difficulty.countDown==1, 7700, 10));
-		TileGenerator.generate();
+		Tile.generate();
 		Powerup.generate();
 		Monster.generate();
 	}
@@ -138,7 +136,7 @@ public class SceneManager extends Canvas implements Serializable {
 		props.add(new TileBackground(0, 0, 1280, 720, "sprite/background/boss_arena_tiles.png"));
 		props.add(new Portal());
 		props.add(new Particles(50, 50, 90, 150, -1, "sprite/checkpoint/boss_portal_start.gif"));
-		TileGenerator.generateBossArena();
+		Tile.generateBossArena();
 		player.setY(50);
 	}
 

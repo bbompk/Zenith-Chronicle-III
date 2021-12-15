@@ -20,13 +20,14 @@ import util.GameUtil;
 
 public class Player extends Character implements Collidable, Fallable{
 	
-	public static final boolean WallHacks = true;
+	public static final boolean WallHacks = false;
 	
 	
 	//Utility
 	private int atkable = 0;
 	private int immune = 0;
 	protected static PlayerStatus face = PlayerStatus.RIGHT;
+	
 //	private static final AudioClip atkSound = new AudioClip(ClassLoader.getSystemResource("attackk.wav").toString());
 	
 		
@@ -75,6 +76,7 @@ public class Player extends Character implements Collidable, Fallable{
 		maxDash = 1;
 		dashAvail = maxDash;
 		inventory = new ArrayList<Integer>(Arrays.asList(0,0,0,0,0,0));
+		
 		
 		hp =100;
 		maxHp =100;
@@ -164,6 +166,10 @@ public class Player extends Character implements Collidable, Fallable{
 			}
 		}
 		justTakeDamage = justTakeDamage == 0 ? justTakeDamage : justTakeDamage -1;
+		
+		if(prevx!=getX()) System.out.println(getX());
+		
+		
 		dashing = (dashing == 0) ? dashing : dashing - 1;
 		atkable = (atkable == 0) ? atkable : atkable - 1;
 		immune = (immune == 0) ? immune : immune - 1;

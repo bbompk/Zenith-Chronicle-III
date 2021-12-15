@@ -46,15 +46,6 @@ public class GameManager {
 				// TODO handle pause
 			}
 			
-			if(isGameOver) {
-				state = GameState.GAMEOVER;
-				//TODO handle game over screen
-			}
-			
-			if(isVictory) {
-				state = GameState.VICTORY;
-				//TODO handle victory screen
-			}
 		}
 		if(continuee || (escPress && KeyHandler.getInstance().getKeyStatus(27).equals(KeyStatus.FREE)))escPress = false;	
 		if(state == GameState.PAUSE) {
@@ -71,6 +62,7 @@ public class GameManager {
 	}
 	
 	public void gameStart(ActionEvent e) {
+		animation.stop();
 		
 		state = GameState.LEVEL;
 		Stage stagee = (Stage) ((Node) e.getSource()).getScene().getWindow();
@@ -107,6 +99,26 @@ public class GameManager {
 		animation.start();
 	}
 
+	public void appStart() {
+		animation = new AnimationTimer(){
+			public void handle(long now){
+//				new Thread(() -> {
+//					new Thread(() -> {
+//						if(KeyHandler.getInstance().getKeyStatus(69).equals(KeyStatus.DOWN))System.out.println("rgfdfz");;
+						
+						KeyHandler.getInstance().update();
+						if(!state.equals(GameState.PAUSE)) {
+							SceneManager.getInstance().update();
+						}
+//					}).start();
+//				}).start();
+				try {Thread.sleep(10);} catch(Exception e) {} 
+			}
+		};
+		animation.start();
+	}
+	
+	
 	public boolean isGameOver() {
 		return isGameOver;
 	}

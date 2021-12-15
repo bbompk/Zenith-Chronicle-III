@@ -61,7 +61,7 @@ public abstract class Entity implements Serializable{
 	
 	public boolean collideWith(Entity other) {
 		if(!(this instanceof Collidable) || !(other instanceof Collidable))return false;
-		return Math.hypot(this.x+this.w/2-other.x-other.w/2, this.y+this.h/2-other.y-other.h/2) <= this.radius+other.radius;
+		return Math.hypot(this.x+this.w/2-other.x-other.w/2, this.y+this.h/2-other.y-other.h/2) <= this.radius+other.radius-10;
 	}
 	
 	protected int fall() {

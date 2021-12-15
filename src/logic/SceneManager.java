@@ -139,6 +139,9 @@ public class SceneManager extends Canvas implements Serializable {
 		Tile.generate();
 		Powerup.generate();
 		Monster.generate();
+		props.add(new Particles(2140, 605, 50, 50, -1,"sprite/item/fake_axe.png"));
+		props.add(new Particles(3700, 370, 50, 50, -1,"sprite/item/fake_staff.png"));
+		props.add(new Particles(6645, 550, 50, 50, -1,"sprite/item/fake_sword.png"));
 		player.setY(100);
 		player.setX(100);
 		
@@ -157,6 +160,16 @@ public class SceneManager extends Canvas implements Serializable {
 		player.setY(50);
 	}
 
+	public void enterHomeScreen() {
+		setLeftBound(0);
+		setRightBound(1280);
+		props.add(new Background());
+		props.add(new TileBackground(0, 0, 3200, 720, "sprite/background/plain_tiles.png"));
+		addTile(new Tile(0, 670, 1300, 50, false));
+		player.setX(300);
+		player.setY(500);
+	}
+	
 	public double getOffsetX() {
 		return offsetX;
 	}

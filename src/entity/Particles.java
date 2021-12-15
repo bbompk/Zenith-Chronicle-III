@@ -9,7 +9,7 @@ public class Particles extends Entity {
 	
 	private int lifetime;
 	private boolean inf;
-	private static Sprite particleSprite;
+	private Sprite particleSprite;
 	
 	
 	public Particles(double x, double y, int w, int h, int lifetime, String URL) {

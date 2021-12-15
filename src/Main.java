@@ -5,6 +5,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import logic.GameManager;
+import logic.GameState;
 import logic.HomeScreen;
 import logic.KeyHandler;
 import logic.SceneManager;
@@ -24,9 +26,15 @@ public class Main extends Application {
 	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
 		StackPane root = new StackPane();
-		ImageView image = new ImageView(new Background().getImage().getImage());
-		image.setFitHeight(720);image.setFitWidth(1280);
-		root.getChildren().add(image);
+//		ImageView image = new ImageView(new Background().getImage().getImage());
+//		image.setFitHeight(720);image.setFitWidth(1280);
+//		//root.getChildren().add(image);
+		GameManager.getInstance().setState(GameState.TITLE);
+		SceneManager.getInstance().clear();
+		SceneManager.getInstance().enterHomeScreen();
+		root.getChildren().add(KeyHandler.getInstance());
+		root.getChildren().add(SceneManager.getInstance());	
+		GameManager.getInstance().appStart();
 		root.getChildren().add(new HomeScreen(stage));
 		Scene scene = new Scene(root);
 		scene.setFill(Color.BLACK);

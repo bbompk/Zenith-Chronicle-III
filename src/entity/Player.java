@@ -248,7 +248,7 @@ public class Player extends Character implements Collidable, Fallable{
 		justTakeDamage = justTakeDamage == 0 ? justTakeDamage : justTakeDamage -1;
 		
 
-		//if(prevx!=getX()) System.out.println(getX());
+		//if(prevx!=getX() || prevy!=getY()) System.out.println(getX() + " " + getY());
 		if(!isAlive()) status = PlayerStatus.DIE;
 
 		dashing = (dashing == 0) ? dashing : dashing - 1;

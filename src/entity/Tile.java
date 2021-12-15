@@ -87,7 +87,7 @@ public class Tile extends Entity {
 		SceneManager.getInstance().addTile(new Tile(6760, 330, 120, 340, false));
 		SceneManager.getInstance().addTile(new Tile(6880, 430, 120, 240, false));
 		SceneManager.getInstance().addTile(new Tile(7000, 530, 120, 140, false));
-		SceneManager.getInstance().addTile(new Tile(7120, 630, 120, 40, false));
+		SceneManager.getInstance().addTile(new Tile(7120, 630, 180, 40, false));
 		SceneManager.getInstance().addTile(new Tile(7630, -8000, 50, 8000, false));
 		SceneManager.getInstance().addTile(new Tile(7630, 0, 50, 180, false));
 		SceneManager.getInstance().addTile(new Tile(7680, 130, 400, 50, false));

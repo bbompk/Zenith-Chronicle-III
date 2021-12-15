@@ -94,8 +94,10 @@ public class Boss extends Enemy {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
-									isRight = false;
-									if(status.equals(BossStatus.IDLE))status = BossStatus.WALK;
+									if(status.equals(BossStatus.IDLE)) {
+										isRight = false;
+										status = BossStatus.WALK;
+									}
 								}).start();
 							}else {
 								direction = -1; moveLeft(moveSpeed);
@@ -113,8 +115,11 @@ public class Boss extends Enemy {
 										e.printStackTrace();
 									}
 									
-									if(status.equals(BossStatus.IDLE))status = BossStatus.WALK;
-									isRight = true;
+									if(status.equals(BossStatus.IDLE)) {
+										isRight = true;
+										status = BossStatus.WALK;
+									}
+									
 								}).start();
 							}else {
 								direction = 1; moveRight(moveSpeed);
@@ -219,9 +224,9 @@ public class Boss extends Enemy {
 		if(!alive)return death;
 		
 		if(status.equals(BossStatus.PREPARING)) return pre_strike;
-		if(status.equals(BossStatus.STRIKING)) return strike;
+		if(status.equals(BossStatus.STRIKING)) {System.out.println("STRIKE!!"); return strike; } 
 		
-		if(justTakeDamage > 0 && stunImmune < 471) { return hurt; } 
+		if(justTakeDamage > 0 && stunImmune < 501)  return hurt;  
 		if(status.equals(BossStatus.IDLE)) return idle;
 		return run;
 	}

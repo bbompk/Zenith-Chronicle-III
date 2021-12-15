@@ -75,7 +75,8 @@ public class Item extends Entity implements Interactable,Fallable,Collidable{
 	public void checkInteract() {
 		// TODO Auto-generated method stub
 		if(KeyHandler.getInstance().getKeyStatus(69).equals(KeyStatus.DOWN) &&
-				collideWith(SceneManager.getInstance().getPlayer())) {
+				collideWith(SceneManager.getInstance().getPlayer()) &&
+				SceneManager.getInstance().getPlayer().isAlive()) {
 			if(type==0)SceneManager.getInstance().getPlayer().changeMaxHp(20);
 			else if(type==1)SceneManager.getInstance().getPlayer().changeAtk(5);
 			else if(type==2)SceneManager.getInstance().getPlayer().changemvsp(1);

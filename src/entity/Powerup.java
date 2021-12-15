@@ -92,7 +92,8 @@ public class Powerup extends Entity implements Collidable, Fallable{
 	@Override
 	public void checkCollide() {
 		// TODO Auto-generated method stub
-		if(collideWith(SceneManager.getInstance().getPlayer())) {
+		if(collideWith(SceneManager.getInstance().getPlayer()) 
+				&& SceneManager.getInstance().getPlayer().isAlive()) {
 			if(type==0)SceneManager.getInstance().getPlayer().changeHp(30);
 			else {
 				Thread t = new Thread(()->{

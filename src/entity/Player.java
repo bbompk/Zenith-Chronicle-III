@@ -302,25 +302,12 @@ public class Player extends Character implements Collidable, Fallable{
 			}
 //		}
 	}
-
-	class AttackBox extends Entity implements Collidable{
-
-		public AttackBox(double x, double y, int w, int h) {super(x, y, w, h);}
-
-		@Override
-		public void checkCollide() {}
-
-		@Override
-		public void update() {}
-
-		@Override
-		public Sprite getImage() {return null;}
-		
-	}
 	
 	private void attack() {
-
-		AttackBox a = new AttackBox(getX()+getW()/4, getY(), 100+getW()*3/4	, getH());
+		AttackBox a;
+		if(face.equals(PlayerStatus.RIGHT)) a = new AttackBox(getX()+getW()/4, getY(), 100+getW()*3/4	, getH());
+//		else  a = new AttackBox(getX()+getW()*3/4, getY(), -100-getW()*3/4	, getH());
+		else  a = new AttackBox(getX()-100, getY(), 100+getW()*3/4	, getH());
 		for(Enemy enemy : SceneManager.getInstance().getEnemy()) {
 			if(enemy.collideWith(a)) {
 				enemy.takeDamage(getAtk());

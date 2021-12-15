@@ -2,11 +2,12 @@ package entity;
 
 import java.util.ArrayList;
 import java.util.Random;
-
+import gui.PowerupPane;
 import component.Collidable;
 import component.Entity;
 import component.Fallable;
 import component.Sprite;
+import gui.PowerupPane;
 import logic.SceneManager;
 
 public class Powerup extends Entity implements Collidable, Fallable{
@@ -75,9 +76,10 @@ public class Powerup extends Entity implements Collidable, Fallable{
 	public void checkCollide() {
 		// TODO Auto-generated method stub
 		if(collideWith(SceneManager.getInstance().getPlayer())) {
-			if(type==0)SceneManager.getInstance().getPlayer().changeHp(20);
+			if(type==0)SceneManager.getInstance().getPlayer().changeHp(30);
 			else {
 				new Thread(()->{
+					PowerupPane.getInstance().getText().get(type).setText(String.valueOf(Integer.parseInt(PowerupPane.getInstance().getText().get(type).getText())+1));
 					if(type==1){
 						SceneManager.getInstance().getPlayer().changeAtk(10);
 						try {
@@ -108,6 +110,7 @@ public class Powerup extends Entity implements Collidable, Fallable{
 						}
 						SceneManager.getInstance().getPlayer().changemvsp(-2);
 					}
+					PowerupPane.getInstance().getText().get(type).setText(String.valueOf(Integer.parseInt(PowerupPane.getInstance().getText().get(type).getText())-1));
 				}).start();;
 			}
 			SceneManager.getInstance().getCollidable().remove(this);

@@ -11,11 +11,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class HomeScreen extends GridPane {
+public class HomeScreen extends Pane {
 
 	private Label name1;
 	private Label name2;
@@ -24,10 +25,7 @@ public class HomeScreen extends GridPane {
 	
 	public HomeScreen(Stage stage) {
 		// TODO Auto-generated constructor stub 11 * 12
-		setMinSize(1280, 720);setMaxSize(1280, 720);
-		setAlignment(Pos.CENTER);
-		setHgap(20);setVgap(20);setPadding(new Insets(25,25,25,25));
-		
+		setPrefSize(1280, 720);
 		name1 = new Label("ZENITH");
 		name2 = new Label("CHRONICLE");
 		start = new Button("Start");
@@ -35,6 +33,12 @@ public class HomeScreen extends GridPane {
 		
 		name1.setStyle("-fx-text-fill: white;-fx-font-style: italic; -fx-font-size: 120px;-fx-font-weight: bold; -fx-font-family: \"Tahoma\";");
 		name2.setStyle("-fx-text-fill: white;-fx-font-style: italic; -fx-font-size: 120px;-fx-font-weight: bold; -fx-font-family: \"Tahoma\";");
+		
+		name1.setLayoutX(60);name2.setLayoutY(90);
+		name2.setLayoutX(400);name2.setLayoutY(150);
+		start.setLayoutX(120);start.setLayoutY(500);
+		quit.setLayoutX(120);quit.setLayoutY(600);
+		
 		start.setBorder(null);
 		
 		start.setOnAction(new EventHandler<ActionEvent>() {
@@ -50,10 +54,7 @@ public class HomeScreen extends GridPane {
 			}
 		});
 		
-		add(name1,3,2,6,3);
-		add(name2,6,6,8,3);
-		add(start,2,10,3,2);
-		add(quit,2,12,4,2);
+		getChildren().addAll(name1,name2,start,quit);
 		
 	}
 

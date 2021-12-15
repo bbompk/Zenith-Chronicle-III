@@ -89,7 +89,7 @@ public class Player extends Character implements Collidable, Fallable{
 		roll = new Sprite("sprite/character/player/roll_4_frame.gif");
 		hp =100;
 		maxHp =100;
-		atk = 9990;
+		atk = 9;
 		new Thread(()->{
 			while(true) {
 			try {
@@ -125,7 +125,7 @@ public class Player extends Character implements Collidable, Fallable{
 		roll = new Sprite("sprite/character/player/roll_4_frame.gif");
 		hp =100;
 		maxHp =100;
-		atk = 9990;
+		atk = 9;
 		new Thread(()->{
 			while(true) {
 			try {
@@ -192,7 +192,7 @@ public class Player extends Character implements Collidable, Fallable{
 				else atkable = 41;
 		}
 		//---------------moving
-		if(!(status.equals(PlayerStatus.DIE)) && direction != 0 && atkable < 76){
+		if(!(status.equals(PlayerStatus.DIE)) && atkable < 76){
 
 			if(direction == 1) {
 				moveRight();
@@ -221,7 +221,7 @@ public class Player extends Character implements Collidable, Fallable{
 		
 		if(immune ==0) {
 			for(Enemy e:SceneManager.getInstance().getEnemy()) {
-				if(e.collideWith(this) && e.isAlive() && immune == 0) {
+				if(e.collideWith(this) && e.isAlive() && immune == 0 && !(e instanceof Boss)) {
 					takeDamage(e.getAtk());
 					immune += 101;
 				}
@@ -387,6 +387,7 @@ public class Player extends Character implements Collidable, Fallable{
 		for(Enemy enemy : SceneManager.getInstance().getEnemy()) {
 			if(enemy.collideWith(a)) {
 				enemy.takeDamage(getAtk());
+				System.out.println(getAtk());
 			}
 		}
 	}

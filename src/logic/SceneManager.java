@@ -135,7 +135,7 @@ public class SceneManager extends Canvas implements Serializable {
 		Tile.generate();
 		Powerup.generate();
 		Monster.generate();
-		enemy.add(new Boss(700, 320));
+//		enemy.add(new Boss(700, 320));
 		player.setY(100);
 		player.setX(100);
 	}

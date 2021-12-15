@@ -14,6 +14,7 @@ import component.PlayerStatus;
 import component.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.media.AudioClip;
+import javafx.util.Pair;
 import logic.KeyHandler;
 import logic.SceneManager;
 import util.GameUtil;
@@ -28,6 +29,8 @@ public class Player extends Character implements Collidable, Fallable{
 	private int immune = 0;
 	protected static PlayerStatus face = PlayerStatus.RIGHT;
 	protected boolean freezeFace;
+	private int playtime;
+	private int playtimem;
 	
 //	private static final AudioClip atkSound = new AudioClip(ClassLoader.getSystemResource("attackk.wav").toString());
 	
@@ -48,7 +51,7 @@ public class Player extends Character implements Collidable, Fallable{
 	
 	// Jumping
 	private PlayerStatus jumpStatus;
-	private double initJumpSpeed = 20;
+	private double initJumpSpeed = 10;
 	private double jumpCount;
 	private double prevGround;
 	
@@ -87,9 +90,9 @@ public class Player extends Character implements Collidable, Fallable{
 		attack = new Sprite("sprite/character/player/attack.gif");
 		hurt = new Sprite("sprite/character/player/hurt.gif");
 		roll = new Sprite("sprite/character/player/roll_4_frame.gif");
-		hp =100;
 		maxHp =100;
-		atk = 50;
+		hp = maxHp;
+		atk = 70;
 		new Thread(()->{
 			while(true) {
 			try {
@@ -98,7 +101,13 @@ public class Player extends Character implements Collidable, Fallable{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			healing += 5 *inventory.get(5);}
+			healing += 5 *inventory.get(5);
+			playtime += 1;
+			if(playtime > 59) {
+				playtime -= 60;
+				playtimem += 1;
+			}
+			}
 		}).start();
 	}
 	
@@ -123,9 +132,9 @@ public class Player extends Character implements Collidable, Fallable{
 		attack = new Sprite("sprite/character/player/attack.gif");
 		hurt = new Sprite("sprite/character/player/hurt.gif");
 		roll = new Sprite("sprite/character/player/roll_4_frame.gif");
-		hp =10000;
-		maxHp =10000;
-		atk = 50;
+		maxHp =100;
+		hp = maxHp;
+		atk = 70;
 		new Thread(()->{
 			while(true) {
 			try {
@@ -468,5 +477,7 @@ public class Player extends Character implements Collidable, Fallable{
 		this.inventory = inventory;
 	}
 	
-	
+	public String getplaytime(){
+		return playtimem + " : " + playtime;
+	}
 }

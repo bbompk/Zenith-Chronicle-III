@@ -31,7 +31,7 @@ public class Main extends Application {
 		Scene scene = new Scene(root);
 		scene.setFill(Color.BLACK);
 		stage.setScene(scene);
-		stage.setTitle("Zenith chronicle");
+		stage.setTitle("Zenith Chronicle 3");
 		stage.setResizable(true);
 		stage.show();
 		

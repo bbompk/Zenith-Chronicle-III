@@ -1,22 +1,45 @@
 package gui;
 
+import java.util.ArrayList;
+
 import entity.Powerup;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 public class PowerupPane extends HBox {
+	
+	private ArrayList<Text> text;
+	private static PowerupPane instance = null;
 
 	public PowerupPane() {
 		// TODO Auto-generated constructor stub
+		text = new ArrayList<Text>();
 		setLayoutX(1108);setLayoutY(2);
 		setPadding(new Insets(5));
 		for(int i=0;i<4;i++) {
+			VBox box = new VBox();
 			ImageView image = new ImageView(Powerup.getSprites(i).getImage());
 			image.setFitHeight(40);image.setFitWidth(40);
-			getChildren().add(image);
+			box.getChildren().add(image);
+			Text textt = new Text("0");
+			textt.setFill(Color.YELLOW);
+			textt.setStyle("-fx-font-style: italic; -fx-font-size: 30px;-fx-font-weight: bold; -fx-font-family: \"Tahoma\";");
+			box.setAlignment(Pos.CENTER);
+			text.add(textt);
+			box.getChildren().add(text.get(i) );
+			getChildren().add(box);
 		}
+	}
+	
+	public static PowerupPane getInstance() {
+		if(instance == null)instance = new PowerupPane();
+		return instance;
 	}
 
 	public PowerupPane(double arg0) {
@@ -32,6 +55,14 @@ public class PowerupPane extends HBox {
 	public PowerupPane(double arg0, Node... arg1) {
 		super(arg0, arg1);
 		// TODO Auto-generated constructor stub
+	}
+
+	public ArrayList<Text> getText() {
+		return text;
+	}
+
+	public void setText(ArrayList<Text> text) {
+		this.text = text;
 	}
 
 }

@@ -177,9 +177,9 @@ public class Player extends Character implements Collidable, Fallable{
 			direction = -1;
 		}
 		if(KeyHandler.getInstance().getKeyStatus(68).equals(KeyStatus.FREE) && KeyHandler.getInstance().getKeyStatus(65).equals(KeyStatus.FREE)) {
-			direction = 0;
+			direction = 0; status=PlayerStatus.IDLE;
 		}else if(KeyHandler.getInstance().getKeyStatus(68).equals(KeyStatus.DOWN) && KeyHandler.getInstance().getKeyStatus(65).equals(KeyStatus.DOWN)) {
-			direction = 0;
+			direction = 0; status=PlayerStatus.IDLE;
 		}
 		
 		//attack and dash-----------
@@ -199,13 +199,13 @@ public class Player extends Character implements Collidable, Fallable{
 			}
 			if(direction == -1) {
 				moveLeft();
-			}}
+			}
 			if(direction == 0) {status = PlayerStatus.IDLE;}
 			if(KeyHandler.getInstance().getKeyStatus(32).equals(KeyStatus.DOWN)) {
 				prevGround = getY()+getH();
 				jump();
 			}
-		}
+		}}
 		}
 		int fallBack;
 		if(!status.equals(PlayerStatus.DASHING)) {

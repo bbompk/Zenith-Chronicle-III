@@ -386,8 +386,11 @@ public class Player extends Character implements Collidable, Fallable{
 		else  a = new AttackBox(getX()-100, getY(), 100+getW()*3/4	, getH());
 		for(Enemy enemy : SceneManager.getInstance().getEnemy()) {
 			if(enemy.collideWith(a)) {
+
+				System.out.println(enemy.getHp());
 				enemy.takeDamage(getAtk());
 				System.out.println(getAtk());
+				System.out.println(enemy.getHp());
 			}
 		}
 	}

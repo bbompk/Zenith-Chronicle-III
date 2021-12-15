@@ -91,8 +91,8 @@ public abstract class Character extends Entity implements Fallable{
 
 	protected abstract void die();
 
-	public void changeHp(int hp) {
-		this.hp += hp;
+	public void changeHp(int hpvalue) {
+		hp += hpvalue;
 		hp = (hp>maxHp) ? maxHp : (hp<0) ? 0 : hp;
 	}
 	

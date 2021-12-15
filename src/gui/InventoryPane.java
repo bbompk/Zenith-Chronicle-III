@@ -64,4 +64,7 @@ public class InventoryPane extends HBox {
 		this.text = text;
 	}
 
+	public void clear() {
+		instance = null;
+	}
 }

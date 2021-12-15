@@ -237,6 +237,8 @@ public class SceneManager extends Canvas implements Serializable {
 		this.rightBound = rightBound;
 	};
 	
-	
+	public void restart() {
+		instance = null;
+	}
 	
 }

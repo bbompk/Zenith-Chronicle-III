@@ -57,4 +57,8 @@ public class Difficulty {
 		}
 	}
 
+	
+	public static void clear() {
+		level = 0;countDown = 5;
+	}
 }

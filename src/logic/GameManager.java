@@ -16,9 +16,10 @@ public class GameManager {
 	private boolean isGameOver = false;
 	private boolean isVictory = false;
 	
-	private static GameState state;
+	private GameState state;
 	private boolean escPress;
 	private boolean escPress2;
+	private AnimationTimer animation;
 	
 	
 	public GameManager() {
@@ -33,12 +34,11 @@ public class GameManager {
 	}
 	
 	public void update(ActionEvent e) {
-		int esc = 27;
-		
-		if(escPress2 && KeyHandler.getInstance().getKeyStatus(esc).equals(KeyStatus.FREE))escPress2 = false;
+		if(escPress2 && KeyHandler.getInstance().getKeyStatus(27).equals(KeyStatus.FREE))escPress2 = false;
 		if(state == GameState.LEVEL) {
-			if(KeyHandler.getInstance().getKeyStatus(esc).equals(KeyStatus.DOWN) && !escPress2) {
+			if(KeyHandler.getInstance().getKeyStatus(27).equals(KeyStatus.DOWN) && !escPress2) {
 				state = GameState.PAUSE;
+				GameUI.getInstance().setPausePane(true);
 				escPress = true;
 				// TODO handle pause
 			}
@@ -52,18 +52,16 @@ public class GameManager {
 				state = GameState.VICTORY;
 				//TODO handle victory screen
 			}
-			
-		if(escPress && KeyHandler.getInstance().getKeyStatus(esc).equals(KeyStatus.FREE))escPress = false;	
+		}
+		if(escPress && KeyHandler.getInstance().getKeyStatus(27).equals(KeyStatus.FREE))escPress = false;	
 		if(state == GameState.PAUSE) {
-			if(KeyHandler.getInstance().getKeyStatus(esc).equals(KeyStatus.DOWN) && !escPress) {
+			if(KeyHandler.getInstance().getKeyStatus(27).equals(KeyStatus.DOWN) && !escPress) {
 				state = GameState.LEVEL;
+				GameUI.getInstance().setPausePane(false);
 				escPress2 = true;
 				// TODO handle pause
 			}
 		}
-			
-		}
-		
 		//TODO might have to do with other states, should set up homescreen and run game with gamemanager
 	}
 	
@@ -80,12 +78,12 @@ public class GameManager {
 		SceneManager.getInstance().setUp();
 		SceneManager.getInstance().startLevel();
 		//SceneManager.getInstance().startBossLevel();
-		GameUI ui = new GameUI();
+		GameUI ui = GameUI.getInstance();
 		root.getChildren().add(KeyHandler.getInstance());
 		root.getChildren().add(SceneManager.getInstance());
 		root.getChildren().add(ui);
 		KeyHandler.getInstance().requestFocus();
-		AnimationTimer animation = new AnimationTimer(){
+		animation = new AnimationTimer(){
 			public void handle(long now){
 //				new Thread(() -> {
 //					new Thread(() -> {
@@ -115,9 +113,16 @@ public class GameManager {
 		this.isVictory = isVictory;
 	}
 
-	public static GameState getState() {
+	public GameState getState() {
 		return state;
 	}
 	
+	public void clear() {
+		escPress= false;escPress2 = false;state = GameState.LEVEL;
+	}
 	
+	public void restart() {
+		animation.stop();
+		instance = null;
+	}
 }

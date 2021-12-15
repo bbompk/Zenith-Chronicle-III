@@ -65,4 +65,7 @@ public class PowerupPane extends HBox {
 		this.text = text;
 	}
 
+	public void clear() {
+		instance = null;
+	}
 }

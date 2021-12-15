@@ -1,5 +1,7 @@
 package logic;
 
+import gui.GameUI;
+
 public class Difficulty {
 	
 	private static GameMode difficulty = GameMode.EASY;
@@ -16,6 +18,7 @@ public class Difficulty {
 		}
 		countDown--;
 		hardMultiply += 0.05;
+		GameUI.getInstance().setFloor(level);
 	}
 	
 	public static void goHarder() {

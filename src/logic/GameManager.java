@@ -21,13 +21,13 @@ public class GameManager {
 	private boolean escPress2;
 	private AnimationTimer animation;
 	private boolean continuee;
-	
+	private boolean pause;
 	
 	public GameManager() {
 		// TODO Auto-generated constructor stub
 		state = GameState.TITLE;
 		escPress = false;escPress2 = false;
-		continuee = false;
+		continuee = false;pause = false;
 	}
 
 	public static GameManager getInstance() {
@@ -36,12 +36,13 @@ public class GameManager {
 	}
 	
 	public void update(ActionEvent e) {
-		if(escPress2 && KeyHandler.getInstance().getKeyStatus(27).equals(KeyStatus.FREE))escPress2 = false;
+		if(pause || (escPress2 && KeyHandler.getInstance().getKeyStatus(27).equals(KeyStatus.FREE)))escPress2 = false;
 		if(state == GameState.LEVEL) {
-			if(KeyHandler.getInstance().getKeyStatus(27).equals(KeyStatus.DOWN) && !escPress2) {
+			if((KeyHandler.getInstance().getKeyStatus(27).equals(KeyStatus.DOWN) && !escPress2) || pause) {
 				state = GameState.PAUSE;
 				GameUI.getInstance().setPausePane(true);
 				escPress = true;
+				pause = false;
 				// TODO handle pause
 			}
 			
@@ -141,5 +142,9 @@ public class GameManager {
 
 	public void continuee() {
 		continuee = true;
+	}
+	
+	public void pause() {
+		pause = true;
 	}
 }

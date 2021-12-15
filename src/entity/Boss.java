@@ -20,7 +20,7 @@ public class Boss extends Enemy {
 	private static Sprite pre_strike = new Sprite("sprite/character/boss/prepare_to_strike.gif");;
 	private static Sprite strike = new Sprite("sprite/character/boss/strike.gif");; 
 	
-	private int immune;
+	private int stunImmune;
 	private int direction;
 	private double attackRange;
 	private AttackBox attackBox;
@@ -31,6 +31,7 @@ public class Boss extends Enemy {
 	public Boss(double x, double y) {
 		super(x, y, 200, 250);
 		// TODO Auto-generated constructor stub
+		status = BossStatus.WALK;
 		direction = -1;
 		moveSpeed = 3;
 		hp = 500000;
@@ -50,13 +51,12 @@ public class Boss extends Enemy {
 			attack();	
 		}
 		
-		justTakeDamage = justTakeDamage == 0 ? justTakeDamage : justTakeDamage -1;
 		if(status.equals(BossStatus.PREPARING)) {
 			
 		}else if(status.equals(BossStatus.STRIKING)) {
 			
 		}else {
-			if(fall()==0 && alive) {
+			if(fall()==0 && alive && stunImmune < 471) {
 				double distance = getX() - SceneManager.getInstance().getPlayer().getX();
 				if(getY()+getH() == SceneManager.getInstance().getPlayer().getPrevGround() && justTakeDamage == 0) {
 					if(distance > -800 || distance < 800) {
@@ -67,6 +67,9 @@ public class Boss extends Enemy {
 	
 			}
 		}
+
+		justTakeDamage = justTakeDamage == 0 ? justTakeDamage : justTakeDamage -1;
+		stunImmune = stunImmune == 0 ? stunImmune : stunImmune -1;
 	}
 	
 	@Override
@@ -173,8 +176,8 @@ public class Boss extends Enemy {
 		// TODO Auto-generated method stub
 		if(!alive)return death;
 		if(status.equals(BossStatus.PREPARING)) return pre_strike;
+		if(justTakeDamage > 0 && stunImmune < 471)return hurt;
 		if(status.equals(BossStatus.STRIKING)) return strike;
-		if(justTakeDamage > 0)return hurt;
 		return run;
 	}
 	
@@ -220,10 +223,10 @@ public class Boss extends Enemy {
 
 	@Override
 	public void takeDamage(int x) {
-		if(immune==0) {
-			immune += 201;
-			super.takeDamage(x);
+		if(stunImmune==0) {
+			stunImmune += 501;
 		}
+		super.takeDamage(x);
 	}
 
 	public double getAttackRange() {

@@ -29,24 +29,26 @@ public class GameUI extends Pane {
 	private Healthbar healthbar;
 	private StackPane healthbarPane;
 	private Text health;
+	private Text floor;
 	public Pane pausePane;
 	public Pane blackPane;
-	private Button con;
-	private Button restart;
-	private Button main;
-	private Button quit;
+	public EndgamePane endgamePane;
 	private static GameUI instance = null;
+	private boolean win;
+	private boolean lose;
+	private boolean continuee;
 	
 	public GameUI() {
 		// TODO Auto-generated constructor stub
 		pausePane = new Pane();
-		con = new Button("Continue");
-		restart = new Button("Restart");
-		main = new Button("Main Menu");
-		quit = new Button("Quit");
+		endgamePane = new EndgamePane();
 		health = new Text("");
-		healthbarPane = new StackPane();
 		
+		floor = new Text("Floor 1");
+		floor.setFont(FontHolder.getInstance().getFont().get(40));
+		floor.setLayoutX(600);floor.setLayoutY(40);
+		
+		healthbarPane = new StackPane();
 		healthbarPane.setAlignment(Pos.CENTER);
 		
 		blackPane = new Pane();
@@ -60,131 +62,20 @@ public class GameUI extends Pane {
 		pausePane.setLayoutX(445);pausePane.setLayoutY(120);
 		pausePane.setMinSize(390,460);pausePane.setMaxSize(390, 460);
 		pausePane.setStyle("-fx-border-width: 10;-fx-border-color:black;-fx-background-color:gray;-fx-border-radius: 20;-fx-background-radius: 25;");
-		con.setFont(FontHolder.getInstance().getFont().get(50));
-		restart.setFont(FontHolder.getInstance().getFont().get(50));
-		main.setFont(FontHolder.getInstance().getFont().get(50));
-		quit.setFont(FontHolder.getInstance().getFont().get(50));
+		
 		health.setFont(FontHolder.getInstance().getFont().get(30));
-		con.setTextFill(Color.BLACK);con.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
-		restart.setTextFill(Color.BLACK);restart.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
-		main.setTextFill(Color.BLACK);main.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
-		quit.setTextFill(Color.BLACK);quit.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
-		con.setPadding(new Insets(0));restart.setPadding(new Insets(0));main.setPadding(new Insets(0));quit.setPadding(new Insets(0));
-		con.setLayoutX(50);con.setLayoutY(50);
-		restart.setLayoutX(50);restart.setLayoutY(150);
-		main.setLayoutX(50);main.setLayoutY(250);
-		quit.setLayoutX(50);quit.setLayoutY(350);
 		
-		con.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				GameManager.getInstance().continuee();
-			}
-		});
-		con.setOnMouseEntered(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				con.setFont(FontHolder.getInstance().getFont().get(65));
-			}
-		});
-		con.setOnMouseExited(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				con.setFont(FontHolder.getInstance().getFont().get(55));
-			}
-		});
-		restart.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				Powerup.clear();
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				clear();
-				SceneManager.getInstance().restart();
-				GameManager.getInstance().restart();
-				KeyHandler.getInstance().restart();
-				Difficulty.clear();
-				Difficulty.setDifficulty(Difficulty.getDifficulty());
-				GameManager.getInstance().gameStart(e);
-			}
-		});
-		restart.setOnMouseEntered(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				restart.setFont(FontHolder.getInstance().getFont().get(65));
-			}
-		});
-		restart.setOnMouseExited(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				restart.setFont(FontHolder.getInstance().getFont().get(55));
-			}
-		});
-		main.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				Powerup.clear();
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				clear();
-				SceneManager.getInstance().restart();
-				GameManager.getInstance().restart();
-				KeyHandler.getInstance().restart();
-				Difficulty.clear();
-				Stage stage = ((Stage) ((Node) e.getSource()).getScene().getWindow());
-				StackPane root = new StackPane();
-				ImageView image = new ImageView(new Background().getImage().getImage());
-				image.setFitHeight(720);image.setFitWidth(1280);
-				root.getChildren().add(image);
-				root.getChildren().add(new HomeScreen(stage));
-				Scene scene = new Scene(root);
-				scene.setFill(Color.BLACK);
-				stage.setScene(scene);
-			}
-		});
-		main.setOnMouseEntered(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				main.setFont(FontHolder.getInstance().getFont().get(65));
-			}
-		});
-		main.setOnMouseExited(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				main.setFont(FontHolder.getInstance().getFont().get(55));
-			}
-		});
-		quit.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				((Stage) ((Node) e.getSource()).getScene().getWindow()).close();
-			}
-		});
-		quit.setOnMouseEntered(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				quit.setFont(FontHolder.getInstance().getFont().get(65));
-			}
-		});
-		quit.setOnMouseExited(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				quit.setFont(FontHolder.getInstance().getFont().get(55));
-			}
-		});
-		
-		pausePane.getChildren().addAll(con,restart,main,quit);
+		pausePane.getChildren().addAll(new UIButton("Continue",50,50),new UIButton("Restart",50,150),new UIButton("Main Menu",50,250),new UIButton("Quit",50,350));
 		healthbar = new Healthbar();
 		healthbarPane.getChildren().addAll(healthbar,health);
+		getChildren().add(floor);
 		getChildren().add(blackPane);
 		getChildren().add(pausePane);
+		getChildren().add(endgamePane);
 		getChildren().add(healthbarPane);
 		getChildren().add(InventoryPane.getInstance());
 		getChildren().add(PowerupPane.getInstance());
+//		endgamePane.setGameText(true, true);
 	}
 	
 	public static GameUI getInstance() {
@@ -195,6 +86,13 @@ public class GameUI extends Pane {
 	public void update() {
 		healthbar.update();
 		health.setText(SceneManager.getInstance().getPlayer().getHp() + " / " + SceneManager.getInstance().getPlayer().getMaxHp());
+		if(lose) {
+			blackPane.setVisible(true);
+			endgamePane.setGameText(false,continuee);
+		}else if(win && !continuee) {
+			blackPane.setVisible(true);
+			endgamePane.setGameText(true,continuee);
+		}
 	}
 
 	public GameUI(Node arg0) {
@@ -212,10 +110,23 @@ public class GameUI extends Pane {
 		pausePane.setVisible(visible);
 	}
 	
-	private void clear() {
+	public void clear() {
 		InventoryPane.getInstance().clear();
 		PowerupPane.getInstance().clear();
 		instance = null;
 	}
 
+	public void win() {
+		win = true;
+		SceneManager.getInstance().endgame();
+	}
+	
+	public void lose() {
+		lose = true;
+		SceneManager.getInstance().endgame();
+	}
+	
+	public void setFloor(int x) {
+		floor.setText("Floor "+x);
+	}
 }

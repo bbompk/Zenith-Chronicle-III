@@ -41,6 +41,7 @@ public class SceneManager extends Canvas implements Serializable {
 	private double leftBound ;
 	private double rightBound ;
 	public boolean changeState;
+	private boolean gameend;
 	
 	private SceneManager() {
 		// TODO Auto-generated constructor stub
@@ -52,6 +53,7 @@ public class SceneManager extends Canvas implements Serializable {
 		collidable = new ArrayList<Collidable>();
 		interactable = new ArrayList<Interactable>();
 		player = new Player();
+		gameend = false;
 		level = 0;
 	}
 	
@@ -61,6 +63,7 @@ public class SceneManager extends Canvas implements Serializable {
 	}
 	
 	public void update() {
+		if(gameend)return;
 		Powerup.renewPowerup();
 		if(changeState) {
 			clear();
@@ -84,6 +87,7 @@ public class SceneManager extends Canvas implements Serializable {
 	}
 	
 	public void draw() {
+		if(gameend)return;
 		GraphicsContext gc = getGraphicsContext2D();
 		gc.setFill(Color.RED);
 //		for(Tile tile : tiles) {
@@ -135,7 +139,7 @@ public class SceneManager extends Canvas implements Serializable {
 		Tile.generate();
 		Powerup.generate();
 		Monster.generate();
-//		enemy.add(new Boss(700, 320));
+		enemy.add(new Boss(700, 320));
 		player.setY(100);
 		player.setX(100);
 	}
@@ -241,6 +245,10 @@ public class SceneManager extends Canvas implements Serializable {
 	
 	public void restart() {
 		instance = null;
+	}
+	
+	public void endgame() {
+		gameend = true;
 	}
 	
 }

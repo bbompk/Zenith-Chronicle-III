@@ -12,6 +12,7 @@ import component.Fallable;
 import component.KeyStatus;
 import component.PlayerStatus;
 import component.Sprite;
+import gui.GameUI;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.media.AudioClip;
 import javafx.util.Pair;
@@ -137,13 +138,19 @@ public class Player extends Character implements Collidable, Fallable{
 		atk = 70;
 		new Thread(()->{
 			while(true) {
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			healing += 5 *inventory.get(5);}
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				healing += 5 *inventory.get(5);
+				playtime += 1;
+				if(playtime > 59) {
+					playtime -= 60;
+					playtimem += 1;
+				}
+				}
 		}).start();
 	}
 
@@ -151,6 +158,7 @@ public class Player extends Character implements Collidable, Fallable{
 	public void update() {
 		// TODO Auto-generated method stub
 		if(needRemove) {
+			GameUI.getInstance().lose();
 			setX(-5000);
 			prevy = 999;
 			return;
@@ -478,6 +486,6 @@ public class Player extends Character implements Collidable, Fallable{
 	}
 	
 	public String getplaytime(){
-		return playtimem + " : " + playtime;
+		return playtimem + " minute and " + playtime + " second";
 	}
 }

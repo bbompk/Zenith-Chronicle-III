@@ -9,6 +9,7 @@ import component.Fallable;
 import component.Interactable;
 import component.KeyStatus;
 import component.Sprite;
+import gui.GameUI;
 import gui.InventoryPane;
 import gui.PowerupPane;
 import logic.KeyHandler;
@@ -85,6 +86,13 @@ public class Item extends Entity implements Interactable,Fallable,Collidable{
 			SceneManager.getInstance().getPlayer().inventory.set(type, SceneManager.getInstance().getPlayer().getInventory().get(type)+1);
 			SceneManager.getInstance().getInteractable().remove(this);
 			InventoryPane.getInstance().getText().get(type).setText(String.valueOf(Integer.parseInt(InventoryPane.getInstance().getText().get(type).getText())+1));
+			boolean win =true;
+			for(int i : SceneManager.getInstance().getPlayer().getInventory()) {
+				if(i==0)win = false;
+			}
+			if(win) {
+				GameUI.getInstance().win();
+			}
 		}
 	}
 

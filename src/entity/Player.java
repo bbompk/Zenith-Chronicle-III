@@ -20,7 +20,7 @@ import util.GameUtil;
 
 public class Player extends Character implements Collidable, Fallable{
 	
-	public static final boolean WallHacks = true;
+	public static final boolean WallHacks = false;
 	
 	
 	//Utility
@@ -123,8 +123,8 @@ public class Player extends Character implements Collidable, Fallable{
 		attack = new Sprite("sprite/character/player/attack.gif");
 		hurt = new Sprite("sprite/character/player/hurt.gif");
 		roll = new Sprite("sprite/character/player/roll_4_frame.gif");
-		hp =100;
-		maxHp =100;
+		hp =10000;
+		maxHp =10000;
 		atk = 50;
 		new Thread(()->{
 			while(true) {
@@ -386,11 +386,8 @@ public class Player extends Character implements Collidable, Fallable{
 		else  a = new AttackBox(getX()-100, getY(), 100+getW()*3/4	, getH());
 		for(Enemy enemy : SceneManager.getInstance().getEnemy()) {
 			if(enemy.collideWith(a)) {
-
-				System.out.println(enemy.getHp());
 				enemy.takeDamage(getAtk());
-				System.out.println(getAtk());
-				System.out.println(enemy.getHp());
+			
 			}
 		}
 	}

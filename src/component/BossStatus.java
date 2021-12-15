@@ -1,5 +1,5 @@
 package component;
 
 public enum BossStatus {
-	WALK, DIE, PREPARING, STRIKING;
+	WALK, DIE, PREPARING, STRIKING, IDLE
 }

@@ -17,10 +17,11 @@ import logic.SceneManager;
 
 public class Powerup extends FallObject implements Collidable{
 	
-	private static ArrayList<Sprite> sprites = new ArrayList<Sprite>();
+	
 	private int type;
 	private boolean renewable;
 	private int level;
+	private static ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 	private static Queue<Integer> renew = new LinkedList<Integer>();
 	private static ArrayList<Thread> thread = new ArrayList<Thread>();
 	private static final AudioClip boostSound= new AudioClip(ClassLoader.getSystemResource("audio/sfx/boost.mp3").toString());
@@ -141,6 +142,7 @@ public class Powerup extends FallObject implements Collidable{
 					}
 					PowerupPane.getInstance().getText().get(type).setText(String.valueOf(Integer.parseInt(PowerupPane.getInstance().getText().get(type).getText())-1));
 				});
+				t.setDaemon(true);
 				thread.add(t);
 				t.start();
 			}
@@ -149,14 +151,13 @@ public class Powerup extends FallObject implements Collidable{
 				Thread t = new Thread(() ->{
 				double x = getX();double y = getY();int type = this.type;int level = this.level;
 				try {
-					System.out.println("renew");;
 					Thread.sleep(15000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 //					e.printStackTrace();
 					interrupt = true;
 				}	if(!interrupt)renew.add((int) x);renew.add((int) y);renew.add(type);renew.add(level);
-			});thread.add(t);t.start();}
+			});t.setDaemon(true);thread.add(t);t.start();}
 			SceneManager.getInstance().getCollidable().remove(this);
 		}
 	}

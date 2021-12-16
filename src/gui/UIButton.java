@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import logic.Difficulty;
@@ -22,6 +23,8 @@ import logic.SceneManager;
 
 public class UIButton extends Button {
 
+	public static final AudioClip clickSound = new AudioClip(ClassLoader.getSystemResource("audio/sfx/clicker.mp3").toString());
+	
 	public UIButton(String t,int x,int y) {
 		// TODO Auto-generated constructor stub
 		super(t);
@@ -35,6 +38,7 @@ public class UIButton extends Button {
 		if(t == "Continue")setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				GameManager.getInstance().continuee();
+				clickSound.play();
 			}
 		});
 		if(t == "Restart")setOnAction(new EventHandler<ActionEvent>() {
@@ -59,6 +63,7 @@ public class UIButton extends Button {
 				}
 				Difficulty.setDifficulty(Difficulty.getDifficulty());
 				GameManager.getInstance().gameStart(e);
+				clickSound.play();
 			}
 		});
 		if(t == "Main Menu")setOnAction(new EventHandler<ActionEvent>() {
@@ -98,12 +103,14 @@ public class UIButton extends Button {
 				stage.setScene(scene);
 				GameManager.getInstance().stopBGM();
 				GameManager.titleBGM.play();
+				clickSound.play();
 			}
 		});
 		if(t == "Quit")setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				System.exit(0);
 				((Stage) ((Node) e.getSource()).getScene().getWindow()).close();
+				clickSound.play();
 			}
 		});
 		setOnMouseEntered(new EventHandler<MouseEvent>() {

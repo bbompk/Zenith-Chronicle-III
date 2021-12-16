@@ -27,6 +27,7 @@ public class GameManager {
 	private int playtime;
 	private int playtimem;
 	private Thread timerThread;
+	private long lastLevelTime;
 	
 	public static final int screenWidth = 1280;
 	public static final int screenHeight = 720;
@@ -51,6 +52,7 @@ public class GameManager {
 		Gameend = false;
 		playtime = 0;
 		playtimem = 0;
+		lastLevelTime = System.currentTimeMillis();
 		timerThread  = new Thread(()->{
 			while(!GameManager.getInstance().isGameend()) {
 			if(!GameManager.getInstance().getState().equals(GameState.PAUSE)) {
@@ -238,4 +240,24 @@ public class GameManager {
 	public int getplaytimem(){
 		return playtimem;
 	}
+
+	public long getLastLevelTime() {
+		return lastLevelTime;
+	}
+
+	public int getPlaytime() {
+		return playtime;
+	}
+
+	public int getPlaytimem() {
+		return playtimem;
+	}
+
+	public void setLastLevelTime(long lastLevelTime) {
+		this.lastLevelTime = lastLevelTime;
+	}
+	
+	
+	
+	
 }

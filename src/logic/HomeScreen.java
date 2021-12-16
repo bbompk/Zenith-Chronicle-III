@@ -1,6 +1,7 @@
 package logic;
 
 import gui.FontHolder;
+import gui.UIButton;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -18,10 +19,6 @@ import javafx.stage.Stage;
 
 public class HomeScreen extends Pane {
 
-//	private ArrayList<Node> node;
-//	private Label name1;
-//	private Label name2;
-//	private Label name3;
 	private Button start;
 	private Button how;
 	private Button credit;
@@ -51,9 +48,7 @@ public class HomeScreen extends Pane {
 		difPane = new Pane();
 		creditPane = new Pane();
 		howPane = new Pane();
-//		name1 = new Label("ZENITH");
-//		name2 = new Label("CHRONICLE");
-//		name3 = new Label("III");
+
 		start = new Button("Start");
 		how = new Button("How to play");
 		credit = new Button("Credit");
@@ -168,6 +163,7 @@ public class HomeScreen extends Pane {
 				if(!blackPane.isVisible()) {
 					difPane.setVisible(true);
 					blackPane.setVisible(true);
+					UIButton.clickSound.play();
 				}
 			}
 		});
@@ -211,7 +207,9 @@ public class HomeScreen extends Pane {
 				if(!blackPane.isVisible()) {
 					howPane.setVisible(true);
 					blackPane.setVisible(true);
+					UIButton.clickSound.play();
 					howPane.requestFocus();
+		
 				}
 			}
 		});
@@ -232,6 +230,7 @@ public class HomeScreen extends Pane {
 				if(!blackPane.isVisible()) {
 					blackPane.setVisible(true);
 					creditPane.setVisible(true);
+					UIButton.clickSound.play();
 					creditPane.requestFocus();
 				}
 			}
@@ -253,6 +252,7 @@ public class HomeScreen extends Pane {
 				if(!blackPane.isVisible()) {
 					exitPane.setVisible(true);
 					blackPane.setVisible(true);
+					UIButton.clickSound.play();
 				}
 			}
 		});
@@ -272,18 +272,21 @@ public class HomeScreen extends Pane {
 			public void handle(ActionEvent e) {
 				howPane.setVisible(false);
 				blackPane.setVisible(false);
+				UIButton.clickSound.play();
 			}
 		});
 		backc.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				creditPane.setVisible(false);
 				blackPane.setVisible(false);
+				UIButton.clickSound.play();
 			}
 		});
 		x.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				difPane.setVisible(false);
 				blackPane.setVisible(false);
+				UIButton.clickSound.play();
 			}
 		});
 		x.setOnMouseEntered(new EventHandler<MouseEvent>() {
@@ -304,6 +307,7 @@ public class HomeScreen extends Pane {
 			public void handle(ActionEvent e) {
 				Difficulty.setDifficulty(GameMode.EASY);
 				System.out.println("Easy? Don't you have a shame?");
+				UIButton.clickSound.play();
 				GameManager.getInstance().restart();
 				GameManager.getInstance().gameStart(e);
 			}
@@ -324,6 +328,7 @@ public class HomeScreen extends Pane {
 			public void handle(ActionEvent e) {
 				Difficulty.setDifficulty(GameMode.NORMAL);
 				System.out.println("Maybe this game is too easy.");
+				UIButton.clickSound.play();
 				GameManager.getInstance().restart();
 				GameManager.getInstance().gameStart(e);
 			}
@@ -344,6 +349,7 @@ public class HomeScreen extends Pane {
 			public void handle(ActionEvent e) {
 				Difficulty.setDifficulty(GameMode.HARD);
 				System.out.println("Life is too easy,isn't it?");
+				UIButton.clickSound.play();
 				GameManager.getInstance().restart();
 				GameManager.getInstance().gameStart(e);
 			}
@@ -362,6 +368,7 @@ public class HomeScreen extends Pane {
 		});
 		yes.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
+				UIButton.clickSound.play();
 				System.exit(0);
 				stage.close();
 			}
@@ -382,6 +389,7 @@ public class HomeScreen extends Pane {
 		});
 		no.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
+				UIButton.clickSound.play();
 				blackPane.setVisible(false);
 				exitPane.setVisible(false);
 			}

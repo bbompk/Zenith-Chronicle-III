@@ -7,8 +7,8 @@ import logic.SceneManager;
 
 public class Background extends Entity {
 	// Position
-	public static double x = 0;
-	public static double y = 0;
+	public static final double x = 0;
+	public static final double y = 0;
 	public static final int width = 1280;
 	public static final int height = 720;
 

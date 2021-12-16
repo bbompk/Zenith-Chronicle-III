@@ -13,7 +13,11 @@ public class Difficulty {
 	public static void goNextLevel() {
 		level++;
 		GameUI.getInstance().setFloor(level);
-		Logger.log("Floor "+level+"!");
+		long curTime = System.currentTimeMillis();
+		long cleartime = (long) (curTime - GameManager.getInstance().getLastLevelTime())/1000;
+		if(level > 1) Logger.log("Floor "+level+"! Clear Time: " + ((cleartime-(cleartime%60))/60)+ "m " + cleartime%60 +" s");
+		else Logger.log("Floor "+level+"!");
+		GameManager.getInstance().setLastLevelTime(curTime);
 		if(countDown == 0 ) {
 			countDown = 4;
 			goHarder();

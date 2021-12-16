@@ -13,18 +13,9 @@ public class TileBackground extends Entity {
 	public int height ;
 
 	// Images
-	private static Sprite tileBackgroundSprite;
+	private Sprite tileBackgroundSprite;
 	
 	
-
-	public TileBackground() {
-		// TODO Auto-generated constructor stub
-		super(x,y,3200,720);
-		width = 3200;
-		height = 720;
-		tileBackgroundSprite = new Sprite("sprite/background/plain_tiles.png");
-		
-	}
 	
 	public TileBackground(double x, double y, int w, int h, String URL) {
 		// TODO Auto-generated constructor stub

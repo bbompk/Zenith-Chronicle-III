@@ -20,24 +20,12 @@ public class Particles extends Entity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Particles(double x, double y, int r,  int lifetime, String URL) {
-		super(x, y, r);
-		this.lifetime = lifetime;
-		inf = lifetime < 0;
-		this.particleSprite = new Sprite(URL);
-		// TODO Auto-generated constructor stub
-	}
 
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
 		if(!inf)lifetime--;
 		if(lifetime < 0 && !inf) SceneManager.getInstance().getProps().remove(this);
-	}
-	
-	@Override
-	public void draw(GraphicsContext gc, boolean f) {
-		super.draw(gc, f);
 	}
 	
 	

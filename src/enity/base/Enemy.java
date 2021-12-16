@@ -19,7 +19,7 @@ public abstract class Enemy extends Character {
 		justTakeDamage += 30;	
 	}
 	
-	public void die() {
+	protected void die() {
 		new Thread(() -> {
 			try {
 				Thread.sleep(400);

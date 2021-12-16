@@ -13,7 +13,7 @@ public class Background extends Entity {
 	public static final int height = 720;
 
 	// Images
-	private static Sprite backgroundSprite;
+	private Sprite backgroundSprite;
 	
 
 	public Background() {

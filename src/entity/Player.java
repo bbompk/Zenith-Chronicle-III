@@ -29,10 +29,7 @@ public class Player extends Character {
 	//Utility
 	private int atkable = 0;
 	private int immune = 0;
-	protected PlayerStatus face = PlayerStatus.RIGHT;
-	protected boolean freezeFace;
-	private int playtime;
-	private int playtimem;
+	private PlayerStatus face = PlayerStatus.RIGHT;
 	
 	private static AudioClip atkHit = new AudioClip(ClassLoader.getSystemResource("audio/sfx/atk_hit.mp3").toString());
 	private static AudioClip atkMiss = new AudioClip(ClassLoader.getSystemResource("audio/sfx/atk_missed.mp3").toString());
@@ -103,7 +100,7 @@ public class Player extends Character {
 		moveSpeed = 7;
 		initJumpSpeed = 10;
 		dashSpeedMultiplier = 11/7;
-		playtime = 0;playtimem = 0;
+		
 		Thread timer  = new Thread(()->{
 			while(!GameManager.getInstance().isGameend()) {
 			if(!GameManager.getInstance().getState().equals(GameState.PAUSE)) {
@@ -465,13 +462,7 @@ public class Player extends Character {
 		this.inventory = inventory;
 	}
 	
-	public String getplaytime(){
-		return playtimem + " minute and " + (int)(playtime/100) + " second";
-	}
 	
-	public int getplaytimem(){
-		return playtimem;
-	}
 	
 	public boolean isimmune() {
 		if(immune>0 || (dashing > 28 && dashing < 34)) {

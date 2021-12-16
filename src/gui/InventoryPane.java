@@ -2,7 +2,7 @@ package gui;
 
 import java.util.ArrayList;
 
-import entity.Item;
+import entity.Artifact;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
@@ -23,7 +23,7 @@ public class InventoryPane extends HBox {
 		setLayoutX(1038);setLayoutY(638);
 		for(int i=0;i<6;i++) {
 			VBox box = new VBox();
-			ImageView image = new ImageView(Item.getSprites(i).getImage());
+			ImageView image = new ImageView(Artifact.getSprites(i).getImage());
 			image.setFitHeight(40);image.setFitWidth(40);
 			Text textt = new Text("0");
 			textt.setFill(Color.YELLOW);

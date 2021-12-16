@@ -347,11 +347,11 @@ public class Boss extends Enemy {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			Item.generate(getX() + r.nextInt(getW()), getY()+100);
+			Artifact.generate(getX() + r.nextInt(getW()), getY()+100);
 			int t = 1;
 			while(r.nextDouble()*(speed+1)/2 > 0.4 && t < speed*10-8) {
 				t++;
-				Item.generate(getX() + r.nextInt(getW()), getY()+100);
+				Artifact.generate(getX() + r.nextInt(getW()), getY()+100);
 			}
 		}).start();
 		

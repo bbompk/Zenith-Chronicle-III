@@ -23,10 +23,6 @@ public class Tile extends Entity {
 		transparent = t;
 	}
 
-	public Tile(double x, double y, int r) {
-		super(x, y, r);
-		// TODO Auto-generated constructor stub
-	}
 
 	@Override
 	public void update() {

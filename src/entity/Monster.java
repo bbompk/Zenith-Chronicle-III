@@ -51,7 +51,7 @@ public class Monster extends Enemy {
 	public void update() {
 		// TODO Auto-generated method stub
 		if(needRemove) {
-			if(r.nextInt(10)==0)Item.generate(getX()+getW()/2-25,getY());
+			if(r.nextInt(10)==0)Artifact.generate(getX()+getW()/2-25,getY());
 			SceneManager.getInstance().getEnemy().remove(this);
 			return;
 		}

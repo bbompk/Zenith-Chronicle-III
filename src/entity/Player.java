@@ -256,7 +256,7 @@ public class Player extends Character {
 			for(Enemy e:SceneManager.getInstance().getEnemy()) {
 				if(e.collideWith(this) && e.isAlive() && immune == 0 && !(e instanceof Boss)) {
 					if(dashing < 29 || dashing > 33) {
-						takeDamage(e.getAtk());
+//						takeDamage(e.getAtk());
 						immune += 101;
 					}
 				}

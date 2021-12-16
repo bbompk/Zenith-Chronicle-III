@@ -8,7 +8,6 @@ import java.util.Arrays;
 import component.Character;
 import component.Enemy;
 import component.Entity;
-import component.Fallable;
 import component.KeyStatus;
 import component.PlayerStatus;
 import component.Sprite;

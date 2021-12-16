@@ -10,7 +10,7 @@ import enity.base.Entity;
 import enity.base.Interactable;
 import entity.Background;
 import entity.Boss;
-import entity.Item;
+import entity.Artifact;
 import entity.Monster;
 import entity.Particles;
 import entity.Player;
@@ -129,7 +129,7 @@ public class SceneManager extends Canvas implements Serializable {
 	}
 		
 	public void setUp() {
-		Powerup.setUp();Item.setUp();Monster.setUp();
+		Powerup.setUp();Artifact.setUp();Monster.setUp();
 	}
 	
 	public void gameStart() {

@@ -183,8 +183,8 @@ public class Player extends Character {
 		prevx = getX();
 		lastFrameStatus = status;
 		status = PlayerStatus.RUN;
-		while(healing >= 20) {
-			healing -= 20;
+		while(healing >= 2000) {
+			healing -= 2000;
 			changeHp(1);
 		}
 		
@@ -256,7 +256,7 @@ public class Player extends Character {
 			for(Enemy e:SceneManager.getInstance().getEnemy()) {
 				if(e.collideWith(this) && e.isAlive() && immune == 0 && !(e instanceof Boss)) {
 					if(dashing < 29 || dashing > 33) {
-//						takeDamage(e.getAtk());
+						takeDamage(e.getAtk());
 						immune += 101;
 					}
 				}

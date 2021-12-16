@@ -28,22 +28,22 @@ public class Monster extends Enemy {
 		super(x, r.nextInt(300)+100, size.get(type), size.get(type));
 		// TODO Auto-generated constructor stub
 		this.type = type;
-		this.moveSpeed = 0 + r.nextDouble()*2 + 3*Difficulty.getHardMultiply();
+		this.moveSpeed = 2 + r.nextDouble()*2 + r.nextDouble() * Difficulty.getHardMultiply();
 		randomMove = 0;
 		maxHp = (int) (40 + r.nextInt(41) + 40*Difficulty.getHardMultiply());
 		hp = maxHp;
-		atk = (int) (5 + r.nextInt(11) + 10*Difficulty.getHardMultiply());
+		atk = (int) (5 + r.nextInt(11) + 5*Difficulty.getHardMultiply());
 	}
 	
 	public Monster(double x,double y,int type) {
 		super(x, y, size.get(type), size.get(type));
 		// TODO Auto-generated constructor stub
 		this.type = type;
-		this.moveSpeed = 0 + r.nextDouble()*2 + 3*Difficulty.getHardMultiply();
+		this.moveSpeed = 2 + r.nextDouble()*2 + r.nextDouble() * Difficulty.getHardMultiply();
 		randomMove = 0;
 		maxHp = (int) (40 + r.nextInt(41) + 40*Difficulty.getHardMultiply());
 		hp = maxHp;
-		atk = (int) (5 + r.nextInt(11) + 10*Difficulty.getHardMultiply());
+		atk = (int) (5 + r.nextInt(11) + 5*Difficulty.getHardMultiply());
 	}
 
 	@Override

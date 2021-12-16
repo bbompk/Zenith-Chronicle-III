@@ -100,7 +100,7 @@ public class Powerup extends FallObject implements Collidable{
 		// TODO Auto-generated method stub
 		if(collideWith(SceneManager.getInstance().getPlayer()) 
 				&& SceneManager.getInstance().getPlayer().isAlive()) {
-			if(type==0)SceneManager.getInstance().getPlayer().changeHp(20);
+			if(type==0)SceneManager.getInstance().getPlayer().changeHp(15);
 			else {
 				Thread t = new Thread(()->{
 					

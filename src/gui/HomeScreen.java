@@ -96,6 +96,22 @@ public class HomeScreen extends Pane {
 			// TODO Auto-generated method stub
 			if(e.getCode().getCode() == 27)escfree = true;
 		});
+//---how-pane-------------------------------
+		ImageView howto = new ImageView(new Image(ClassLoader.getSystemResource("ui/ctrz.png").toString()));
+		howto.setLayoutX(-20);howto.setLayoutY(-20);
+		ImageView run = new ImageView(new Image(ClassLoader.getSystemResource("sprite/character/player/run.gif").toString()));
+		ImageView jump = new ImageView(new Image(ClassLoader.getSystemResource("sprite/character/player/full_jump.gif").toString()));
+		ImageView dash = new ImageView(new Image(ClassLoader.getSystemResource("sprite/character/player/roll_4_frame.gif").toString()));
+		ImageView atk = new ImageView(new Image(ClassLoader.getSystemResource("sprite/character/player/attack.gif").toString()));
+		run.setLayoutX(90);run.setY(110);
+		jump.setLayoutX(320);jump.setY(105);
+		dash.setX(550);dash.setLayoutY(110);
+		atk.setLayoutX(750);atk.setLayoutY(110);
+		howPane.getChildren().addAll(howto,run,jump,dash,atk);
+//---credit-pane---------------------------
+		ImageView creditt = new ImageView(new Image(ClassLoader.getSystemResource("ui/credits.png").toString()));
+		creditt.setLayoutX(-20);creditt.setLayoutY(-20);
+		creditPane.getChildren().add(creditt);
 //---button-handler-------------------------
 		start.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {

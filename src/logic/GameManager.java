@@ -105,16 +105,15 @@ public class GameManager {
 				// TODO handle pause
 			}
 		}
-		
 		if(musicState.equals(GameState.TITLE) && !state.equals(GameState.PAUSE)) {
 			playBGM(titleBGM);
 		}else if(musicState.equals(GameState.LEVEL) && !state.equals(GameState.PAUSE)) {
 			playBGM(levelBGM);
 		}else if(musicState.equals(GameState.BOSS) && !state.equals(GameState.PAUSE)) {
 			playBGM(bossBGM);
-		}else if(musicState.equals(GameState.GAMEOVER) && !state.equals(GameState.PAUSE)) {
+		}else if(musicState.equals(GameState.GAMEOVER) ) {
 			playBGM(gameOverBGM);
-		}else if(musicState.equals(GameState.VICTORY) && !state.equals(GameState.PAUSE)) {
+		}else if(musicState.equals(GameState.VICTORY) ) {
 			playBGM(victoryBGM);
 		}
 		//TODO might have to do with other states, should set up homescreen and run game with gamemanager

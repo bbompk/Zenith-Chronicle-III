@@ -11,6 +11,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.media.AudioClip;
 import logic.Difficulty;
 import logic.GameManager;
+import logic.GameState;
 import logic.KeyHandler;
 import logic.SceneManager;
 
@@ -335,6 +336,8 @@ public class Boss extends Enemy {
 	@Override
 	public void die() {
 		status = BossStatus.DIE;
+		GameManager.getInstance().stopBGM();
+		GameManager.getInstance().setMusicState(GameState.PAUSE);
 		death.loadImage(death.getFilepath());
 		deathSound.play();
 		new Thread(() -> {

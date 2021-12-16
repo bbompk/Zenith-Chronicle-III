@@ -15,7 +15,7 @@ public class Logger {
 		LocalDateTime myDateObj = LocalDateTime.now();
 		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("HH:mm:ss");
 		String formattedDate = myDateObj.format(myFormatObj);
-	    System.out.println("[" + formattedDate + "] [System]" + msg);
+	    System.out.println("[" + formattedDate + "][System] " + msg);
 	}
 	
 	

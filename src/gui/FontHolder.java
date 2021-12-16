@@ -8,12 +8,12 @@ public class FontHolder {
 	
 	private static FontHolder instance = null;
 	private ArrayList<Font> font;
-	private ArrayList<Font> fontItalic;
+//	private ArrayList<Font> fontItalic;
 
 	public FontHolder() {
 		// TODO Auto-generated constructor stub
 		font = new ArrayList<Font>();
-		fontItalic = new ArrayList<Font>();
+//		fontItalic = new ArrayList<Font>();
 		for(int i = 1;i<201;i++) {
 			font.add(Font.loadFont(ClassLoader.getSystemResourceAsStream("ui/font/Alien Eclipse.ttf"), i));
 //			fontItalic.add(Font.loadFont(ClassLoader.getSystemResourceAsStream("ui/font/Alien Eclipse Italic.ttf"), i));
@@ -29,10 +29,10 @@ public class FontHolder {
 		return font;
 	}
 
-	public ArrayList<Font> getFontItalic() {
-		return fontItalic;
-	}
-	
+//	public ArrayList<Font> getFontItalic() {
+//		return fontItalic;
+//	}
+//	
 }
 
 //public class FontHolder {

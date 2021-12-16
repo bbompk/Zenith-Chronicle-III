@@ -3,8 +3,8 @@ package entity;
 import java.util.ArrayList;
 import java.util.Random;
 
-import baseEntity.Enemy;
 import component.Sprite;
+import enity.base.Enemy;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.media.AudioClip;

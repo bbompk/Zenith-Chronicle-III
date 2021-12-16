@@ -3,13 +3,13 @@ package entity;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import baseEntity.Character;
-import baseEntity.Collidable;
-import baseEntity.Enemy;
-import baseEntity.Entity;
 import component.KeyStatus;
 import component.PlayerStatus;
 import component.Sprite;
+import enity.base.Character;
+import enity.base.Collidable;
+import enity.base.Enemy;
+import enity.base.Entity;
 import gui.GameUI;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.media.AudioClip;

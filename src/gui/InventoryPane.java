@@ -41,27 +41,8 @@ public class InventoryPane extends HBox {
 		return instance;
 	}
 
-	public InventoryPane(double arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
-	}
-
-	public InventoryPane(Node... arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
-	}
-
-	public InventoryPane(double arg0, Node... arg1) {
-		super(arg0, arg1);
-		// TODO Auto-generated constructor stub
-	}
-
 	public ArrayList<Text> getText() {
 		return text;
-	}
-
-	public void setText(ArrayList<Text> text) {
-		this.text = text;
 	}
 
 	public void clear() {

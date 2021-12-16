@@ -7,12 +7,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import logic.GameManager;
 import logic.GameState;
-import logic.HomeScreen;
 import logic.KeyHandler;
 import logic.SceneManager;
 import java.time.Instant;
 
 import entity.Background;
+import gui.HomeScreen;
 
 
 public class Main extends Application {
@@ -39,7 +39,7 @@ public class Main extends Application {
 		Scene scene = new Scene(root);
 		scene.setFill(Color.BLACK);
 		stage.setScene(scene);
-		stage.setTitle("Zenith Chronicle 3");
+		stage.setTitle("Zenith Chronicles 3");
 		stage.setResizable(false);
 		stage.show();
 		GameManager.getInstance().stopBGM();

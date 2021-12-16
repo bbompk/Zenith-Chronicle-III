@@ -1,4 +1,4 @@
-package baseEntity;
+package enity.base;
 
 import entity.Tile;
 import logic.GameManager;

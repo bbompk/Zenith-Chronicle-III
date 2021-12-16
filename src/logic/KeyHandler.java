@@ -13,8 +13,8 @@ public class KeyHandler extends Canvas{
 	
 	private static KeyHandler instance = null;
 
-	private boolean LeftClick = false;
-	private boolean LeftClickedLastFrame = false;
+//	private boolean LeftClick = false;
+//	private boolean LeftClickedLastFrame = false;
 	private Queue<KeyStatus> action = new LinkedList<>();
 	private Queue<Integer> keycode = new LinkedList<>();
 	private KeyStatus[] keyCollection = new KeyStatus[112];
@@ -41,20 +41,20 @@ public class KeyHandler extends Canvas{
 		this.setOnKeyReleased((KeyEvent e) ->{
 			keyReleased(e);
 		});
-		this.setOnMousePressed((MouseEvent e) -> {
-			if (e.getButton() == MouseButton.PRIMARY)
-				mouseLeftDown();
-		});
-		this.setOnMouseReleased((MouseEvent e) -> {
-			if (e.getButton() == MouseButton.PRIMARY)
-				mouseLeftRelease();
-		});
+//		this.setOnMousePressed((MouseEvent e) -> {
+//			if (e.getButton() == MouseButton.PRIMARY)
+//				mouseLeftDown();
+//		});
+//		this.setOnMouseReleased((MouseEvent e) -> {
+//			if (e.getButton() == MouseButton.PRIMARY)
+//				mouseLeftRelease();
+//		});
 	
 		
 	}
 	
 	public void update() {
-		LeftClickedLastFrame = LeftClick;
+//		LeftClickedLastFrame = LeftClick;
 		for(int k=0;k<112;k++) {
 			if(keyCollection[k].equals(KeyStatus.PRESS)) {
 				keyCollection[k] = KeyStatus.DOWN;
@@ -74,7 +74,7 @@ public class KeyHandler extends Canvas{
 		}
 	}
 
-	public void keyPressed(KeyEvent e) {
+	private void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getCode().getCode() < 112) {
 			keycode.add(e.getCode().getCode());
@@ -82,7 +82,7 @@ public class KeyHandler extends Canvas{
 		}
 	}
 
-	public void keyReleased(KeyEvent e) {
+	private void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getCode().getCode() < 112) {
 			keycode.add(e.getCode().getCode());
@@ -90,21 +90,13 @@ public class KeyHandler extends Canvas{
 		}
 	}
 
-	public void mouseLeftDown(){
-		LeftClick = true;
-	}
-	
-	public void mouseLeftRelease(){
-		LeftClick = false;
-	}
-	
-	public boolean isleftClick(){
-		return LeftClickedLastFrame;
-	}
-	
-	public void updateInputState(){
-		LeftClickedLastFrame = false;
-	}
+//	private void mouseLeftDown(){
+//		LeftClick = true;
+//	}
+//	
+//	private void mouseLeftRelease(){
+//		LeftClick = false;
+//	}
 	
 	public KeyStatus getKeyStatus(int keycode) {
 		return keyCollection[keycode];

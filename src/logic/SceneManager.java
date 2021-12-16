@@ -3,11 +3,11 @@ package logic;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import baseEntity.Collidable;
-import baseEntity.Enemy;
-import baseEntity.Entity;
-import baseEntity.Interactable;
 import component.Sprite;
+import enity.base.Collidable;
+import enity.base.Enemy;
+import enity.base.Entity;
+import enity.base.Interactable;
 import entity.Background;
 import entity.Boss;
 import entity.Item;
@@ -25,11 +25,11 @@ import javafx.scene.paint.Color;
 
 public class SceneManager extends Canvas implements Serializable {
 	
-	public static final boolean isDev = false;
+	public static boolean isDev = true;
 
 	private static SceneManager instance = null;
 	private double offsetX;
-	private double offsetY;
+//	private double offsetY;
 	
 	private ArrayList<Enemy> enemy;
 	private ArrayList<Entity> props;
@@ -37,7 +37,7 @@ public class SceneManager extends Canvas implements Serializable {
 	private ArrayList<Collidable> collidable;
 	private ArrayList<Interactable> interactable;
 	private Player player;
-	private int level;
+//	private int level;
 	
 	private double leftBound ;
 	private double rightBound ;
@@ -56,7 +56,7 @@ public class SceneManager extends Canvas implements Serializable {
 		interactable = new ArrayList<Interactable>();
 		player = new Player();
 		gameend = false;
-		level = 0;
+//		level = 0;
 	}
 	
 	public static SceneManager getInstance() {
@@ -186,20 +186,20 @@ public class SceneManager extends Canvas implements Serializable {
 	public void clear() {
 		player.setY(100);player.setX(100);
 		props.clear();enemy.clear();collidable.clear();interactable.clear();tiles.clear();
-		offsetX = 0;offsetY = 0;
+		offsetX = 0;//offsetY = 0;
 	}
 
 	public void setOffsetX(double offsetX) {
 		this.offsetX = offsetX;
 	}
 
-	public double getOffsetY() {
-		return offsetY;
-	}
-
-	public void setOffsetY(double offsetY) {
-		this.offsetY = offsetY;
-	}
+//	public double getOffsetY() {
+//		return offsetY;
+//	}
+//
+//	public void setOffsetY(double offsetY) {
+//		this.offsetY = offsetY;
+//	}
 
 	public ArrayList<Enemy> getEnemy() {
 		return enemy;
@@ -210,9 +210,9 @@ public class SceneManager extends Canvas implements Serializable {
 	}
 
 
-	public int getLevel() {
-		return level;
-	}
+//	public int getLevel() {
+//		return level;
+//	}
 	
 	public double getLeftBound() {
 		return leftBound;
@@ -225,10 +225,10 @@ public class SceneManager extends Canvas implements Serializable {
 	public ArrayList<Entity> getProps() {
 		return props;
 	}
-
-	public void setProps(ArrayList<Entity> props) {
-		this.props = props;
-	}
+//
+//	public void setProps(ArrayList<Entity> props) {
+//		this.props = props;
+//	}
 
 	public ArrayList<Tile> getTiles() {
 		return tiles;
@@ -238,21 +238,21 @@ public class SceneManager extends Canvas implements Serializable {
 		return collidable;
 	}
 
-	public void setCollidable(ArrayList<Collidable> collidable) {
-		this.collidable = collidable;
-	}
+//	public void setCollidable(ArrayList<Collidable> collidable) {
+//		this.collidable = collidable;
+//	}
 
 	public ArrayList<Interactable> getInteractable() {
 		return interactable;
 	}
 
-	public void setInteractable(ArrayList<Interactable> interactable) {
-		this.interactable = interactable;
-	}
+//	public void setInteractable(ArrayList<Interactable> interactable) {
+//		this.interactable = interactable;
+//	}
 
-	public void setEnemy(ArrayList<Enemy> enemy) {
-		this.enemy = enemy;
-	}
+//	public void setEnemy(ArrayList<Enemy> enemy) {
+//		this.enemy = enemy;
+//	}
 	
 	public void addTile(Tile tile) {
 		this.tiles.add(tile);

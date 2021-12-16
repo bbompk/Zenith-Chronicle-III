@@ -2,11 +2,11 @@ package entity;
 
 import java.util.Random;
 
-import baseEntity.Enemy;
 import component.BossStatus;
 import component.KeyStatus;
 import component.PlayerStatus;
 import component.Sprite;
+import enity.base.Enemy;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.media.AudioClip;
 import logic.Difficulty;

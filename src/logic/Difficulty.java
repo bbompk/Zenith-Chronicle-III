@@ -47,14 +47,6 @@ public class Difficulty {
 
 	public static void setDifficulty(GameMode difficulty) {
 		Difficulty.difficulty = difficulty;
-		setHardMultiply();
-	}
-
-	public static double getHardMultiply() {
-		return hardMultiply;
-	}
-
-	private static void setHardMultiply() {
 		if(difficulty.equals(GameMode.EASY)) {
 			hardMultiply = 0.70;
 		}
@@ -65,6 +57,22 @@ public class Difficulty {
 			hardMultiply = 1.20;
 		}
 	}
+
+	public static double getHardMultiply() {
+		return hardMultiply;
+	}
+
+//	private static void setHardMultiply() {
+//		if(difficulty.equals(GameMode.EASY)) {
+//			hardMultiply = 0.70;
+//		}
+//		if(difficulty.equals(GameMode.NORMAL)) {
+//			hardMultiply = 0.95;
+//		}
+//		if(difficulty.equals(GameMode.HARD)) {
+//			hardMultiply = 1.20;
+//		}
+//	}
 
 	
 	public static void clear() {

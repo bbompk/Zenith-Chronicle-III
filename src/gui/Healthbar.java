@@ -18,11 +18,6 @@ public class Healthbar extends ProgressBar {
 		setEffect(glow);
 	}
 
-	public Healthbar(double arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
-	}
-
 	public void update() {
 		// TODO Auto-generated method stub
 		double k = (double)SceneManager.getInstance().getPlayer().getHp()/(double)SceneManager.getInstance().getPlayer().getMaxHp();

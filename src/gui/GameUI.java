@@ -18,7 +18,6 @@ import logic.Difficulty;
 import logic.GameManager;
 import logic.GameMode;
 import logic.GameState;
-import logic.HomeScreen;
 import logic.KeyHandler;
 import logic.SceneManager;
 import entity.Background;
@@ -30,9 +29,9 @@ public class GameUI extends Pane {
 	private StackPane healthbarPane;
 	private Text health;
 	private Text floor;
-	public Pane pausePane;
-	public Pane blackPane;
-	public EndgamePane endgamePane;
+	private Pane pausePane;
+	private Pane blackPane;
+	private EndgamePane endgamePane;
 	private static GameUI instance = null;
 	private boolean win;
 	private boolean lose;
@@ -80,16 +79,6 @@ public class GameUI extends Pane {
 			blackPane.setVisible(true);
 			endgamePane.setGameText(true,continuee);
 		}
-	}
-
-	public GameUI(Node arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
-	}
-
-	public GameUI(Node arg0, Node arg1, Node arg2, Node arg3, Node arg4) {
-		super(arg0, arg1, arg2, arg3, arg4);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void setPausePane(boolean visible) {

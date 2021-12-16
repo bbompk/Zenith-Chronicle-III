@@ -18,7 +18,6 @@ import javafx.stage.Stage;
 import logic.Difficulty;
 import logic.GameManager;
 import logic.GameState;
-import logic.HomeScreen;
 import logic.KeyHandler;
 import logic.SceneManager;
 
@@ -29,7 +28,7 @@ public class UIButton extends Button {
 	public UIButton(String t,int x,int y) {
 		// TODO Auto-generated constructor stub
 		super(t);
-		setFont(FontHolder.getInstance().getFont().get(50));
+		setFont(FontHolder.getInstance().getFont().get(55));
 		setTextFill(Color.BLACK);
 		setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
 		setPadding(new Insets(0));

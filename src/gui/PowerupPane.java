@@ -42,29 +42,10 @@ public class PowerupPane extends HBox {
 		return instance;
 	}
 
-	public PowerupPane(double arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
-	}
-
-	public PowerupPane(Node... arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
-	}
-
-	public PowerupPane(double arg0, Node... arg1) {
-		super(arg0, arg1);
-		// TODO Auto-generated constructor stub
-	}
-
 	public ArrayList<Text> getText() {
 		return text;
 	}
-
-	public void setText(ArrayList<Text> text) {
-		this.text = text;
-	}
-
+	
 	public void clear() {
 		instance = null;
 	}

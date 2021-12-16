@@ -1,8 +1,5 @@
-package logic;
+package gui;
 
-import gui.FontHolder;
-import gui.UIButton;
-import gui.UIPane;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -17,60 +14,63 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import logic.Difficulty;
+import logic.GameManager;
+import logic.GameMode;
 
 public class HomeScreen extends Pane {
 
-	private Button start;
-	private Button how;
-	private Button credit;
-	private Button quit;
-	private Pane difPane;
-	private Pane creditPane;
-	private Pane howPane;
-	private Pane blackPane;
-	private Pane exitPane;
-	private Button backh;
-	private Button backc;
-	private Button easy;
-	private Button normal;
-	private Button hard;
-	private Button x;
-	private Button yes;
-	private Button no;
-	private Text exitt;
+//	private Button start;
+//	private Button how;
+//	private Button credit;
+//	private Button quit;
+//	private Pane difPane;
+//	private Pane creditPane;
+//	private Pane howPane;
+//	private Pane blackPane;
+//	private Pane exitPane;
+//	private Button backh;
+//	private Button backc;
+//	private Button easy;
+//	private Button normal;
+//	private Button hard;
+//	private Button x;
+//	private Button yes;
+//	private Button no;
+//	private Text exitt;
 	private boolean escfree;
-	private ImageView title;
+//	private ImageView title;
 	
 	public HomeScreen(Stage stage) {
 		// TODO Auto-generated constructor stub 11 * 12
 		setPrefSize(1280, 720);
 //---boolean---------------------------------
 		escfree = true;
-		title = new ImageView(new Image(ClassLoader.getSystemResource("ui/title.png").toString()));
+		ImageView title = new ImageView(new Image(ClassLoader.getSystemResource("ui/title.png").toString()));
 		title.setFitHeight(720);title.setFitWidth(1280);
 //---button---------------------------------
-		start = new UIButton("Start",80,300,55,Color.YELLOWGREEN,true);
-		how = new UIButton("How to play",80,400,55,Color.SLATEBLUE,true);
-		credit = new UIButton("Credit",80,500,55,Color.DEEPSKYBLUE,true);
-		quit = new UIButton("Exit",80,600,55,Color.ORANGE,true);
-		backh = new UIButton("Back",1050,10,55,Color.BLACK,false);
-		backc = new UIButton("Back",1050,10,55,Color.BLACK,false);
-		x = new UIButton("X",380,0,120,Color.BLACK,true);
-		easy = new UIButton("Easy",50,50,55,Color.BLACK,true);
-		normal = new UIButton("Normal",50,150,55,Color.BLACK,true);
-		hard = new UIButton("Hard",50,250,55,Color.BLACK,true);
-		yes = new UIButton("Yes",40,110,55,Color.WHITE,false);
-		no = new UIButton("No",220,110,55,Color.WHITE,false);
+		Button start = new UIButton("Start",80,300,55,Color.YELLOWGREEN,true);
+		Button how = new UIButton("How to play",80,400,55,Color.SLATEBLUE,true);
+		Button credit = new UIButton("Credit",80,500,55,Color.DEEPSKYBLUE,true);
+		Button quit = new UIButton("Exit",80,600,55,Color.ORANGE,true);
+		Button backh = new UIButton("Back",1050,10,55,Color.BLACK,false);
+		Button backc = new UIButton("Back",1050,10,55,Color.BLACK,false);
+		Button x = new UIButton("X",380,0,120,Color.BLACK,true);
+		Button easy = new UIButton("Easy",50,50,55,Color.BLACK,true);
+		Button normal = new UIButton("Normal",50,150,55,Color.BLACK,true);
+		Button hard = new UIButton("Hard",50,250,55,Color.BLACK,true);
+		Button yes = new UIButton("Yes",40,110,55,Color.WHITE,false);
+		Button no = new UIButton("No",220,110,55,Color.WHITE,false);
 		backh.setMinSize(180, 80);backh.setMaxSize(180, 80);
 		backc.setMinSize(180, 80);backc.setMaxSize(180, 80);
 //---Pane---------------------------------
-		exitPane = new UIPane(460,240,360,240,false,false);
-		difPane = new UIPane(400,180,480,360,false,false);
-		howPane = new UIPane(20,20,1240,680,false,false);
-		creditPane = new UIPane(20,20,1240,680,false,false);
-		blackPane = new UIPane(0,0,1280,720,false,true);
+		Pane exitPane = new UIPane(460,240,360,240,false,false);
+		Pane difPane = new UIPane(400,180,480,360,false,false);
+		Pane howPane = new UIPane(20,20,1240,680,false,false);
+		Pane creditPane = new UIPane(20,20,1240,680,false,false);
+		Pane blackPane = new UIPane(0,0,1280,720,false,true);
 //---text------------------------------------
-		exitt = new Text("Exit?");
+		Text exitt = new Text("Exit?");
 		exitt.setFont(FontHolder.getInstance().getFont().get(55));
 		exitt.setFill(Color.BLACK);exitt.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
 		exitt.setLayoutX(120);exitt.setY(70);

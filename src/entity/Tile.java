@@ -1,7 +1,7 @@
 package entity;
 
-import baseEntity.Entity;
 import component.Sprite;
+import enity.base.Entity;
 import logic.SceneManager;
 
 public class Tile extends Entity {

@@ -3,11 +3,11 @@ package logic;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import baseEntity.Collidable;
-import baseEntity.Enemy;
-import baseEntity.Entity;
-import baseEntity.Interactable;
 import component.Sprite;
+import enity.base.Collidable;
+import enity.base.Enemy;
+import enity.base.Entity;
+import enity.base.Interactable;
 import entity.Background;
 import entity.Boss;
 import entity.Item;
@@ -25,7 +25,7 @@ import javafx.scene.paint.Color;
 
 public class SceneManager extends Canvas implements Serializable {
 	
-	public static final boolean isDev = false;
+	public static final boolean isDev = true;
 
 	private static SceneManager instance = null;
 	private double offsetX;

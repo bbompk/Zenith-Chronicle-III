@@ -39,7 +39,7 @@ public class Main extends Application {
 		Scene scene = new Scene(root);
 		scene.setFill(Color.BLACK);
 		stage.setScene(scene);
-		stage.setTitle("Zenith Chronicle 3");
+		stage.setTitle("Zenith Chronicles 3");
 		stage.setResizable(false);
 		stage.show();
 		GameManager.getInstance().stopBGM();

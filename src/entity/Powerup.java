@@ -5,12 +5,12 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
-import baseEntity.Collidable;
-import baseEntity.Entity;
-import baseEntity.FallObject;
 import gui.PowerupPane;
 import javafx.scene.media.AudioClip;
 import component.Sprite;
+import enity.base.Collidable;
+import enity.base.Entity;
+import enity.base.FallObject;
 import gui.PowerupPane;
 import logic.Difficulty;
 import logic.SceneManager;

@@ -3,12 +3,12 @@ package entity;
 import java.util.ArrayList;
 import java.util.Random;
 
-import baseEntity.Collidable;
-import baseEntity.Entity;
-import baseEntity.FallObject;
-import baseEntity.Interactable;
 import component.KeyStatus;
 import component.Sprite;
+import enity.base.Collidable;
+import enity.base.Entity;
+import enity.base.FallObject;
+import enity.base.Interactable;
 import gui.GameUI;
 import gui.InventoryPane;
 import gui.PowerupPane;

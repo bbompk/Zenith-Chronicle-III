@@ -13,6 +13,8 @@ import gui.GameUI;
 import gui.InventoryPane;
 import gui.PowerupPane;
 import javafx.scene.media.AudioClip;
+import logic.GameManager;
+import logic.GameState;
 import logic.KeyHandler;
 import logic.SceneManager;
 
@@ -100,6 +102,7 @@ public class Item extends FallObject  implements Interactable,Collidable{
 			}
 			if(win) {
 				GameUI.getInstance().win();
+				GameManager.getInstance().setMusicState(GameState.VICTORY);
 			}
 		}
 	}

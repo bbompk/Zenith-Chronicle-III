@@ -147,8 +147,7 @@ public class SceneManager extends Canvas implements Serializable {
 		props.add(new Particles(100, 150, 90, 150, -1,"sprite/checkpoint/portal_start.gif"));
 		player.setY(100);
 		player.setX(100);
-		GameManager.getInstance().stopBGM();
-		GameManager.levelBGM.play();
+		GameManager.getInstance().setMusicState(GameState.LEVEL);
 		
 		if(isDev) props.add(new Portal(100, 500));
 	}
@@ -163,9 +162,8 @@ public class SceneManager extends Canvas implements Serializable {
 		Tile.generateBossArena();
 		enemy.add(new Boss(850, 410));
 		player.setY(50);
-		GameManager.getInstance().stopBGM();
-		GameManager.bossBGM.play();
-		bossEnterSound.play(0.6);
+
+		GameManager.getInstance().setMusicState(GameState.BOSS);
 		
 	}
 
@@ -177,6 +175,8 @@ public class SceneManager extends Canvas implements Serializable {
 		addTile(new Tile(0, 670, 1300, 50, false));
 		player.setX(300);
 		player.setY(500);
+		
+		GameManager.getInstance().setMusicState(GameState.TITLE);
 	}
 	
 	public double getOffsetX() {

@@ -1,6 +1,7 @@
 package logic;
 
 import gui.GameUI;
+import util.Logger;
 
 public class Difficulty {
 	
@@ -12,7 +13,7 @@ public class Difficulty {
 	public static void goNextLevel() {
 		level++;
 		GameUI.getInstance().setFloor(level);
-		System.out.println("Floor "+level+"!");
+		Logger.log("Floor "+level+"!");
 		if(countDown == 0 ) {
 			countDown = 4;
 			goHarder();

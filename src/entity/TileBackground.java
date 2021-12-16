@@ -7,8 +7,8 @@ import logic.SceneManager;
 
 public class TileBackground extends Entity {
 	// Position
-	public static double x = 0;
-	public static double y = 0;
+	public static final double x = 0;
+	public static final double y = 0;
 	public int width ;
 	public int height ;
 
@@ -22,7 +22,7 @@ public class TileBackground extends Entity {
 		super(x,y,3200,720);
 		width = 3200;
 		height = 720;
-		tileBackgroundSprite = new Sprite("sprite/background/level_tiles2.png");
+		tileBackgroundSprite = new Sprite("sprite/background/plain_tiles.png");
 		
 	}
 	

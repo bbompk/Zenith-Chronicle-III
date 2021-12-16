@@ -29,7 +29,7 @@ public class Player extends Character {
 	//Utility
 	private int atkable = 0;
 	private int immune = 0;
-	protected static PlayerStatus face = PlayerStatus.RIGHT;
+	protected PlayerStatus face = PlayerStatus.RIGHT;
 	protected boolean freezeFace;
 	private int playtime;
 	private int playtimem;
@@ -58,7 +58,6 @@ public class Player extends Character {
 	// Jumping
 	private PlayerStatus jumpStatus;
 	private double initJumpSpeed;
-	private double jumpCount;
 	private double prevGround;
 	
 	// Images
@@ -83,6 +82,7 @@ public class Player extends Character {
 		lastFrameStatus = PlayerStatus.IDLE;
 		status = PlayerStatus.IDLE;
 		jumpStatus = PlayerStatus.ONGROUND;
+		face = PlayerStatus.RIGHT;
 		direction = 0;
 		prevGround = 550+120;
 		maxDash = 1;

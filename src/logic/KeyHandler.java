@@ -11,14 +11,14 @@ import javafx.scene.input.MouseEvent;
 
 public class KeyHandler extends Canvas{
 	
-	private double mouseX,mouseY;
-	private boolean mouseOnScreen = true;
+	private static KeyHandler instance = null;
+
 	private boolean LeftClick = false;
 	private boolean LeftClickedLastFrame = false;
 	private Queue<KeyStatus> action = new LinkedList<>();
 	private Queue<Integer> keycode = new LinkedList<>();
 	private KeyStatus[] keyCollection = new KeyStatus[112];
-	private static KeyHandler instance = null;
+	
 
 	private KeyHandler() {
 		// TODO Auto-generated constructor stub
@@ -49,24 +49,8 @@ public class KeyHandler extends Canvas{
 			if (e.getButton() == MouseButton.PRIMARY)
 				mouseLeftRelease();
 		});
-		this.setOnMouseEntered((MouseEvent e) -> {
-			mouseOnScreen = true;
-		});
-		this.setOnMouseExited((MouseEvent e) -> {
-			mouseOnScreen = false;
-		});
-		this.setOnMouseMoved((MouseEvent e) -> {
-			if (mouseOnScreen) {
-				mouseX = e.getX();
-				mouseY = e.getY();
-			}
-		});
-		this.setOnMouseDragged((MouseEvent e) -> {
-			if (mouseOnScreen) {
-				mouseX = e.getX();
-				mouseY = e.getY();
-			}
-		});
+	
+		
 	}
 	
 	public void update() {

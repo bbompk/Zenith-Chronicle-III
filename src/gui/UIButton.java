@@ -51,6 +51,12 @@ public class UIButton extends Button {
 				GameManager.getInstance().restart();
 				KeyHandler.getInstance().restart();
 				Difficulty.clear();
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				Difficulty.setDifficulty(Difficulty.getDifficulty());
 				GameManager.getInstance().gameStart(e);
 			}
@@ -69,6 +75,12 @@ public class UIButton extends Button {
 				GameManager.getInstance().restart();
 				KeyHandler.getInstance().restart();
 				Difficulty.clear();
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				Stage stage = ((Stage) ((Node) e.getSource()).getScene().getWindow());
 				StackPane root = new StackPane();
 //				ImageView image = new ImageView(new Background().getImage().getImage());

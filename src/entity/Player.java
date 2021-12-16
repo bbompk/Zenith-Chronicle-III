@@ -108,15 +108,15 @@ public class Player extends Character implements Collidable, Fallable{
 			while(!GameManager.getInstance().isGameend()) {
 			if(!GameManager.getInstance().getState().equals(GameState.PAUSE))
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			healing += 5 *inventory.get(5);
 			playtime += 1;
-			if(playtime > 59) {
-				playtime -= 60;
+			if(playtime > 5999) {
+				playtime -= 6000;
 				playtimem += 1;
 			}
 			}
@@ -154,15 +154,15 @@ public class Player extends Character implements Collidable, Fallable{
 		new Thread(()->{
 			while(true) {
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(10);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				healing += 5 *inventory.get(5);
 				playtime += 1;
-				if(playtime > 59) {
-					playtime -= 60;
+				if(playtime > 5999) {
+					playtime -= 6000;
 					playtimem += 1;
 				}
 				}
@@ -507,7 +507,7 @@ public class Player extends Character implements Collidable, Fallable{
 	}
 	
 	public String getplaytime(){
-		return playtimem + " minute and " + playtime + " second";
+		return playtimem + " minute and " + (int)(playtime/100) + " second";
 	}
 	
 	public int getplaytimem(){

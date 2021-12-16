@@ -6,8 +6,9 @@ import entity.Tile;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import logic.GameManager;
 import logic.SceneManager;
-import util.GameUtil;
+
 
 public abstract class Entity implements Serializable{
 
@@ -68,7 +69,7 @@ public abstract class Entity implements Serializable{
 		if(!(this instanceof Fallable)) return 0;
 		double prevy = getY();
 		increaseY(Vy);
-		Vy = Vy + GameUtil.gravity;
+		Vy = Vy + GameManager.gravity;
 		for(Tile tile : SceneManager.getInstance().getTiles()) {
 			if((getX() >= tile.getLeftBound() && getX() <= tile.getRightBound()) || (getX()+getW() >= tile.getLeftBound() && getX()+getW() <= tile.getRightBound())) {
 				if(getY()+getH() > tile.getUpperBound() && getY() <= tile.getLowerBound()) {

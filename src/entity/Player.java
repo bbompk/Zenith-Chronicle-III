@@ -16,9 +16,10 @@ import gui.GameUI;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.media.AudioClip;
 import javafx.util.Pair;
+import logic.GameManager;
 import logic.KeyHandler;
 import logic.SceneManager;
-import util.GameUtil;
+
 
 public class Player extends Character implements Collidable, Fallable{
 	
@@ -33,7 +34,11 @@ public class Player extends Character implements Collidable, Fallable{
 	private int playtime;
 	private int playtimem;
 	
-//	private static final AudioClip atkSound = new AudioClip(ClassLoader.getSystemResource("attackk.wav").toString());
+	private static AudioClip atkHit = new AudioClip(ClassLoader.getSystemResource("audio/sfx/atk_hit.mp3").toString());
+	private static AudioClip atkMiss = new AudioClip(ClassLoader.getSystemResource("audio/sfx/atk_missed.mp3").toString());
+	private static AudioClip takeDmg = new AudioClip(ClassLoader.getSystemResource("audio/sfx/oof.mp3").toString());
+	private static AudioClip dies = new AudioClip(ClassLoader.getSystemResource("audio/sfx/long_oof.mp3").toString());
+	private static AudioClip whooshSound = new AudioClip(ClassLoader.getSystemResource("audio/sfx/whoosh.mp3").toString());
 	
 		
 	// IDLE/RUN
@@ -186,6 +191,7 @@ public class Player extends Character implements Collidable, Fallable{
 			if(!jumpStatus.equals(PlayerStatus.ONGROUND)) dashAvail--;
 			dashing += 41;
 			roll.loadImage(roll.getFilepath());
+			whooshSound.play(0.3);
 		}
 		//direction-------------
 		if(KeyHandler.getInstance().getKeyStatus(68).equals(KeyStatus.DOWN)) {
@@ -210,7 +216,7 @@ public class Player extends Character implements Collidable, Fallable{
 				else atkable = 41;
 		}
 		//---------------moving
-		if(!(status.equals(PlayerStatus.DIE)) && atkable < 76){
+		if(alive && atkable < 76){
 
 			if(direction == 1) {
 				moveRight();
@@ -262,7 +268,7 @@ public class Player extends Character implements Collidable, Fallable{
 		prevy = getY();
 		increaseY(getVy());
 		if(lastFrameStatus.equals(PlayerStatus.DASHING)) setVy(0);
-		setVy(getVy() + GameUtil.gravity);
+		setVy(getVy() + GameManager.gravity);
 		for(Tile tile : SceneManager.getInstance().getTiles()) {
 			if( (getX() >= tile.getLeftBound() && getX() <= tile.getRightBound()) || (getX()+getW() >= tile.getLeftBound() && getX()+getW() <= tile.getRightBound()) ) {
 				if(getY()+getH() > tile.getUpperBound() && getY() <= tile.getUpperBound() && !(jumpStatus.equals(PlayerStatus.GOINGUP)) ) {
@@ -299,6 +305,7 @@ public class Player extends Character implements Collidable, Fallable{
 		if(jumpStatus.equals(PlayerStatus.ONGROUND)) {
 			setVy(-initJumpSpeed);
 			jumpStatus = PlayerStatus.GOINGUP;
+			whooshSound.play(0.3);
 		}
 		
 	}
@@ -341,6 +348,7 @@ public class Player extends Character implements Collidable, Fallable{
 		else moveLeft();
 		
 		setMoveSpeed(originalMS);
+		
 	}
 	
 	
@@ -405,13 +413,14 @@ public class Player extends Character implements Collidable, Fallable{
 		for(Enemy enemy : SceneManager.getInstance().getEnemy()) {
 			if(enemy.collideWith(a)) {
 				enemy.takeDamage(getAtk());
-			
-			}
+				atkHit.play(0.4);
+			}else atkMiss.play(0.2);
 		}
 	}
 	
 	public void takeDamage(int x) {
 		super.takeDamage(x);
+		if(alive) takeDmg.play(); else dies.play();
 		justTakeDamage += 32;
 	}
 

@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -22,6 +23,16 @@ public class GameManager {
 	private AnimationTimer animation;
 	private boolean continuee;
 	private boolean pause;
+	
+	
+	public static final int screenWidth = 1280;
+	public static final int screenHeight = 720;
+	public static final double gravity = 0.35;
+	public static AudioClip titleBGM = new AudioClip(ClassLoader.getSystemResource("audio/bgm/title_theme.wav").toString());
+	public static AudioClip levelBGM = new AudioClip(ClassLoader.getSystemResource("audio/bgm/main_theme(loop).wav").toString());
+	public static AudioClip bossBGM = new AudioClip(ClassLoader.getSystemResource("audio/bgm/boss_battle(loop).wav").toString());
+	public static AudioClip victoryBGM = new AudioClip(ClassLoader.getSystemResource("audio/bgm/title_theme.wav").toString());
+	public static AudioClip gameOverBGM = new AudioClip(ClassLoader.getSystemResource("audio/bgm/game_over.wav").toString());
 	
 	public GameManager() {
 		// TODO Auto-generated constructor stub
@@ -99,6 +110,8 @@ public class GameManager {
 	}
 
 	public void appStart() {
+		stopBGM();
+		titleBGM.play();
 		animation = new AnimationTimer(){
 			public void handle(long now){
 //				new Thread(() -> {
@@ -115,6 +128,14 @@ public class GameManager {
 			}
 		};
 		animation.start();
+	}
+	
+	public void stopBGM() {
+		if(titleBGM.isPlaying()) titleBGM.stop();
+		if(levelBGM.isPlaying()) levelBGM.stop();
+		if(bossBGM.isPlaying()) bossBGM.stop();
+		if(gameOverBGM.isPlaying()) gameOverBGM.stop();
+		if(victoryBGM.isPlaying()) victoryBGM.stop();
 	}
 	
 	

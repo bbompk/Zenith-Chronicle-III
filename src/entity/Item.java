@@ -12,6 +12,7 @@ import component.Sprite;
 import gui.GameUI;
 import gui.InventoryPane;
 import gui.PowerupPane;
+import javafx.scene.media.AudioClip;
 import logic.KeyHandler;
 import logic.SceneManager;
 
@@ -20,6 +21,8 @@ public class Item extends Entity implements Interactable,Fallable,Collidable{
 	private static ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 	private int type;
 	private static Random r = new Random();
+	private static AudioClip dropSound = new AudioClip(ClassLoader.getSystemResource("audio/sfx/coin_drop.mp3").toString());
+	private static AudioClip equipSound = new AudioClip(ClassLoader.getSystemResource("audio/sfx/equip.mp3").toString());
 
 	public Item(double x,int type) {
 		super(x, 520, 50, 50);
@@ -58,18 +61,22 @@ public class Item extends Entity implements Interactable,Fallable,Collidable{
 	
 	public static void generate(int x) {
 		SceneManager.getInstance().getInteractable().add(new Item(x, r.nextInt(6)));
+		dropSound.play();
 	}
 	
 	public static void generate(double x,double y) {
 		SceneManager.getInstance().getInteractable().add(new Item(x, y, r.nextInt(6)));
+		dropSound.play();
 	}
 	
 	public static void generate(int lowerbound,int upperbound) {
 		SceneManager.getInstance().getInteractable().add(new Item(r.nextInt(upperbound-lowerbound)+lowerbound, r.nextInt(6)));
+		dropSound.play();
 	}
 	
 	public static void generate(int type,int lowerbound,int upperbound) {
 		SceneManager.getInstance().getInteractable().add(new Item(r.nextInt(upperbound-lowerbound)+lowerbound, type));
+		dropSound.play();
 	}
 
 	@Override
@@ -83,6 +90,7 @@ public class Item extends Entity implements Interactable,Fallable,Collidable{
 			else if(type==2)SceneManager.getInstance().getPlayer().changemvsp(1);
 			else if(type==3)SceneManager.getInstance().getPlayer().changeJumpH(1);
 			else if(type==4)SceneManager.getInstance().getPlayer().changeDashSpeedMultiplier(0.5);
+			equipSound.play();
 			SceneManager.getInstance().getPlayer().inventory.set(type, SceneManager.getInstance().getPlayer().getInventory().get(type)+1);
 			SceneManager.getInstance().getInteractable().remove(this);
 			InventoryPane.getInstance().getText().get(type).setText(String.valueOf(Integer.parseInt(InventoryPane.getInstance().getText().get(type).getText())+1));

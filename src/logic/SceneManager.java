@@ -20,11 +20,12 @@ import entity.Tile;
 import entity.TileBackground;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 
 public class SceneManager extends Canvas implements Serializable {
 	
-	public static final boolean isDev = false;
+	public static final boolean isDev = true;
 
 	private static SceneManager instance = null;
 	private double offsetX;
@@ -42,6 +43,7 @@ public class SceneManager extends Canvas implements Serializable {
 	private double rightBound ;
 	public boolean changeState;
 	private boolean gameend;
+	private static AudioClip bossEnterSound = new AudioClip(ClassLoader.getSystemResource("audio/sfx/boss_quip.mp3").toString());
 	
 	private SceneManager() {
 		// TODO Auto-generated constructor stub
@@ -142,8 +144,11 @@ public class SceneManager extends Canvas implements Serializable {
 		props.add(new Particles(2140, 605, 50, 50, -1,"sprite/item/fake_axe.png"));
 		props.add(new Particles(3700, 370, 50, 50, -1,"sprite/item/fake_staff.png"));
 		props.add(new Particles(6645, 550, 50, 50, -1,"sprite/item/fake_sword.png"));
+		props.add(new Particles(100, 150, 90, 150, -1,"sprite/checkpoint/portal_start.gif"));
 		player.setY(100);
 		player.setX(100);
+		GameManager.getInstance().stopBGM();
+		GameManager.levelBGM.play();
 		
 		if(isDev) props.add(new Portal(100, 500));
 	}
@@ -158,6 +163,10 @@ public class SceneManager extends Canvas implements Serializable {
 		Tile.generateBossArena();
 		enemy.add(new Boss(850, 410));
 		player.setY(50);
+		GameManager.getInstance().stopBGM();
+		GameManager.bossBGM.play();
+		bossEnterSound.play(0.6);
+		
 	}
 
 	public void enterHomeScreen() {

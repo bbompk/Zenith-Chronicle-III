@@ -4,7 +4,7 @@ import entity.Player;
 import entity.Tile;
 import logic.GameManager;
 import logic.SceneManager;
-import util.GameUtil;
+
 
 public abstract class Character extends Entity implements Fallable{
 	

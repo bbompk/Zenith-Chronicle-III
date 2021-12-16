@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 import gui.PowerupPane;
+import javafx.scene.media.AudioClip;
 import component.Collidable;
 import component.Entity;
 import component.Fallable;
@@ -21,6 +22,7 @@ public class Powerup extends Entity implements Collidable, Fallable{
 	private int level;
 	private static Queue<Integer> renew = new LinkedList<Integer>();
 	private static ArrayList<Thread> thread = new ArrayList<Thread>();
+	private static final AudioClip boostSound= new AudioClip(ClassLoader.getSystemResource("audio/sfx/boost.mp3").toString());
 	boolean interrupt;
 
 	public Powerup(double x,int type) {
@@ -137,6 +139,7 @@ public class Powerup extends Entity implements Collidable, Fallable{
 				thread.add(t);
 				t.start();
 			}
+			boostSound.play();
 			if(renewable) {
 				Thread t = new Thread(() ->{
 				double x = getX();double y = getY();int type = this.type;int level = this.level;

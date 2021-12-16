@@ -4,12 +4,14 @@ import component.Collidable;
 import component.Entity;
 import component.Sprite;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.media.AudioClip;
 import logic.SceneManager;
 
 public class Portal extends Entity implements Collidable {
 
 	private Sprite portal;
 	private boolean flip;
+	private static AudioClip warpSound = new AudioClip(ClassLoader.getSystemResource("audio/sfx/warp.mp3").toString());
 	
 	public Portal() {
 		super(SceneManager.getInstance().getRightBound() - 200, 520, 90, 150);
@@ -55,6 +57,7 @@ public class Portal extends Entity implements Collidable {
 		// TODO Auto-generated method stub
 		if(collideWith(SceneManager.getInstance().getPlayer())) {
 			SceneManager.getInstance().changeState = true;
+			warpSound.play(0.4);
 		}
 	}
 

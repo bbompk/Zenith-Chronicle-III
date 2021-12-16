@@ -6,6 +6,7 @@ import component.Enemy;
 import component.Sprite;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import logic.Difficulty;
 import logic.SceneManager;
@@ -17,6 +18,7 @@ public class Monster extends Enemy {
 	private static ArrayList<Sprite> hurt = new ArrayList<Sprite>();
 	private static ArrayList<Sprite> run = new ArrayList<Sprite>();
 	private static ArrayList<Integer> size = new ArrayList<Integer>();
+	private static ArrayList<AudioClip> audio = new ArrayList<AudioClip>();
 	private int type;
 	private int randomMove;
 	private int direction;
@@ -75,6 +77,12 @@ public class Monster extends Enemy {
 		fall();
 
 	}
+	
+	@Override
+	public void takeDamage(int x) {
+		super.takeDamage(x);
+		if(!alive) audio.get(type).play();
+	}
 
 	@Override
 	public Sprite getImage() {
@@ -89,11 +97,14 @@ public class Monster extends Enemy {
 		hurt.add(new Sprite("sprite/character/enemy/skeleton/hurt.gif"));
 		death.add(new Sprite("sprite/character/enemy/skeleton/death.gif"));
 		run.add(new Sprite("sprite/character/enemy/skeleton/run.gif"));
+		audio.add(new AudioClip(ClassLoader.getSystemResource("audio/sfx/skeleton_die.mp3").toString()));
+		audio.get(0).setVolume(0.5);
 		size.add(120);
 		idle.add(new Sprite("sprite/character/enemy/mushroom/idle.gif"));
 		hurt.add(new Sprite("sprite/character/enemy/mushroom/hurt.gif"));
 		death.add(new Sprite("sprite/character/enemy/mushroom/death.gif"));
 		run.add(new Sprite("sprite/character/enemy/mushroom/run.gif"));
+		audio.add(new AudioClip(ClassLoader.getSystemResource("audio/sfx/thanos.mp3").toString()));
 		size.add(90);
 	}
 	

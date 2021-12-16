@@ -8,10 +8,12 @@ import component.KeyStatus;
 import component.PlayerStatus;
 import component.Sprite;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.media.AudioClip;
 import logic.Difficulty;
+import logic.GameManager;
 import logic.KeyHandler;
 import logic.SceneManager;
-import util.GameUtil;
+
 
 public class Boss extends Enemy {
 
@@ -22,7 +24,11 @@ public class Boss extends Enemy {
 	private static Sprite hurt = new Sprite("sprite/character/boss/hurt.gif");;
 	private static Sprite strike = new Sprite("sprite/character/boss/ayyo.gif");; 
 	private static Sprite pre_strike = new Sprite("sprite/character/boss/prepare_to_strike.gif");;
+	private static AudioClip atkHit = new AudioClip(ClassLoader.getSystemResource("audio/sfx/slap.mp3").toString());
+	private static AudioClip atkMiss = new AudioClip(ClassLoader.getSystemResource("audio/sfx/miss.mp3").toString());
+	private static AudioClip dropSound = new AudioClip(ClassLoader.getSystemResource("audio/sfx/coin_drop.mp3").toString());
 	
+	private static AudioClip deathSound = new AudioClip(ClassLoader.getSystemResource("audio/sfx/demon_dies.mp3").toString());
 	
 	private int stunImmune;
 	private int direction;
@@ -191,7 +197,7 @@ public class Boss extends Enemy {
 	protected int fall() {
 		prevy = getY();
 		increaseY(getVy());
-		setVy(getVy() + GameUtil.gravity);
+		setVy(getVy() + GameManager.gravity);
 		for(Tile tile : SceneManager.getInstance().getTiles()) {
 			if( (getX() >= tile.getLeftBound() && getX() <= tile.getRightBound()) || (getX()+getW() >= tile.getLeftBound() && getX()+getW() <= tile.getRightBound()) ) {
 				if(getY()+getH() > tile.getUpperBound() && getY() <= tile.getUpperBound()  ) {
@@ -262,7 +268,8 @@ public class Boss extends Enemy {
 			Player player = SceneManager.getInstance().getPlayer();
 			if(player.collideWith(a)) {
 				player.takeDamage(atk);
-			}
+				atkHit.play(0.2);
+			}else atkMiss.play();
 				
 	}
 	
@@ -327,7 +334,7 @@ public class Boss extends Enemy {
 	public void die() {
 		status = BossStatus.DIE;
 		death.loadImage(death.getFilepath());
-		
+		deathSound.play();
 		new Thread(() -> {
 			try {
 				Thread.sleep(1000);
@@ -345,18 +352,19 @@ public class Boss extends Enemy {
 		
 		new Thread(() -> {
 			try {
-				Thread.sleep(2000);
+				Thread.sleep(4000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			Powerup.generate(0, (int) getX(), (int) getX()+ (int) getW());
+			dropSound.play();
 			needRemove =true;
 		}).start();
 		
 		new Thread(() -> {
 			try {
-				Thread.sleep(3000);
+				Thread.sleep(5000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

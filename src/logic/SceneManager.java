@@ -3,10 +3,10 @@ package logic;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import component.Collidable;
-import component.Enemy;
-import component.Entity;
-import component.Interactable;
+import baseEntity.Collidable;
+import baseEntity.Enemy;
+import baseEntity.Entity;
+import baseEntity.Interactable;
 import component.Sprite;
 import entity.Background;
 import entity.Boss;
@@ -25,7 +25,7 @@ import javafx.scene.paint.Color;
 
 public class SceneManager extends Canvas implements Serializable {
 	
-	public static final boolean isDev = false;
+	public static final boolean isDev = true;
 
 	private static SceneManager instance = null;
 	private double offsetX;
@@ -162,7 +162,7 @@ public class SceneManager extends Canvas implements Serializable {
 		Tile.generateBossArena();
 		enemy.add(new Boss(850, 410));
 		player.setY(50);
-
+		bossEnterSound.play(0.7);
 		GameManager.getInstance().setMusicState(GameState.BOSS);
 		
 	}

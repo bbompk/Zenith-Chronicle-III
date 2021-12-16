@@ -1,6 +1,6 @@
 package entity;
 
-import component.Entity;
+import baseEntity.Entity;
 import component.Sprite;
 import logic.SceneManager;
 

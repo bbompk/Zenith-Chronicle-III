@@ -1,7 +1,7 @@
 package entity;
 
-import component.Collidable;
-import component.Entity;
+import baseEntity.Collidable;
+import baseEntity.Entity;
 import component.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.media.AudioClip;

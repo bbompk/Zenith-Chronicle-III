@@ -10,6 +10,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import util.Logger;
 
 public class GameManager {
 	
@@ -25,7 +26,7 @@ public class GameManager {
 	private boolean pause;
 	private int playtime;
 	private int playtimem;
-	
+	private Thread timerThread;
 	
 	public static final int screenWidth = 1280;
 	public static final int screenHeight = 720;
@@ -50,14 +51,14 @@ public class GameManager {
 		Gameend = false;
 		playtime = 0;
 		playtimem = 0;
-		Thread timerThread  = new Thread(()->{
+		timerThread  = new Thread(()->{
 			while(!GameManager.getInstance().isGameend()) {
 			if(!GameManager.getInstance().getState().equals(GameState.PAUSE)) {
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 			
 			playtime += 1;
@@ -65,8 +66,10 @@ public class GameManager {
 				playtime -= 6000;
 				playtimem += 1;
 			}
+//			Logger.log(getplaytime());
 			}}
 		});
+		
 		timerThread.setDaemon(true);
 		timerThread.start();
 	}
@@ -204,7 +207,7 @@ public class GameManager {
 	
 	public void restart() {
 		animation.stop();setGameend(true);
-		instance = null;
+		instance = null;		
 	}
 
 	public void continuee() {
@@ -226,8 +229,6 @@ public class GameManager {
 	public String getplaytime(){
 		return playtimem + " minute and " + (int)(playtime/100) + " second";
 	}
-	
-	
 	
 	public GameState getMusicState() {
 		return musicState;

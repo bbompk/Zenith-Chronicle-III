@@ -2,8 +2,8 @@ package entity;
 
 import java.util.Random;
 
+import baseEntity.Enemy;
 import component.BossStatus;
-import component.Enemy;
 import component.KeyStatus;
 import component.PlayerStatus;
 import component.Sprite;

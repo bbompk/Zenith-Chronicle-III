@@ -1,13 +1,12 @@
 package entity;
 
-import component.Collidable;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import component.Character;
-import component.Enemy;
-import component.Entity;
+import baseEntity.Character;
+import baseEntity.Collidable;
+import baseEntity.Enemy;
+import baseEntity.Entity;
 import component.KeyStatus;
 import component.PlayerStatus;
 import component.Sprite;
@@ -105,22 +104,7 @@ public class Player extends Character {
 		initJumpSpeed = 10;
 		dashSpeedMultiplier = 11/7;
 		playtime = 0;playtimem = 0;
-		new Thread(()->{
-			while(true) {
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				SceneManager.getInstance().getPlayer().heal();
-				playtime += 1;
-				if(playtime > 5999) {
-					playtime -= 6000;
-					playtimem += 1;
-				}
-				}
-		}).start();
+		
 	}
 
 	@Override

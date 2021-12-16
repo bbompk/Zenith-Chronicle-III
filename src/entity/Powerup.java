@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
+
+import baseEntity.Collidable;
+import baseEntity.Entity;
+import baseEntity.FallObject;
 import gui.PowerupPane;
 import javafx.scene.media.AudioClip;
-import component.Collidable;
-import component.Entity;
-import component.FallObject;
 import component.Sprite;
 import gui.PowerupPane;
 import logic.Difficulty;

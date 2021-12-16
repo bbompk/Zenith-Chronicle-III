@@ -14,8 +14,7 @@ import javafx.stage.Stage;
 public class GameManager {
 	
 	private static GameManager instance = null;
-	private boolean isGameOver = false;
-	private boolean isVictory = false;
+	private boolean Gameend;
 	
 	private GameState state;
 	private boolean escPress;
@@ -44,6 +43,7 @@ public class GameManager {
 		bossBGM.setVolume(0.2);
 		victoryBGM.setVolume(0.2);
 		gameOverBGM.setVolume(0.2);
+		Gameend = false;
 	}
 
 	public static GameManager getInstance() {
@@ -141,23 +141,6 @@ public class GameManager {
 		if(gameOverBGM.isPlaying()) gameOverBGM.stop();
 		if(victoryBGM.isPlaying()) victoryBGM.stop();
 	}
-	
-	
-	public boolean isGameOver() {
-		return isGameOver;
-	}
-
-	public void setGameOver(boolean isGameOver) {
-		this.isGameOver = isGameOver;
-	}
-
-	public boolean isVictory() {
-		return isVictory;
-	}
-
-	public void setVictory(boolean isVictory) {
-		this.isVictory = isVictory;
-	}
 
 	public GameState getState() {
 		return state;
@@ -182,5 +165,13 @@ public class GameManager {
 	
 	public void pause() {
 		pause = true;
+	}
+
+	public boolean isGameend() {
+		return Gameend;
+	}
+
+	public void setGameend(boolean gameend) {
+		Gameend = gameend;
 	}
 }

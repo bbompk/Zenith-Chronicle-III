@@ -88,6 +88,7 @@ public class UIButton extends Button {
 		});
 		if(t == "Quit")setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
+				System.exit(0);
 				((Stage) ((Node) e.getSource()).getScene().getWindow()).close();
 			}
 		});

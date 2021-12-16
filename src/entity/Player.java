@@ -17,6 +17,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.media.AudioClip;
 import javafx.util.Pair;
 import logic.GameManager;
+import logic.GameState;
 import logic.KeyHandler;
 import logic.SceneManager;
 
@@ -104,7 +105,8 @@ public class Player extends Character implements Collidable, Fallable{
 		dashSpeedMultiplier = 11/7;
 		playtime = 0;playtimem = 0;
 		new Thread(()->{
-			while(true) {
+			while(!GameManager.getInstance().isGameend()) {
+			if(!GameManager.getInstance().getState().equals(GameState.PAUSE))
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {

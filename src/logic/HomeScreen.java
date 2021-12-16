@@ -362,6 +362,7 @@ public class HomeScreen extends Pane {
 		});
 		yes.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
+				System.exit(0);
 				stage.close();
 			}
 		});

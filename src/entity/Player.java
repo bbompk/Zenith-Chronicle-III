@@ -432,7 +432,7 @@ public class Player extends Character implements Collidable, Fallable{
 	
 	public void takeDamage(int x) {
 		super.takeDamage(x);
-		if(alive) takeDmg.play(); else dies.play();
+		if(alive) takeDmg.play(); else dies.play(0.3);
 		justTakeDamage += 32;
 	}
 

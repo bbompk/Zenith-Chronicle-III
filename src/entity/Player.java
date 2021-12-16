@@ -19,6 +19,7 @@ import logic.GameManager;
 import logic.GameState;
 import logic.KeyHandler;
 import logic.SceneManager;
+import util.Logger;
 
 
 public class Player extends Character {
@@ -75,52 +76,6 @@ public class Player extends Character {
 	public ArrayList<Integer> inventory;
 	private int healing;
 	
-	public Player(double x, double y) {
-		// TODO Auto-generated constructor stub
-		
-		super(x, y,120,120);
-		lastFrameStatus = PlayerStatus.IDLE;
-		status = PlayerStatus.IDLE;
-		jumpStatus = PlayerStatus.ONGROUND;
-		direction = 0;
-		prevGround = 550+120;
-		maxDash = 1;
-		dashAvail = maxDash;
-		inventory = new ArrayList<Integer>(Arrays.asList(0,0,0,0,0,0));
-		alive = true;
-		idle = new Sprite("sprite/character/player/idle.gif");
-		run = new Sprite("sprite/character/player/run.gif");
-		jump_up = new Sprite("sprite/character/player/jump_up.gif");
-		jump_down = new Sprite("sprite/character/player/jump_down.gif");
-		death = new Sprite("sprite/character/player/death.gif");
-		attack = new Sprite("sprite/character/player/attack.gif");
-		hurt = new Sprite("sprite/character/player/hurt.gif");
-		roll = new Sprite("sprite/character/player/roll_4_frame.gif");
-		maxHp =100;
-		hp = maxHp;
-		atk = 70;
-		moveSpeed = 7;
-		initJumpSpeed = 10;
-		dashSpeedMultiplier = 11/7;
-		playtime = 0;playtimem = 0;
-		new Thread(()->{
-			while(!GameManager.getInstance().isGameend()) {
-			if(!GameManager.getInstance().getState().equals(GameState.PAUSE)) {
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			healing += 5 *inventory.get(5);
-			playtime += 1;
-			if(playtime > 5999) {
-				playtime -= 6000;
-				playtimem += 1;
-			}
-			}}
-		}).start();
-	}
 	
 	public Player() {
 		// TODO Auto-generated constructor stub
@@ -158,7 +113,7 @@ public class Player extends Character {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				healing += 5 *inventory.get(5);
+				SceneManager.getInstance().getPlayer().heal();
 				playtime += 1;
 				if(playtime > 5999) {
 					playtime -= 6000;
@@ -175,6 +130,8 @@ public class Player extends Character {
 			GameUI.getInstance().lose();
 			setX(-5000);
 			prevy = 999;
+			GameManager.getInstance().setMusicState(GameState.GAMEOVER);
+			Logger.log("You Died !!");
 			return;
 		}
 //		takeDamage(1000);
@@ -435,6 +392,10 @@ public class Player extends Character {
 		justTakeDamage += 32;
 	}
 
+	
+	public void heal() {
+		healing += 5 *inventory.get(5);
+	}
 
 	@Override
 	public void checkCollide() {

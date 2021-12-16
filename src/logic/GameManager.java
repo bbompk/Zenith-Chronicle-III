@@ -17,11 +17,14 @@ public class GameManager {
 	private boolean Gameend;
 	
 	private GameState state;
+	private GameState musicState;
 	private boolean escPress;
 	private boolean escPress2;
 	private AnimationTimer animation;
 	private boolean continuee;
 	private boolean pause;
+	private int playtime;
+	private int playtimem;
 	
 	
 	public static final int screenWidth = 1280;
@@ -36,6 +39,7 @@ public class GameManager {
 	public GameManager() {
 		// TODO Auto-generated constructor stub
 		state = GameState.TITLE;
+		musicState = GameState.TITLE;
 		escPress = false;escPress2 = false;
 		continuee = false;pause = false;
 		titleBGM.setVolume(0.2);
@@ -44,6 +48,27 @@ public class GameManager {
 		victoryBGM.setVolume(0.2);
 		gameOverBGM.setVolume(0.2);
 		Gameend = false;
+		playtime = 0;
+		playtimem = 0;
+		Thread timerThread  = new Thread(()->{
+			while(!GameManager.getInstance().isGameend()) {
+			if(!GameManager.getInstance().getState().equals(GameState.PAUSE)) {
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			playtime += 1;
+			if(playtime > 5999) {
+				playtime -= 6000;
+				playtimem += 1;
+			}
+			}}
+		});
+		timerThread.setDaemon(true);
+		timerThread.start();
 	}
 
 	public static GameManager getInstance() {
@@ -65,6 +90,7 @@ public class GameManager {
 		}
 		if(continuee || (escPress && KeyHandler.getInstance().getKeyStatus(27).equals(KeyStatus.FREE)))escPress = false;	
 		if(state == GameState.PAUSE) {
+			stopBGM();
 			if(continuee || (KeyHandler.getInstance().getKeyStatus(27).equals(KeyStatus.DOWN) && !escPress)) {
 				state = GameState.LEVEL;
 				GameUI.getInstance().setPausePane(false);
@@ -73,6 +99,18 @@ public class GameManager {
 				continuee = false;
 				// TODO handle pause
 			}
+		}
+		
+		if(musicState.equals(GameState.TITLE) && !state.equals(GameState.PAUSE)) {
+			playBGM(titleBGM);
+		}else if(musicState.equals(GameState.LEVEL) && !state.equals(GameState.PAUSE)) {
+			playBGM(levelBGM);
+		}else if(musicState.equals(GameState.BOSS) && !state.equals(GameState.PAUSE)) {
+			playBGM(bossBGM);
+		}else if(musicState.equals(GameState.GAMEOVER) && !state.equals(GameState.PAUSE)) {
+			playBGM(gameOverBGM);
+		}else if(musicState.equals(GameState.VICTORY) && !state.equals(GameState.PAUSE)) {
+			playBGM(victoryBGM);
 		}
 		//TODO might have to do with other states, should set up homescreen and run game with gamemanager
 	}
@@ -141,6 +179,14 @@ public class GameManager {
 		if(victoryBGM.isPlaying()) victoryBGM.stop();
 	}
 
+	public void playBGM(AudioClip bgm) {
+		if(!bgm.isPlaying()) {
+			stopBGM();
+			bgm.play();
+		}
+	}
+	
+	
 	public GameState getState() {
 		return state;
 	}	
@@ -172,5 +218,23 @@ public class GameManager {
 
 	public void setGameend(boolean gameend) {
 		Gameend = gameend;
+	}
+	
+	public String getplaytime(){
+		return playtimem + " minute and " + (int)(playtime/100) + " second";
+	}
+	
+	
+	
+	public GameState getMusicState() {
+		return musicState;
+	}
+
+	public void setMusicState(GameState musicState) {
+		this.musicState = musicState;
+	}
+
+	public int getplaytimem(){
+		return playtimem;
 	}
 }

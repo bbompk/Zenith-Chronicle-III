@@ -56,6 +56,7 @@ public class EndgamePane extends Pane {
 			Logger.log("Victory!!");
 			text.setLayoutX(112);
 		}else {
+			GameManager.getInstance().setGameend(true);
 			continuee.setVisible(false);
 			restart.setLayoutY(220);
 			mainmenu.setLayoutY(300);

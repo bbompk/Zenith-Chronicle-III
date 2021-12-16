@@ -1,7 +1,8 @@
-package component;
+package baseEntity;
 
 import java.io.Serializable;
 
+import component.Sprite;
 import entity.Tile;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;

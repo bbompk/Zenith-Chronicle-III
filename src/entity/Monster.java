@@ -2,7 +2,8 @@ package entity;
 
 import java.util.ArrayList;
 import java.util.Random;
-import component.Enemy;
+
+import baseEntity.Enemy;
 import component.Sprite;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;

@@ -3,10 +3,10 @@ package entity;
 import java.util.ArrayList;
 import java.util.Random;
 
-import component.Collidable;
-import component.Entity;
-import component.FallObject;
-import component.Interactable;
+import baseEntity.Collidable;
+import baseEntity.Entity;
+import baseEntity.FallObject;
+import baseEntity.Interactable;
 import component.KeyStatus;
 import component.Sprite;
 import gui.GameUI;

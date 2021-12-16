@@ -1,7 +1,7 @@
 package entity;
 
-import component.Collidable;
-import component.Entity;
+import baseEntity.Collidable;
+import baseEntity.Entity;
 import component.Sprite;
 
 class AttackBox extends Entity implements Collidable{

@@ -196,7 +196,10 @@ public class GameManager {
 	}
 
 	public void clear() {
-		escPress= false;escPress2 = true;state = GameState.LEVEL;continuee = false;setGameend(true);
+		escPress= false;escPress2 = true;
+		state = GameState.LEVEL;
+		continuee = false;
+		setGameend(true);
 	}
 	
 	public void restart() {

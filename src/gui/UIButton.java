@@ -127,12 +127,23 @@ public class UIButton extends Button {
 		});
 	}
 	
-	public UIButton(String t,int x,int y,int fontSize,Color color,boolean transparent,int insetstype) {
+	public UIButton(String t,int x,int y,int fontSize,Color color,boolean transparent) {
 		super(t);
 		setLayoutX(x);setLayoutY(y);
 		setFont(FontHolder.getInstance().getFont().get(fontSize));
 		setTextFill(color);
-		if(transparent)setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
+		if(transparent) {
+			setPadding(new Insets(0));
+			setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
+		}
+		else if(color.equals(Color.BLACK)) {
+			setPadding(new Insets(4,0,4,0));
+			setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 20; -fx-background-color: white;");
+		}
+		else {
+			setPadding(new Insets(8,12,8,12));
+			setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 20; -fx-background-color: black;");
+		}
 		
 	}
 

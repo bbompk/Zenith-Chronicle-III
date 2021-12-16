@@ -8,7 +8,6 @@ import java.util.Arrays;
 import component.Character;
 import component.Enemy;
 import component.Entity;
-import component.Fallable;
 import component.KeyStatus;
 import component.PlayerStatus;
 import component.Sprite;
@@ -328,7 +327,7 @@ public class Player extends Character {
 		
 		if(getX() > SceneManager.getInstance().getRightBound()- getW()) setX(SceneManager.getInstance().getRightBound() - getW());
 		
-		if(getX() >= SceneManager.getInstance().getLeftBound() + 640 - getW() && prevx < getX() && direction!=0) {
+		if(getX() >= SceneManager.getInstance().getLeftBound() + 640 - getW() && prevx < getX() && (direction!= 0 || status.equals(PlayerStatus.DASHING))) {
 			double newOffSetX = SceneManager.getInstance().getOffsetX()+moveSpeed ;
 			newOffSetX = (newOffSetX > SceneManager.getInstance().getRightBound() - 1280) ?  SceneManager.getInstance().getRightBound() - 1280 : newOffSetX; 
 			SceneManager.getInstance().setOffsetX(newOffSetX);
@@ -343,7 +342,7 @@ public class Player extends Character {
 		
 		if(getX() < SceneManager.getInstance().getLeftBound()) setX(SceneManager.getInstance().getLeftBound());
 			
-		if(getX() <= SceneManager.getInstance().getRightBound() - 640 - getW() && prevx > getX() && direction!=0) {
+		if(getX() <= SceneManager.getInstance().getRightBound() - 640 - getW() && prevx > getX() && (direction!= 0 || status.equals(PlayerStatus.DASHING))) {
 			double newOffSetX = SceneManager.getInstance().getOffsetX()-moveSpeed;
 			newOffSetX = (newOffSetX < SceneManager.getInstance().getLeftBound()) ?  SceneManager.getInstance().getLeftBound() : newOffSetX; 
 			SceneManager.getInstance().setOffsetX(newOffSetX);

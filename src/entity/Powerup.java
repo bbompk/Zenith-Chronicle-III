@@ -9,7 +9,6 @@ import javafx.scene.media.AudioClip;
 import component.Collidable;
 import component.Entity;
 import component.FallObject;
-import component.Fallable;
 import component.Sprite;
 import gui.PowerupPane;
 import logic.Difficulty;

@@ -6,7 +6,6 @@ import java.util.Random;
 import component.Collidable;
 import component.Entity;
 import component.FallObject;
-import component.Fallable;
 import component.Interactable;
 import component.KeyStatus;
 import component.Sprite;

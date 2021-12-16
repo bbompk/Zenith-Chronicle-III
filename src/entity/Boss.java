@@ -258,7 +258,7 @@ public class Boss extends Enemy {
 	}
 	
 	private void attack() {
-			AttackBox a = new AttackBox(attackBox.getX(), attackBox.getY(), attackBox.getW()+20, attackBox.getH());
+			AttackBox a = new AttackBox(attackBox.getX(), attackBox.getY(), attackBox.getW(), attackBox.getH());
 			Player player = SceneManager.getInstance().getPlayer();
 			if(player.collideWith(a) && !player.isimmune()) {
 				player.takeDamage(atk);
@@ -356,7 +356,7 @@ public class Boss extends Enemy {
 		
 		new Thread(() -> {
 			try {
-				Thread.sleep(3000);
+				Thread.sleep(5000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

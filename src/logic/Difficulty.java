@@ -12,6 +12,7 @@ public class Difficulty {
 	public static void goNextLevel() {
 		level++;
 		GameUI.getInstance().setFloor(level);
+		System.out.println("Floor "+level+"!");
 		if(countDown == 0 ) {
 			countDown = 4;
 			goHarder();

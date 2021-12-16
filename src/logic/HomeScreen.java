@@ -303,6 +303,7 @@ public class HomeScreen extends Pane {
 		easy.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				Difficulty.setDifficulty(GameMode.EASY);
+				System.out.println("Easy? Don't you have a shame?");
 				GameManager.getInstance().restart();
 				GameManager.getInstance().gameStart(e);
 			}
@@ -322,6 +323,7 @@ public class HomeScreen extends Pane {
 		normal.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				Difficulty.setDifficulty(GameMode.NORMAL);
+				System.out.println("Maybe this game is too easy.");
 				GameManager.getInstance().restart();
 				GameManager.getInstance().gameStart(e);
 			}
@@ -341,6 +343,7 @@ public class HomeScreen extends Pane {
 		hard.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				Difficulty.setDifficulty(GameMode.HARD);
+				System.out.println("Life is too easy,isn't it?");
 				GameManager.getInstance().restart();
 				GameManager.getInstance().gameStart(e);
 			}

@@ -97,6 +97,7 @@ public class Player extends Character implements Collidable, Fallable{
 		moveSpeed = 7;
 		initJumpSpeed = 10;
 		dashSpeedMultiplier = 11/7;
+		playtime = 0;playtimem = 0;
 		new Thread(()->{
 			while(true) {
 			try {
@@ -136,12 +137,13 @@ public class Player extends Character implements Collidable, Fallable{
 		attack = new Sprite("sprite/character/player/attack.gif");
 		hurt = new Sprite("sprite/character/player/hurt.gif");
 		roll = new Sprite("sprite/character/player/roll_4_frame.gif");
-		maxHp =10000;
+		maxHp =100;
 		hp = maxHp;
 		atk = 70;
 		moveSpeed = 7;
 		initJumpSpeed = 10;
 		dashSpeedMultiplier = 11/7;
+		playtime = 0;playtimem = 0;
 		new Thread(()->{
 			while(true) {
 				try {
@@ -497,9 +499,13 @@ public class Player extends Character implements Collidable, Fallable{
 		return playtimem + " minute and " + playtime + " second";
 	}
 	
+	public int getplaytimem(){
+		return playtimem;
+	}
+	
 	public boolean isimmune() {
 		if(immune>0 || (dashing > 28 && dashing < 34)) {
-			System.out.println("dodge!");
+//			System.out.println("dodge!");
 			return true;
 		}
 		immune += 101;

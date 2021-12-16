@@ -52,6 +52,7 @@ public class EndgamePane extends Pane {
 	public void setGameText(boolean win,boolean conti) {
 		if(win) {
 			text.setText("Victory!!!");time.setText("Total time : \n" + SceneManager.getInstance().getPlayer().getplaytime());
+			System.out.println("Victory!!!");
 			text.setLayoutX(112);
 		}else {
 			continuee.setVisible(false);
@@ -60,9 +61,12 @@ public class EndgamePane extends Pane {
 			exit.setLayoutY(380);
 			if(conti) {
 				text.setText("You have die!");time.setText("Survive time : \n" + SceneManager.getInstance().getPlayer().getplaytime());
+				System.out.println("You have die!");
 				text.setLayoutX(70);
 			}else {
 				text.setText("You lose!!!");time.setText("Survive time : \n" + SceneManager.getInstance().getPlayer().getplaytime());
+				if(SceneManager.getInstance().getPlayer().getplaytimem() > 4)System.out.println("Nice try.");
+				else System.out.println("You lose!!!");
 				text.setLayoutX(95);
 			}
 		}

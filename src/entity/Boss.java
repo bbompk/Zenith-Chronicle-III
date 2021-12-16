@@ -152,6 +152,7 @@ public class Boss extends Enemy {
 									}
 									if(status.equals(BossStatus.IDLE)) {
 										isRight = false;
+										direction = -1;
 										status = BossStatus.WALK;
 									}
 								}).start();
@@ -173,6 +174,7 @@ public class Boss extends Enemy {
 									
 									if(status.equals(BossStatus.IDLE)) {
 										isRight = true;
+										direction = 1;
 										status = BossStatus.WALK;
 									}
 									

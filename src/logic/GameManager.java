@@ -62,7 +62,6 @@ public class GameManager {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
 			}
-			
 			playtime += 1;
 			if(playtime > 5999) {
 				playtime -= 6000;

@@ -104,6 +104,21 @@ public class Player extends Character {
 		initJumpSpeed = 10;
 		dashSpeedMultiplier = 11/7;
 		playtime = 0;playtimem = 0;
+		Thread timer  = new Thread(()->{
+			while(!GameManager.getInstance().isGameend()) {
+			if(!GameManager.getInstance().getState().equals(GameState.PAUSE)) {
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+				}
+				heal();
+			}}
+		});
+		
+		timer.setDaemon(true);
+		timer.start();
 		
 	}
 

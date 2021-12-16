@@ -29,8 +29,8 @@ public class Main extends Application {
 //		ImageView image = new ImageView(new Background().getImage().getImage());
 //		image.setFitHeight(720);image.setFitWidth(1280);
 //		//root.getChildren().add(image);
+		SceneManager.getInstance();
 		GameManager.getInstance().setState(GameState.TITLE);
-		SceneManager.getInstance().clear();
 		SceneManager.getInstance().enterHomeScreen();
 		root.getChildren().add(KeyHandler.getInstance());
 		root.getChildren().add(SceneManager.getInstance());	

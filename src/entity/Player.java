@@ -106,7 +106,7 @@ public class Player extends Character implements Collidable, Fallable{
 		playtime = 0;playtimem = 0;
 		new Thread(()->{
 			while(!GameManager.getInstance().isGameend()) {
-			if(!GameManager.getInstance().getState().equals(GameState.PAUSE))
+			if(!GameManager.getInstance().getState().equals(GameState.PAUSE)) {
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
@@ -119,7 +119,7 @@ public class Player extends Character implements Collidable, Fallable{
 				playtime -= 6000;
 				playtimem += 1;
 			}
-			}
+			}}
 		}).start();
 	}
 	

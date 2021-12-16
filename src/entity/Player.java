@@ -23,7 +23,7 @@ import logic.SceneManager;
 
 public class Player extends Character implements Collidable, Fallable{
 	
-	public static final boolean WallHacks = false;
+	public static final boolean WallHacks = true;
 	
 	
 	//Utility
@@ -45,19 +45,19 @@ public class Player extends Character implements Collidable, Fallable{
 	private PlayerStatus status;
 	private PlayerStatus lastFrameStatus;
 	private int direction;
-	private double moveSpeed = 7.0;
+	private double moveSpeed;
 	
 	
 	//Dashing
 	private int dashing = 0;
 	private double dashSpeed ;
-	private double dashSpeedMultiplier = 11/7;
+	private double dashSpeedMultiplier;
 	private int maxDash;
 	private int dashAvail;
 	
 	// Jumping
 	private PlayerStatus jumpStatus;
-	private double initJumpSpeed = 10;
+	private double initJumpSpeed;
 	private double jumpCount;
 	private double prevGround;
 	
@@ -99,6 +99,10 @@ public class Player extends Character implements Collidable, Fallable{
 		maxHp =100;
 		hp = maxHp;
 		atk = 70;
+		moveSpeed = 7;
+		initJumpSpeed = 10;
+		dashSpeedMultiplier = 11/7;
+		playtime = 0;playtimem = 0;
 		new Thread(()->{
 			while(true) {
 			try {
@@ -141,6 +145,10 @@ public class Player extends Character implements Collidable, Fallable{
 		maxHp =100;
 		hp = maxHp;
 		atk = 70;
+		moveSpeed = 7;
+		initJumpSpeed = 10;
+		dashSpeedMultiplier = 11/7;
+		playtime = 0;playtimem = 0;
 		new Thread(()->{
 			while(true) {
 				try {
@@ -246,8 +254,10 @@ public class Player extends Character implements Collidable, Fallable{
 		if(immune ==0) {
 			for(Enemy e:SceneManager.getInstance().getEnemy()) {
 				if(e.collideWith(this) && e.isAlive() && immune == 0 && !(e instanceof Boss)) {
-					takeDamage(e.getAtk());
-					immune += 101;
+					if(dashing < 29 || dashing > 33) {
+						takeDamage(e.getAtk());
+						immune += 101;
+					}
 				}
 			}
 		}
@@ -496,5 +506,18 @@ public class Player extends Character implements Collidable, Fallable{
 	
 	public String getplaytime(){
 		return playtimem + " minute and " + playtime + " second";
+	}
+	
+	public int getplaytimem(){
+		return playtimem;
+	}
+	
+	public boolean isimmune() {
+		if(immune>0 || (dashing > 28 && dashing < 34)) {
+//			System.out.println("dodge!");
+			return true;
+		}
+		immune += 101;
+		return false;
 	}
 }

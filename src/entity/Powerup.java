@@ -29,12 +29,14 @@ public class Powerup extends Entity implements Collidable, Fallable{
 		super(x, 520 ,50,50);
 		// TODO Auto-generated constructor stub
 		this.type = type;
+		level = 0;
 	}
 	
 	public Powerup(double x,double y,int type) {
 		super(x, y ,50,50);
 		// TODO Auto-generated constructor stub
 		this.type = type;
+		level = 0;
 	}
 	
 	public Powerup(double x,double y,int type,boolean renewable,int level) {
@@ -48,6 +50,10 @@ public class Powerup extends Entity implements Collidable, Fallable{
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
+		if(level!=0 && level!=Difficulty.level) {
+			SceneManager.getInstance().getCollidable().remove(this);
+			return;
+		}
 		fall();
 		checkCollide();
 	}
@@ -79,16 +85,14 @@ public class Powerup extends Entity implements Collidable, Fallable{
 	
 	public static void generate() {
 		Random rand = new Random();
-		int rand1 = rand.nextInt(600)+500;
-		int rand2 = rand.nextInt(600)+1400;
-		int rand3 = rand.nextInt(4);
-		int rand4 = rand.nextInt(4);
-		SceneManager.getInstance().getCollidable().add(new Powerup(rand1,rand3));
-		SceneManager.getInstance().getCollidable().add(new Powerup(rand2,rand4));
+		int rand1 = rand.nextInt(2)*2+1;
+		int rand2 = rand.nextInt(2)*2+1;
+		SceneManager.getInstance().getCollidable().add(new Powerup(2880,600,rand1));
+		SceneManager.getInstance().getCollidable().add(new Powerup(5500,600,rand2));
 		SceneManager.getInstance().getCollidable().add(new Powerup(2600,600,2,true,Difficulty.level));
 		SceneManager.getInstance().getCollidable().add(new Powerup(8540,600,2,true,Difficulty.level));
 		SceneManager.getInstance().getCollidable().add(new Powerup(6400,600,2,true,Difficulty.level));
-		SceneManager.getInstance().getCollidable().add(new Powerup(7900,10,0));
+		SceneManager.getInstance().getCollidable().add(new Powerup(7900,300,0));
 	}
 
 	@Override
@@ -96,7 +100,7 @@ public class Powerup extends Entity implements Collidable, Fallable{
 		// TODO Auto-generated method stub
 		if(collideWith(SceneManager.getInstance().getPlayer()) 
 				&& SceneManager.getInstance().getPlayer().isAlive()) {
-			if(type==0)SceneManager.getInstance().getPlayer().changeHp(30);
+			if(type==0)SceneManager.getInstance().getPlayer().changeHp(20);
 			else {
 				Thread t = new Thread(()->{
 					
@@ -144,6 +148,7 @@ public class Powerup extends Entity implements Collidable, Fallable{
 				Thread t = new Thread(() ->{
 				double x = getX();double y = getY();int type = this.type;int level = this.level;
 				try {
+					System.out.println("renew");;
 					Thread.sleep(15000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
@@ -171,4 +176,6 @@ public class Powerup extends Entity implements Collidable, Fallable{
 			t.interrupt();
 		}
 	}
+	
+
 }

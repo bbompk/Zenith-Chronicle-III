@@ -94,7 +94,6 @@ public class GameManager {
 			public void handle(long now){
 //				new Thread(() -> {
 //					new Thread(() -> {
-//						if(KeyHandler.getInstance().getKeyStatus(69).equals(KeyStatus.DOWN))System.out.println("rgfdfz");;
 						update(e);
 						KeyHandler.getInstance().update();
 						if(!state.equals(GameState.PAUSE)) {

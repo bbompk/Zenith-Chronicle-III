@@ -8,6 +8,8 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -17,9 +19,9 @@ import javafx.stage.Stage;
 public class HomeScreen extends Pane {
 
 //	private ArrayList<Node> node;
-	private Label name1;
-	private Label name2;
-	private Label name3;
+//	private Label name1;
+//	private Label name2;
+//	private Label name3;
 	private Button start;
 	private Button how;
 	private Button credit;
@@ -39,6 +41,7 @@ public class HomeScreen extends Pane {
 	private Button no;
 	private Text exitt;
 	private boolean escfree;
+	private ImageView title;
 	
 	public HomeScreen(Stage stage) {
 		// TODO Auto-generated constructor stub 11 * 12
@@ -48,9 +51,9 @@ public class HomeScreen extends Pane {
 		difPane = new Pane();
 		creditPane = new Pane();
 		howPane = new Pane();
-		name1 = new Label("ZENITH");
-		name2 = new Label("CHRONICLE");
-		name3 = new Label("III");
+//		name1 = new Label("ZENITH");
+//		name2 = new Label("CHRONICLE");
+//		name3 = new Label("III");
 		start = new Button("Start");
 		how = new Button("How to play");
 		credit = new Button("Credit");
@@ -95,9 +98,9 @@ public class HomeScreen extends Pane {
 //		howPane.setEffect(new Glow());creditPane.setEffect(new Glow());
 		
 		//font----
-		name1.setFont(FontHolder.getInstance().getFont().get(128));
-		name2.setFont(FontHolder.getInstance().getFont().get(128));
-		name3.setFont(FontHolder.getInstance().getFont().get(148));
+//		name1.setFont(FontHolder.getInstance().getFont().get(128));
+//		name2.setFont(FontHolder.getInstance().getFont().get(128));
+//		name3.setFont(FontHolder.getInstance().getFont().get(148));
 		credit.setFont(FontHolder.getInstance().getFont().get(50));
 		start.setFont(FontHolder.getInstance().getFont().get(55));
 		how.setFont(FontHolder.getInstance().getFont().get(55));
@@ -113,9 +116,9 @@ public class HomeScreen extends Pane {
 		exitt.setFont(FontHolder.getInstance().getFont().get(55));
 		
 		//style---
-		name1.setStyle("-fx-text-fill: gray;");
-		name2.setStyle("-fx-text-fill: gray;");
-		name3.setStyle("-fx-text-fill: gray;");
+//		name1.setStyle("-fx-text-fill: gray;");
+//		name2.setStyle("-fx-text-fill: gray;");
+//		name3.setStyle("-fx-text-fill: gray;");
 		start.setTextFill(Color.YELLOWGREEN);start.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
 		credit.setTextFill(Color.DEEPSKYBLUE);credit.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
 		how.setTextFill(Color.SLATEBLUE);how.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
@@ -136,11 +139,11 @@ public class HomeScreen extends Pane {
 		backh.setPadding(new Insets(4,0,4,0));backc.setPadding(new Insets(4,0,4,0));
 		yes.setPadding(new Insets(8,12,8,12));no.setPadding(new Insets(8,12,8,12));
 		
-		name1.setLayoutX(70);name2.setLayoutY(90);
-		name1.setEffect(new Glow());
-		name2.setLayoutX(300);name2.setLayoutY(120);
-		name2.setEffect(new Glow());
-		name3.setLayoutX(1030);name3.setLayoutY(99);
+//		name1.setLayoutX(70);name2.setLayoutY(90);
+//		name1.setEffect(new Glow());
+//		name2.setLayoutX(300);name2.setLayoutY(120);
+//		name2.setEffect(new Glow());
+//		name3.setLayoutX(1030);name3.setLayoutY(99);
 		start.setLayoutX(80);start.setLayoutY(300);//start.setMinSize(200,60);start.setMaxSize(260,100);
 		how.setLayoutX(80);how.setLayoutY(400);
 		credit.setLayoutX(80);credit.setLayoutY(500);//credit.setMinSize(220,60);credit.setMaxSize(260,100);
@@ -154,6 +157,10 @@ public class HomeScreen extends Pane {
 		yes.setLayoutX(40);yes.setLayoutY(110);
 		no.setLayoutX(220);no.setLayoutY(110);
 		exitt.setLayoutX(120);exitt.setY(70);
+		
+		title = new ImageView(new Image(ClassLoader.getSystemResource("ui/title.png").toString()));
+//		title.setLayoutX(0);title.setLayoutY(0);
+		title.setFitHeight(720);title.setFitWidth(1280);
 		
 		//Handler--
 		start.setOnAction(new EventHandler<ActionEvent>() {
@@ -296,6 +303,7 @@ public class HomeScreen extends Pane {
 		easy.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				Difficulty.setDifficulty(GameMode.EASY);
+				System.out.println("Easy? Don't you have a shame?");
 				GameManager.getInstance().restart();
 				GameManager.getInstance().gameStart(e);
 			}
@@ -315,6 +323,7 @@ public class HomeScreen extends Pane {
 		normal.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				Difficulty.setDifficulty(GameMode.NORMAL);
+				System.out.println("Maybe this game is too easy.");
 				GameManager.getInstance().restart();
 				GameManager.getInstance().gameStart(e);
 			}
@@ -334,6 +343,7 @@ public class HomeScreen extends Pane {
 		hard.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				Difficulty.setDifficulty(GameMode.HARD);
+				System.out.println("Life is too easy,isn't it?");
 				GameManager.getInstance().restart();
 				GameManager.getInstance().gameStart(e);
 			}
@@ -393,7 +403,8 @@ public class HomeScreen extends Pane {
 		exitPane.getChildren().addAll(yes,no,exitt);
 		difPane.getChildren().addAll(easy,normal,hard,x);
 		howPane.getChildren().add(backh);creditPane.getChildren().add(backc);
-		getChildren().addAll(name1,name2,name3,start,how,credit,quit,blackPane,difPane,exitPane,howPane,creditPane);
+		getChildren().addAll(title,start,how,credit,quit,blackPane,difPane,exitPane,howPane,creditPane);
+//		getChildren().addAll(name1,name2,name3,start,how,credit,quit,blackPane,difPane,exitPane,howPane,creditPane);
 		requestFocus();
 	}
 

@@ -15,7 +15,7 @@ public abstract class Entity implements Serializable{
 	private double x,y;
 	private int w,h;
 	private int radius;
-	private double Vy;
+
 	protected double prevx;
 	protected double prevy;
 
@@ -26,7 +26,7 @@ public abstract class Entity implements Serializable{
 		this.w = w;
 		this.h = h;
 		this.radius = w/2;
-		this.Vy = 0;
+
 	}
 	
 	public Entity(double x,double y,int r) {
@@ -36,7 +36,7 @@ public abstract class Entity implements Serializable{
 		this.w = 2*r;
 		this.h = 2*r;
 		this.radius = r;
-		this.Vy = 0;
+
 	}
 	
 	public abstract void update();
@@ -65,31 +65,7 @@ public abstract class Entity implements Serializable{
 		return Math.hypot(this.x+this.w/2-other.x-other.w/2, this.y+this.h/2-other.y-other.h/2) <= this.radius+other.radius-10;
 	}
 	
-	protected int fall() {
-		if(!(this instanceof Fallable)) return 0;
-		double prevy = getY();
-		increaseY(Vy);
-		Vy = Vy + GameManager.gravity;
-		for(Tile tile : SceneManager.getInstance().getTiles()) {
-			if((getX() >= tile.getLeftBound() && getX() <= tile.getRightBound()) || (getX()+getW() >= tile.getLeftBound() && getX()+getW() <= tile.getRightBound())) {
-				if(getY()+getH() > tile.getUpperBound() && getY() <= tile.getLowerBound()) {
-					if(!tile.isTransparent()) {
-						setY(tile.getUpperBound()  - getH());
-						setVy(0);
-					} else {
-						if(prevy +getH() <= tile.getUpperBound() && prevy <= tile.getUpperBound() ) {
-							setY(tile.getUpperBound()  - getH());
-							setVy(0);
-						}
-					}
-				}
-			}
-		}
-		if(prevy == getY()) return 0;
-		if(prevy < getY()) return 1;
-		if(prevy > getY()) return -1;
-		return 0;
-	}
+	
 	
 
 	public void increaseX(double x) {
@@ -138,13 +114,7 @@ public abstract class Entity implements Serializable{
 		return radius;
 	}
 
-	public double getVy() {
-		return Vy;
-	}
 
-	public void setVy(double vy) {
-		Vy = vy;
-	}
 	
 	
 	

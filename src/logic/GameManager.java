@@ -114,8 +114,7 @@ public class GameManager {
 	}
 
 	public void appStart() {
-		stopBGM();
-		titleBGM.play();
+		
 		animation = new AnimationTimer(){
 			public void handle(long now){
 //				new Thread(() -> {

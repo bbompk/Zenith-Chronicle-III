@@ -22,9 +22,9 @@ import logic.KeyHandler;
 import logic.SceneManager;
 
 
-public class Player extends Character implements Collidable, Fallable{
+public class Player extends Character {
 	
-	public static final boolean WallHacks = true;
+	public static final boolean WallHacks = false;
 	
 	
 	//Utility

@@ -6,7 +6,7 @@ import logic.GameManager;
 import logic.SceneManager;
 
 
-public abstract class Character extends Entity implements Fallable{
+public abstract class Character extends FallObject implements Collidable{
 	
 
 	//Stats

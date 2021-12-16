@@ -42,6 +42,8 @@ public class Main extends Application {
 		stage.setTitle("Zenith Chronicle 3");
 		stage.setResizable(false);
 		stage.show();
+		GameManager.getInstance().stopBGM();
+		GameManager.titleBGM.play();
 		
 	}
 

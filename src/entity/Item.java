@@ -5,6 +5,7 @@ import java.util.Random;
 
 import component.Collidable;
 import component.Entity;
+import component.FallObject;
 import component.Fallable;
 import component.Interactable;
 import component.KeyStatus;
@@ -16,7 +17,7 @@ import javafx.scene.media.AudioClip;
 import logic.KeyHandler;
 import logic.SceneManager;
 
-public class Item extends Entity implements Interactable,Fallable,Collidable{	
+public class Item extends FallObject  implements Interactable,Collidable{	
 	
 	private static ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 	private int type;

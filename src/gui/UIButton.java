@@ -96,6 +96,8 @@ public class UIButton extends Button {
 				Scene scene = new Scene(root);
 				scene.setFill(Color.BLACK);
 				stage.setScene(scene);
+				GameManager.getInstance().stopBGM();
+				GameManager.titleBGM.play();
 			}
 		});
 		if(t == "Quit")setOnAction(new EventHandler<ActionEvent>() {

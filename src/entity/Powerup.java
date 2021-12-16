@@ -8,13 +8,14 @@ import gui.PowerupPane;
 import javafx.scene.media.AudioClip;
 import component.Collidable;
 import component.Entity;
+import component.FallObject;
 import component.Fallable;
 import component.Sprite;
 import gui.PowerupPane;
 import logic.Difficulty;
 import logic.SceneManager;
 
-public class Powerup extends Entity implements Collidable, Fallable{
+public class Powerup extends FallObject implements Collidable{
 	
 	private static ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 	private int type;

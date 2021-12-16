@@ -39,6 +39,11 @@ public class GameManager {
 		state = GameState.TITLE;
 		escPress = false;escPress2 = false;
 		continuee = false;pause = false;
+		titleBGM.setVolume(0.2);
+		levelBGM.setVolume(0.2);
+		bossBGM.setVolume(0.2);
+		victoryBGM.setVolume(0.2);
+		gameOverBGM.setVolume(0.2);
 	}
 
 	public static GameManager getInstance() {

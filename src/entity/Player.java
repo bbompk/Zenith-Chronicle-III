@@ -358,7 +358,7 @@ public class Player extends Character {
 				if(!face.equals(PlayerStatus.LEFT))super.draw(gc, getImage().getImage(), getX()-getW()/3, getY()-getH()/4, getW()*4/3, getH()*5/4);
 				else super.draw(gc, getImage().getImage(),getX()+getW()*4/3,getY()-getH()/4,-getW()*4/3,getH()*5/4);
 			}
-			else if(atkable < 41 && status != PlayerStatus.DIE) {
+			else if((atkable < 41 || status == PlayerStatus.DASHING) && status != PlayerStatus.DIE) {
 				if(!face.equals(PlayerStatus.LEFT))super.draw(gc, getImage().getImage(), getX(), getY(), getW(), getH());
 				else super.draw(gc, getImage().getImage(),getX()+getW(),getY(),-getW(),getH());
 			

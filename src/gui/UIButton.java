@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
@@ -144,7 +145,6 @@ public class UIButton extends Button {
 			setPadding(new Insets(8,12,8,12));
 			setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 20; -fx-background-color: black;");
 		}
-		
 	}
 
 }

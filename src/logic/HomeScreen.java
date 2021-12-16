@@ -2,6 +2,7 @@ package logic;
 
 import gui.FontHolder;
 import gui.UIButton;
+import gui.UIPane;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -43,131 +44,38 @@ public class HomeScreen extends Pane {
 	public HomeScreen(Stage stage) {
 		// TODO Auto-generated constructor stub 11 * 12
 		setPrefSize(1280, 720);
-//		node = new ArrayList<Node>();
+//---boolean---------------------------------
 		escfree = true;
-		difPane = new Pane();
-		creditPane = new Pane();
-		howPane = new Pane();
-
+		title = new ImageView(new Image(ClassLoader.getSystemResource("ui/title.png").toString()));
+		title.setFitHeight(720);title.setFitWidth(1280);
+//---button---------------------------------
 		start = new UIButton("Start",80,300,55,Color.YELLOWGREEN,true);
-		how = new UIButton("How to play",80,300,55,Color.YELLOWGREEN,true);
-		credit = new UIButton("Credit",80,300,55,Color.YELLOWGREEN,true);
-		quit = new UIButton("Exit",80,300,55,Color.YELLOWGREEN,true);
-		backh = new UIButton("Back",80,300,55,Color.YELLOWGREEN,true);
-		backc = new UIButton("Back",80,300,55,Color.YELLOWGREEN,true);
-		x = new UIButton("X",80,300,55,Color.YELLOWGREEN,true);
-		easy = new UIButton("Easy",80,300,55,Color.YELLOWGREEN,true);
-		normal = new UIButton("Normal",80,300,55,Color.YELLOWGREEN,true);
-		hard = new UIButton("Hard",80,300,55,Color.YELLOWGREEN,true);
-		yes = new UIButton("Yes",80,300,55,Color.YELLOWGREEN,true);
-		no = new UIButton("No",80,300,55,Color.YELLOWGREEN,true);
+		how = new UIButton("How to play",80,400,55,Color.SLATEBLUE,true);
+		credit = new UIButton("Credit",80,500,55,Color.DEEPSKYBLUE,true);
+		quit = new UIButton("Exit",80,600,55,Color.ORANGE,true);
+		backh = new UIButton("Back",1050,10,55,Color.BLACK,false);
+		backc = new UIButton("Back",1050,10,55,Color.BLACK,false);
+		x = new UIButton("X",380,0,120,Color.BLACK,true);
+		easy = new UIButton("Easy",50,50,55,Color.BLACK,true);
+		normal = new UIButton("Normal",50,150,55,Color.BLACK,true);
+		hard = new UIButton("Hard",50,250,55,Color.BLACK,true);
+		yes = new UIButton("Yes",40,110,55,Color.WHITE,false);
+		no = new UIButton("No",220,110,55,Color.WHITE,false);
+		backh.setMinSize(180, 80);backh.setMaxSize(180, 80);
+		backc.setMinSize(180, 80);backc.setMaxSize(180, 80);
+//---Pane---------------------------------
+		exitPane = new UIPane(460,240,360,240,false,false);
+		difPane = new UIPane(400,180,480,360,false,false);
+		howPane = new UIPane(20,20,1240,680,false,false);
+		creditPane = new UIPane(20,20,1240,680,false,false);
+		blackPane = new UIPane(0,0,1280,720,false,true);
+//---text------------------------------------
 		exitt = new Text("Exit?");
-		blackPane = new Pane();
-		exitPane = new Pane();
-		
-		blackPane.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-color:black;");
-		blackPane.setOpacity(0.80);
-		blackPane.setVisible(false);
-		blackPane.setPrefSize(1280, 720);
-		
-//		exitPane.setViewOrder(0);
-		exitPane.setVisible(false);
-		exitPane.setLayoutX(460);exitPane.setLayoutY(240);
-		exitPane.setMinSize(360,240);exitPane.setMaxSize(360, 240);
-		exitPane.setStyle("-fx-border-width: 10;-fx-border-color:black;-fx-background-color:gray;-fx-border-radius: 20;-fx-background-radius: 25;");
-//		difPane.setViewOrder(0);
-		difPane.setVisible(false);
-		difPane.setLayoutX(400);difPane.setLayoutY(180);
-		difPane.setMinSize(480,360);difPane.setMaxSize(480, 360);
-		difPane.setStyle("-fx-border-width: 10;-fx-border-color:black;-fx-background-color:gray;-fx-border-radius: 20;-fx-background-radius: 25;");
-//		howPane.setViewOrder(0);
-		howPane.setVisible(false);
-		howPane.setLayoutX(20);howPane.setLayoutY(20);
-		howPane.setMinSize(1240,680);howPane.setMaxSize(1240, 680);
-		howPane.setStyle("-fx-border-width: 10;-fx-border-color:black;-fx-background-color:gray;-fx-border-radius: 20;-fx-background-radius: 25;");
-//		creditPane.setViewOrder(0);
-		creditPane.setVisible(false);
-		creditPane.setLayoutX(20);creditPane.setLayoutY(20);
-		creditPane.setMinSize(1240,680);creditPane.setMaxSize(1240, 680);
-		creditPane.setStyle("-fx-border-width: 10;-fx-border-color:black;-fx-background-color:gray;-fx-border-radius: 20;-fx-background-radius: 25;");
-//		howPane.setEffect(new Glow());creditPane.setEffect(new Glow());
-		
-		//font----
-//		name1.setFont(FontHolder.getInstance().getFont().get(128));
-//		name2.setFont(FontHolder.getInstance().getFont().get(128));
-//		name3.setFont(FontHolder.getInstance().getFont().get(148));
-		credit.setFont(FontHolder.getInstance().getFont().get(55));
-		start.setFont(FontHolder.getInstance().getFont().get(55));
-		how.setFont(FontHolder.getInstance().getFont().get(55));
-		backh.setFont(FontHolder.getInstance().getFont().get(55));
-		backc.setFont(FontHolder.getInstance().getFont().get(55));
-		quit.setFont(FontHolder.getInstance().getFont().get(55));
-		easy.setFont(FontHolder.getInstance().getFont().get(55));
-		normal.setFont(FontHolder.getInstance().getFont().get(55));
-		hard.setFont(FontHolder.getInstance().getFont().get(55));
-		x.setFont(FontHolder.getInstance().getFont().get(120));
-		yes.setFont(FontHolder.getInstance().getFont().get(55));
-		no.setFont(FontHolder.getInstance().getFont().get(55));
 		exitt.setFont(FontHolder.getInstance().getFont().get(55));
-		
-		//style---
-//		name1.setStyle("-fx-text-fill: gray;");
-//		name2.setStyle("-fx-text-fill: gray;");
-//		name3.setStyle("-fx-text-fill: gray;");
-		start.setTextFill(Color.YELLOWGREEN);start.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
-		credit.setTextFill(Color.DEEPSKYBLUE);credit.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
-		how.setTextFill(Color.SLATEBLUE);how.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
-		backh.setTextFill(Color.BLACK);backh.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 20; -fx-background-color: white;");
-		backc.setTextFill(Color.BLACK);backc.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 20; -fx-background-color: white;");
-		quit.setTextFill(Color.ORANGE);quit.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
-		easy.setTextFill(Color.BLACK);easy.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
-		normal.setTextFill(Color.BLACK);normal.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
-		hard.setTextFill(Color.BLACK);hard.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
-		x.setTextFill(Color.BLACK);x.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
-		yes.setTextFill(Color.WHITE);yes.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 20; -fx-background-color: black;");
-		no.setTextFill(Color.WHITE);no.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 20; -fx-background-color: black;");
 		exitt.setFill(Color.BLACK);exitt.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-radius: 0; -fx-background-color: transparent;");
-		
-		//Pos--
-		start.setPadding(new Insets(0));quit.setPadding(new Insets(0));credit.setPadding(new Insets(0));how.setPadding(new Insets(0));
-		easy.setPadding(new Insets(0));normal.setPadding(new Insets(0));hard.setPadding(new Insets(0));x.setPadding(new Insets(0));
-		backh.setPadding(new Insets(4,0,4,0));backc.setPadding(new Insets(4,0,4,0));
-		yes.setPadding(new Insets(8,12,8,12));no.setPadding(new Insets(8,12,8,12));
-		
-//		name1.setLayoutX(70);name2.setLayoutY(90);
-//		name1.setEffect(new Glow());
-//		name2.setLayoutX(300);name2.setLayoutY(120);
-//		name2.setEffect(new Glow());
-//		name3.setLayoutX(1030);name3.setLayoutY(99);
-		start.setLayoutX(80);start.setLayoutY(300);//start.setMinSize(200,60);start.setMaxSize(260,100);
-		how.setLayoutX(80);how.setLayoutY(400);
-		credit.setLayoutX(80);credit.setLayoutY(500);//credit.setMinSize(220,60);credit.setMaxSize(260,100);
-		quit.setLayoutX(80);quit.setLayoutY(600);//quit.setMinSize(180,60);quit.setMaxSize(260,100);
-		backh.setLayoutX(1050);backh.setLayoutY(10);backh.setMinSize(180, 80);backh.setMaxSize(180, 80);
-		backc.setLayoutX(1050);backc.setLayoutY(10);backc.setMinSize(180, 80);backc.setMaxSize(180, 80);
-		easy.setLayoutX(50);easy.setLayoutY(50);
-		normal.setLayoutX(50);normal.setLayoutY(150);
-		hard.setLayoutX(50);hard.setLayoutY(250);
-		x.setLayoutX(380);x.setLayoutY(0);
-		yes.setLayoutX(40);yes.setLayoutY(110);
-		no.setLayoutX(220);no.setLayoutY(110);
 		exitt.setLayoutX(120);exitt.setY(70);
 		
-		title = new ImageView(new Image(ClassLoader.getSystemResource("ui/title.png").toString()));
-//		title.setLayoutX(0);title.setLayoutY(0);
-		title.setFitHeight(720);title.setFitWidth(1280);
-		
-		//Handler--
-		start.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				if(!blackPane.isVisible()) {
-					difPane.setVisible(true);
-					blackPane.setVisible(true);
-					UIButton.clickSound.play();
-				}
-			}
-		});
-		
+//---Handler--------------------------------
 		setOnKeyPressed(e -> {
 			// TODO Auto-generated method stub
 			if(e.getCode().getCode() == 27 && escfree) {
@@ -188,8 +96,16 @@ public class HomeScreen extends Pane {
 			// TODO Auto-generated method stub
 			if(e.getCode().getCode() == 27)escfree = true;
 		});
-		
-		
+//---button-handler-------------------------
+		start.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				if(!blackPane.isVisible()) {
+					difPane.setVisible(true);
+					blackPane.setVisible(true);
+					UIButton.clickSound.play();
+				}
+			}
+		});
 		start.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {

@@ -40,34 +40,22 @@ public class GameUI extends Pane {
 	
 	public GameUI() {
 		// TODO Auto-generated constructor stub
-		pausePane = new Pane();
+		pausePane = new UIPane(445,120,390,460,false,false);
+		pausePane.getChildren().addAll(new UIButton("Continue",50,50),new UIButton("Restart",50,150),new UIButton("Main Menu",50,250),new UIButton("Quit",50,350));
+		blackPane = new UIPane(0,0,1280,720,false,true);
 		endgamePane = new EndgamePane();
-		health = new Text("");
 		
 		floor = new Text("Floor 1");
 		floor.setFont(FontHolder.getInstance().getFont().get(40));
 		floor.setLayoutX(600);floor.setLayoutY(40);
-		
+
+		health = new Text("");
+		health.setFont(FontHolder.getInstance().getFont().get(30));
+		healthbar = new Healthbar();
 		healthbarPane = new StackPane();
+		healthbarPane.getChildren().addAll(healthbar,health);
 		healthbarPane.setAlignment(Pos.CENTER);
 		
-		blackPane = new Pane();
-		blackPane.setStyle("-fx-border-color: transparent;-fx-border-width: 0;-fx-background-color:black;");
-		blackPane.setOpacity(0.80);
-		blackPane.setVisible(false);
-		blackPane.setPrefSize(1280, 720);
-		
-//		pausePane.setOpacity(0.5);
-		pausePane.setVisible(false);
-		pausePane.setLayoutX(445);pausePane.setLayoutY(120);
-		pausePane.setMinSize(390,460);pausePane.setMaxSize(390, 460);
-		pausePane.setStyle("-fx-border-width: 10;-fx-border-color:black;-fx-background-color:gray;-fx-border-radius: 20;-fx-background-radius: 25;");
-		
-		health.setFont(FontHolder.getInstance().getFont().get(30));
-		
-		pausePane.getChildren().addAll(new UIButton("Continue",50,50),new UIButton("Restart",50,150),new UIButton("Main Menu",50,250),new UIButton("Quit",50,350));
-		healthbar = new Healthbar();
-		healthbarPane.getChildren().addAll(healthbar,health);
 		getChildren().add(floor);
 		getChildren().add(blackPane);
 		getChildren().add(pausePane);
@@ -75,7 +63,6 @@ public class GameUI extends Pane {
 		getChildren().add(healthbarPane);
 		getChildren().add(InventoryPane.getInstance());
 		getChildren().add(PowerupPane.getInstance());
-//		endgamePane.setGameText(true, true);
 	}
 	
 	public static GameUI getInstance() {

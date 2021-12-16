@@ -63,7 +63,7 @@ public class Boss extends Enemy {
 		else if(k>20) speed = 1.8;
 		else if(k>25) speed = 1.9;
 		
-		setAttackBox(180, 125);
+		setAttackBox(180, 150);
 		
 	}
 	
@@ -232,7 +232,7 @@ public class Boss extends Enemy {
 			
 		if(getX() > SceneManager.getInstance().getRightBound()- getW()) setX(SceneManager.getInstance().getRightBound() - getW());
 		direction = 1;
-		attackBox.setX(getX()+(direction*attackRangeX));
+		attackBox.setX(getX()+(direction*attackRangeX)-getW()+20);
 		
 		
 	}
@@ -381,7 +381,7 @@ public class Boss extends Enemy {
 	private void setAttackBox(int atkRangeX, int atkRangeY) {
 		attackRangeX = atkRangeX; 
 		attackRangeY = atkRangeY;
-		this.attackBox = new AttackBox(getX()+(direction*atkRangeX), getY()+(getH() - atkRangeY), atkRangeX, atkRangeY);
+		this.attackBox = new AttackBox(getX()+(direction*atkRangeX), getY()+getH()-atkRangeY, atkRangeX+getW(), atkRangeY);
 	}
 	
 	

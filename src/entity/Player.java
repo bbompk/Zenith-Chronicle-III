@@ -96,7 +96,7 @@ public class Player extends Character implements Collidable, Fallable{
 		atk = 70;
 		moveSpeed = 7;
 		initJumpSpeed = 10;
-		dashSpeedMultiplier = 20/7;
+		dashSpeedMultiplier = 11/7;
 		new Thread(()->{
 			while(true) {
 			try {
@@ -141,7 +141,7 @@ public class Player extends Character implements Collidable, Fallable{
 		atk = 70;
 		moveSpeed = 7;
 		initJumpSpeed = 10;
-		dashSpeedMultiplier = 20/7;
+		dashSpeedMultiplier = 11/7;
 		new Thread(()->{
 			while(true) {
 				try {
@@ -246,7 +246,7 @@ public class Player extends Character implements Collidable, Fallable{
 		if(immune ==0) {
 			for(Enemy e:SceneManager.getInstance().getEnemy()) {
 				if(e.collideWith(this) && e.isAlive() && immune == 0 && !(e instanceof Boss)) {
-					if(dashing < 26 || dashing > 36) {
+					if(dashing < 29 || dashing > 33) {
 						takeDamage(e.getAtk());
 						immune += 101;
 					}
@@ -498,7 +498,8 @@ public class Player extends Character implements Collidable, Fallable{
 	}
 	
 	public boolean isimmune() {
-		if(immune>0 || (dashing > 25 && dashing < 37)) {
+		if(immune>0 || (dashing > 28 && dashing < 34)) {
+			System.out.println("dodge!");
 			return true;
 		}
 		immune += 101;

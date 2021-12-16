@@ -124,8 +124,8 @@ public class Player extends Character {
 		prevx = getX();
 		lastFrameStatus = status;
 		status = PlayerStatus.RUN;
-		while(healing >= 20) {
-			healing -= 20;
+		while(healing >= 2000) {
+			healing -= 2000;
 			changeHp(1);
 		}
 		

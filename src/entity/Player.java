@@ -22,7 +22,7 @@ import util.GameUtil;
 
 public class Player extends Character implements Collidable, Fallable{
 	
-	public static final boolean WallHacks = false;
+	public static final boolean WallHacks = true;
 	
 	
 	//Utility
@@ -40,19 +40,19 @@ public class Player extends Character implements Collidable, Fallable{
 	private PlayerStatus status;
 	private PlayerStatus lastFrameStatus;
 	private int direction;
-	private double moveSpeed = 7.0;
+	private double moveSpeed;
 	
 	
 	//Dashing
 	private int dashing = 0;
 	private double dashSpeed ;
-	private double dashSpeedMultiplier = 11/7;
+	private double dashSpeedMultiplier;
 	private int maxDash;
 	private int dashAvail;
 	
 	// Jumping
 	private PlayerStatus jumpStatus;
-	private double initJumpSpeed = 10;
+	private double initJumpSpeed;
 	private double jumpCount;
 	private double prevGround;
 	
@@ -94,6 +94,9 @@ public class Player extends Character implements Collidable, Fallable{
 		maxHp =100;
 		hp = maxHp;
 		atk = 70;
+		moveSpeed = 7;
+		initJumpSpeed = 10;
+		dashSpeedMultiplier = 20/7;
 		new Thread(()->{
 			while(true) {
 			try {
@@ -133,9 +136,12 @@ public class Player extends Character implements Collidable, Fallable{
 		attack = new Sprite("sprite/character/player/attack.gif");
 		hurt = new Sprite("sprite/character/player/hurt.gif");
 		roll = new Sprite("sprite/character/player/roll_4_frame.gif");
-		maxHp =100;
+		maxHp =10000;
 		hp = maxHp;
 		atk = 70;
+		moveSpeed = 7;
+		initJumpSpeed = 10;
+		dashSpeedMultiplier = 20/7;
 		new Thread(()->{
 			while(true) {
 				try {
@@ -240,8 +246,10 @@ public class Player extends Character implements Collidable, Fallable{
 		if(immune ==0) {
 			for(Enemy e:SceneManager.getInstance().getEnemy()) {
 				if(e.collideWith(this) && e.isAlive() && immune == 0 && !(e instanceof Boss)) {
-					takeDamage(e.getAtk());
-					immune += 101;
+					if(dashing < 26 || dashing > 36) {
+						takeDamage(e.getAtk());
+						immune += 101;
+					}
 				}
 			}
 		}
@@ -487,5 +495,13 @@ public class Player extends Character implements Collidable, Fallable{
 	
 	public String getplaytime(){
 		return playtimem + " minute and " + playtime + " second";
+	}
+	
+	public boolean isimmune() {
+		if(immune>0 || (dashing > 25 && dashing < 37)) {
+			return true;
+		}
+		immune += 101;
+		return false;
 	}
 }

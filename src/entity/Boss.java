@@ -260,7 +260,7 @@ public class Boss extends Enemy {
 	private void attack() {
 			AttackBox a = new AttackBox(attackBox.getX(), attackBox.getY(), attackBox.getW()+20, attackBox.getH());
 			Player player = SceneManager.getInstance().getPlayer();
-			if(player.collideWith(a)) {
+			if(player.collideWith(a) && !player.isimmune()) {
 				player.takeDamage(atk);
 			}
 				

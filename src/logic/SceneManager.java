@@ -24,7 +24,7 @@ import javafx.scene.paint.Color;
 
 public class SceneManager extends Canvas implements Serializable {
 	
-	public static final boolean isDev = false;
+	public static final boolean isDev = true;
 
 	private static SceneManager instance = null;
 	private double offsetX;

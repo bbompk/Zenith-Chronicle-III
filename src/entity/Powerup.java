@@ -27,12 +27,14 @@ public class Powerup extends Entity implements Collidable, Fallable{
 		super(x, 520 ,50,50);
 		// TODO Auto-generated constructor stub
 		this.type = type;
+		level = 0;
 	}
 	
 	public Powerup(double x,double y,int type) {
 		super(x, y ,50,50);
 		// TODO Auto-generated constructor stub
 		this.type = type;
+		level = 0;
 	}
 	
 	public Powerup(double x,double y,int type,boolean renewable,int level) {
@@ -46,6 +48,10 @@ public class Powerup extends Entity implements Collidable, Fallable{
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
+		if(level!=0 && level!=Difficulty.level) {
+			SceneManager.getInstance().getCollidable().remove(this);
+			return;
+		}
 		fall();
 		checkCollide();
 	}
@@ -141,6 +147,7 @@ public class Powerup extends Entity implements Collidable, Fallable{
 				Thread t = new Thread(() ->{
 				double x = getX();double y = getY();int type = this.type;int level = this.level;
 				try {
+					System.out.println("renew");;
 					Thread.sleep(15000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
@@ -168,4 +175,6 @@ public class Powerup extends Entity implements Collidable, Fallable{
 			t.interrupt();
 		}
 	}
+	
+
 }

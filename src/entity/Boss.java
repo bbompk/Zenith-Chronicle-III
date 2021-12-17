@@ -363,6 +363,11 @@ public class Boss extends Enemy {
 				e.printStackTrace();
 			}
 			Powerup.generate(0, (int) getX(), (int) getX()+ (int) getW());
+			int t = 1;
+			while(r.nextDouble()*(speed+1)/2 > 0.8 && t < speed*10-8) {
+				t++;
+				Powerup.generate(0, (int) getX(), (int) getX()+ (int) getW());
+			}
 			dropSound.play();
 			needRemove =true;
 		}).start();

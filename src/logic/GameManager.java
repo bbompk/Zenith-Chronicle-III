@@ -94,7 +94,7 @@ public class GameManager {
 		}
 		if(continuee || (escPress && KeyHandler.getInstance().getKeyStatus(27).equals(KeyStatus.FREE)))escPress = false;	
 		if(state == GameState.PAUSE) {
-			stopBGM();
+			if(!(musicState.equals(GameState.GAMEOVER)) && !musicState.equals(GameState.VICTORY)) stopBGM();
 			if(continuee || (KeyHandler.getInstance().getKeyStatus(27).equals(KeyStatus.DOWN) && !escPress)) {
 				state = GameState.LEVEL;
 				GameUI.getInstance().setPausePane(false);

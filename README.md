@@ -1,5 +1,8 @@
-# project-2021-1-platformer2134
-project-2021-1-platformer2134 created by GitHub Classroom
+# Zenith Chronicle III 
+
+A game project made for Programming Methodology Class
+
+made in 4 days
 
 ** ***IMPORTANT NOTE*** **
 

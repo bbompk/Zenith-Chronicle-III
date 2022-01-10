@@ -6,4 +6,6 @@ made in 4 days
 
 ** ***IMPORTANT NOTE*** **
 
+video presentation : https://www.youtube.com/watch?v=om6jDo9aKbQ
+
 see more commit history (from start) here : https://github.com/Ailury/progmeth
